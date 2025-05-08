@@ -78,7 +78,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'DATA_SELMAS',
         'USER': 'postgres',
-        'PASSWORD': '1997', 
+        'PASSWORD': 'postgres', 
         'HOST': 'localhost',
         'PORT': '5432',
     
@@ -126,5 +126,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal310.dll"
+GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
 GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"

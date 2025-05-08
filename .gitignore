@@ -1,1 +1,3 @@
-
+backend/visualisation/migrations/
+backend/*/*.pyc
+backend/*/*/*.pyc
