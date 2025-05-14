@@ -5,11 +5,11 @@ from django.contrib.gis.db import models
 
 class soilSample(models.Model):
     Code_labo = models.CharField(max_length=30, primary_key=True)
-    Latitude  = models.PointField()  # latitude  
-    Longitude = models.PointField()  # longitude 
+    localisation = models.PointField()  # Latitude + Longitude
     Depth = models.CharField(max_length=50)
-    Date_collect = models.DateField()
-    Date_edition = models.DateField()
+    Date_collect = models.DateField(null=True, blank=True)
+    Date_edition = models.DateField(null=True, blank=True)
+
 
     def __str__(self):
         return self.Code_labo
@@ -59,9 +59,8 @@ class salinityAndSodicityGroup(models.Model):
 
 class Well(models.Model):
     Id_well = models.CharField(primary_key=True)
-    date = models.DateField()
-    Latitude  = models.PointField() 
-    Longitude = models.PointField()
+    Date = models.DateField(null=True, blank=True)
+    localisation = models.PointField(null=True)  # Latitude + Longitude
     Depth = models.FloatField()
     Water_depth = models.FloatField()
     Pump_cal = models.FloatField()
@@ -77,11 +76,10 @@ class Well(models.Model):
     
 class Amendment(models.Model):
     Id_amendment = models.AutoField(primary_key=True)
-    Latitude  = models.PointField() 
-    Longitude = models.PointField()
+    localisation = models.PointField()  # Latitude + Longitude
     Name = models.CharField(max_length=50)
     Lu_lc = models.CharField(max_length=50)
-    Date_collect = models.DateField()
+    Date_collect = models.DateField(null=True, blank=True)
     Ph = models.FloatField()
     Ec = models.FloatField()
     Salinity_level = models.CharField(max_length=50)

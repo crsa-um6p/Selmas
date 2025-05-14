@@ -1,12 +1,10 @@
 from django.shortcuts import render
 
-from .models import Puit
-from django.contrib.gis.geos import Point
-from datetime import date
+##from .models import Puit
+##from django.contrib.gis.geos import Point
+##from datetime import date
 
-import pandas
-
-from django.http import HttpResponse
+###from django.http import HttpResponse
 
 # Create your views here.
 

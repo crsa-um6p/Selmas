@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'visualisation',
+    'import_export',
+
 ]
 
 MIDDLEWARE = [
@@ -76,9 +78,9 @@ WSGI_APPLICATION = 'project_settings_folder.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
-        'NAME': 'DATA_SELMAS',
+        'NAME': 'SELMAS_DB',
         'USER': 'postgres',
-        'PASSWORD': 'postgres', 
+        'PASSWORD': '1997', 
         'HOST': 'localhost',
         'PORT': '5432',
     
@@ -126,5 +128,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
+GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal310.dll"
 GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
