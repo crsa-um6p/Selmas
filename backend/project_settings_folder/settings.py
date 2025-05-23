@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-5u485aev2vlepzjcz^x#bc$wqire4_ru^d6uomt@ys*rq@vx*=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'visualisation',
     'import_export',
+    "corsheaders",
 
 ]
 
@@ -50,6 +51,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'project_settings_folder.urls'
@@ -80,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'SELMAS_DB',
         'USER': 'postgres',
-        'PASSWORD': '1997', 
+        'PASSWORD': 'postgres', 
         'HOST': 'localhost',
         'PORT': '5432',
     
@@ -128,5 +130,27 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal310.dll"
+GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal308.dll"
 GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+]
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    "content-type",
+    "accept",
+    "origin",
+    "authorization",
+    "x-csrftoken",
+    "x-requested-with",
+    "Access-Control-Allow-Origin"
+]
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
