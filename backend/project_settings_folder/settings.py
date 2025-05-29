@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -83,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'SELMAS_DB',
         'USER': 'postgres',
-        'PASSWORD': '1997', 
+        'PASSWORD': os.environ.get('PASSWORD'), #'postgres', 
         'HOST': 'localhost',
         'PORT': '5432',
     
@@ -131,7 +135,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-GDAL_LIBRARY_PATH = r"C:\OSGeo4W\bin\gdal310.dll"
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH') #r"C:\OSGeo4W\bin\gdal308.dll"
 GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
 
 CORS_ALLOWED_ORIGINS = [
@@ -156,8 +160,4 @@ CORS_ALLOW_METHODS = [
     "PUT",
 ]
 
-import os
 
-os.environ['PATH'] += r";C:\OSGeo4W\bin"
-os.environ['PROJ_LIB'] = r"C:\OSGeo4W\share\proj"
-os.environ['GDAL_DATA'] = r"C:\OSGeo4W\share\gdal"
