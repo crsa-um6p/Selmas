@@ -1,4 +1,6 @@
 from django.contrib import admin
+from .models import soilSample, soilQuality, soilTexture, salinityAndSodicityGroup, Well,Amendment
+
 
 # Register your models here.
 
@@ -27,6 +29,13 @@ from django.contrib import admin
 # admin.site.register(soilTexture, soilTextureAdmin)
 # admin.site.register(salinityAndSodicityGroup, salinityAndSodicityGroupAdmin)
 # admin.site.register(Well, WellAdmin)
+
+admin.site.register(soilSample)
+admin.site.register(soilQuality)
+admin.site.register(soilTexture)
+admin.site.register(salinityAndSodicityGroup)
+admin.site.register(Well)
+admin.site.register(Amendment)
 
 
 
