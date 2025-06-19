@@ -25,7 +25,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
         if obj.localisation and hasattr(obj.localisation, 'x') and hasattr(obj.localisation, 'y'):
             return {
                 "type": "Point",
-                "coordinates": [obj.localisation.y, obj.localisation.x]
+                "coordinates": [obj.localisation.x, obj.localisation.y]
             }
         else:
             # Return null geometry if localisation is invalid or missing
