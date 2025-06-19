@@ -295,46 +295,6 @@ def dashboard_data(request):
     return response
 
 
-@csrf_exempt
-@require_http_methods(["GET"])
-def dashboard_data_optimized(request):
-    """Alternative approach using Django ORM without serializers"""
-    # Use values() to get only the fields we need
-    samples = soilSample.objects.values(
-        'Code_labo', 'Depth', 'Date_edition'
-    ).annotate(
-        longitude=F('localisation__x'),
-        latitude=F('localisation__y')
-    )
-    
-    geojson_data = {
-        "type": "FeatureCollection",
-        "features": [
-            {
-                "type": "Feature",
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [sample['longitude'], sample['latitude']]
-                },
-                "properties": {
-                    "Code_labo": sample['Code_labo'],
-                    "Depth": sample['Depth'],
-                    "Date_edition": sample['Date_edition']
-                }
-            }
-            for sample in samples
-        ]
-    }
-    
-    response = JsonResponse(geojson_data, safe=False)
-    response["Access-Control-Allow-Origin"] = "*"
-    response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
-    response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    return response
-
-
-
-
 def fill_soil_sample_table(request):
     soilSample.objects.all().delete()
     import pandas as pd
