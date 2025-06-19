@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
             for index, row in df.iterrows():
                 # ca cest pour longitude et latitude
-                point = Point(row['Latitude'], row['Longitude'], srid=4326)
+                point = Point(row['Longitude'], row['Latitude'], srid=4326)
 
                 soilSample.objects.update_or_create(
                     Code_labo=row['code_Labo'],

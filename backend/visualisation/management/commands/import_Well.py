@@ -20,7 +20,7 @@ class Command(BaseCommand):
 
             for index, row in df.iterrows():
                 # ca cest pour longitude et latitude
-                point = Point(row['Latitude'], row['Longitude'], srid=4326)
+                point = Point(row['Longitude'], row['Latitude'], srid=4326)
 
                 Well.objects.update_or_create(
                         Id_well=row['Id_well'],
