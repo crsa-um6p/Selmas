@@ -4,6 +4,9 @@ import pandas
 import json # Importer json pour traiter les données JSON
 from .models import * # Importer ALL les modèles que vous avez créés
 from django.views.decorators.csrf import csrf_exempt
+import geopandas as gpd # Importer geopandas pour la manipulation de données géospatiales
+from shapely.geometry import shape # Importer shape de shapely pour manipuler les géométries
+from django.contrib.gis.geos import GEOSGeometry # Importer GEOSGeometry pour manipuler les géométries dans Django
 # Create your views here.
 
 # @csrf_exempt
@@ -180,21 +183,40 @@ def get_data(request):
     print("--------------------------------")
     variable = parameters['variable']
     filter = parameters['filter']
+    polygon_geom=None # Initialisation de geojson_polygon à None pour éviter les erreurs si le polygone n'est pas fourni
+    
+    if "polygon" in parameters:
+        geojson_polygon = parameters["polygon"]  # Récupération du polygone GeoJSON depuis les paramètres``
+        shape_poly = shape(geojson_polygon) 
+        polygon_geom = GEOSGeometry(shape_poly.wkt, srid=4326)  # Convertir le polygone GeoJSON en GEOSGeometry pour filtrer les données géospatiales
+
+    
+    
+    
+        
+
     
 #_________________________________________________________________
     if variable == "soilSample":
         filter_kwargs = {}
 
         for key, value in parameters.items():
-            if key not in ["variable", "filter"]:
+            if key not in ["variable", "filter","polygon"]:
                 filter_kwargs[f"{key}__range"] = (value["min"], value["max"])
 
-            if filter_kwargs:
-             data = soilSample.objects.filter(**filter_kwargs)
+            
 
+        data= soilSample.objects.all() # Si aucun filtre n'est appliqué, récupérer toutes les données
+        
+        if polygon_geom:
+            data = data.filter(localisation__within=polygon_geom)  # Filtrer les données géospatiales par le polygone
         
         
-        data_list = list(data.values(   "Code_labo", "Depth", "Date_edition", "Date_collect"))
+        if filter_kwargs:
+            data = data.filter(**filter_kwargs)  # Appliquer les filtres
+          
+        
+        data_list = list(data.values("Code_labo", "Depth", "Date_edition", "Date_collect"))
 #__________________________________________________________________
     elif variable == "soilQuality":
     
