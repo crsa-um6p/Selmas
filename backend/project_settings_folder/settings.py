@@ -30,7 +30,7 @@ SECRET_KEY = 'django-insecure-5u485aev2vlepzjcz^x#bc$wqire4_ru^d6uomt@ys*rq@vx*=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["127.0.0.1","localhost"]
+ALLOWED_HOSTS = ["127.0.0.1","localhost","*"]
 
 
 # Application definition
@@ -50,6 +50,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,7 +58,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    "corsheaders.middleware.CorsMiddleware",
 ]
 
 ROOT_URLCONF = 'project_settings_folder.urls'
@@ -139,9 +139,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH') #r"C:\OSGeo4W\bin\gdal308.dll"
 GEOS_LIBRARY_PATH = r"C:\OSGeo4W\bin\geos_c.dll"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000",
-]
+
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     "content-type",
@@ -150,7 +148,6 @@ CORS_ALLOW_HEADERS = [
     "authorization",
     "x-csrftoken",
     "x-requested-with",
-    "Access-Control-Allow-Origin"
 ]
 CORS_ALLOW_METHODS = [
     "DELETE",
@@ -160,3 +157,11 @@ CORS_ALLOW_METHODS = [
     "POST",
     "PUT",
 ]
+
+# Additional CORS settings for development
+CORS_ALLOW_ALL_ORIGINS = False
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+CORS_EXPOSE_HEADERS = ['content-type', 'x-csrftoken']
