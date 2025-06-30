@@ -2,7 +2,9 @@ import React from "react";
 
 const DashboardStates = (props) => {
 
-  const samples = Array.isArray(props.selectedSample) ? props.selectedSample : [props.selectedSample];
+  const samples = props.aggregated_data;
+
+  console.log("aggregated_data",samples);
 
   return (
     <>
@@ -14,13 +16,10 @@ const DashboardStates = (props) => {
          Classification
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-        {samples.map((sample, index) => (
+        {Object.entries(samples.classification_percentages).map(([key, value], index) => (
           <div key={index}>
-            {samples.length > 1 ? (
-                sample.Depth + " : " + sample.salinity.classification
-            ):(
-              sample.salinity.classification
-            )}
+            {key} : {value.percentage}%
+            <br />
           </div>
         ))
         }
@@ -32,19 +31,9 @@ const DashboardStates = (props) => {
          Ex-change Sodium Potential
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-        {samples.map((sample, index) => (
-          <div key={index}>
-            {samples.length > 1 ? (
-                sample.Depth + " : " + parseFloat(sample.salinity.esp).toFixed(4)
-            ):(
-              parseFloat(sample.salinity.esp).toFixed(4)
-            )
-            
-
-            }
-            
-          </div>
-        ))}
+      <div>Surface : {samples.sar_stats_surface.mean_sar.toFixed(4)}</div>
+        <div>Profondeur : {samples.sar_stats_profondeur.mean_sar.toFixed(4)}</div>
+        
       </h4>
     </div>
 
@@ -53,16 +42,8 @@ const DashboardStates = (props) => {
          Sodium absorption ratio
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-        {samples.map((sample, index) => (
-          <div key={index}>
-            {samples.length > 1 ? (
-                sample.Depth + " : " + sample.salinity.sar.toFixed(4)
-            ):(
-              sample.salinity.sar.toFixed(4)
-            )
-            }
-          </div>
-        ))}
+      <div>Surface : {samples.esp_stats_surface.mean_esp.toFixed(4)}</div>
+        <div>Profondeur : {samples.esp_stats_profondeur.mean_esp.toFixed(4)}</div>
       </h4>
     </div>
 
@@ -71,16 +52,8 @@ const DashboardStates = (props) => {
          Date of edition
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-        {samples.map((sample, index) => (
-          <div key={index}>
-            {samples.length > 1 ? (
-                sample.Depth + " : " + sample.Date_edition
-            ):(
-              sample.Date_edition
-            )
-            }
-          </div>
-        ))}
+      <div>From : {samples.min_date.min_date}</div>
+        <div>To : {samples.max_date.max_date}</div>
       </h4>
     </div>
 

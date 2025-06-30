@@ -3,6 +3,7 @@ import TextureChart from './charts/TextureChart'
 import QualityChart from './charts/QualityChart'
 import DashboardMap from './DashboardMap'
 import DashboardStates from './DashboardStates'
+import DashboardAggregated from './DashboardAggregated'
 // import axiosInstance from '../utils/axiosConfig'
 
 const Dashboard = () => {
@@ -45,17 +46,29 @@ const Dashboard = () => {
           {GeoData ? 
           <>
             <div className="state_cards flex space-x-4 w-full">
-              {selectedSample && <DashboardStates selectedSample={selectedSample} />}
+              {selectedSample ?
+               <DashboardStates selectedSample={selectedSample} GeoData={GeoData} />
+                : 
+                <DashboardAggregated aggregated_data={GeoData.aggregated_data} 
+              />}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full pt-4">
               <div className="space-y-3">
-                {selectedSample && <TextureChart selectedSample={selectedSample} />}
+                {selectedSample ?
+                <TextureChart selectedSample={selectedSample} />
+                :
+                <TextureChart selectedSample={GeoData.aggregated_data.properties} />
+                }
               </div>
               <div className="space-y-3">
-                {selectedSample && <QualityChart selectedSample={selectedSample} />}
+                {selectedSample ?
+                <QualityChart selectedSample={selectedSample} />
+                :
+                <QualityChart selectedSample={GeoData.aggregated_data.properties} />
+                }
               </div>
-              <div>
+              <div className="space-y-3">
                 <DashboardMap
                   GeoData={GeoData}
                   setSelectedSample={setSelectedSample}
