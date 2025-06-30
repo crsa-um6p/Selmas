@@ -82,6 +82,10 @@ export default function Navbar(props) {
 
           <Disclosure.Panel className="md:hidden z-40 absolute w-full">
             <div className="bg-white space-y-1 px-2 pb-3 pt-2 ">
+              <div className="flex items-center justify-center">
+                {/* <img src={logo} alt="logo" className="w-10 h-10" /> */}
+                <h1 className="text-2xl font-bold">Selmas</h1>
+              </div>
             {navigation.map((item, index) => (
                           <Link key={index} to={item.to}>
                             <Disclosure.Button

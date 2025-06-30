@@ -14,7 +14,7 @@ const TextureChart = (props) => {
   // Handle both single sample and multiple samples
   const samples = Array.isArray(props.selectedSample) ? props.selectedSample : [props.selectedSample];
   
-  console.log("samples", samples);
+  console.log("selectedSample in texture chart", props.selectedSample);
 
   useEffect(() => {
     // Destroy existing charts
@@ -29,9 +29,9 @@ const TextureChart = (props) => {
     samples.forEach((sample, index) => {
       if (chartRefs.current[index]) {
         const texture = [
-          sample?.texture?.Argile || 0,
-          sample?.texture?.Lemon || 0,
-          sample?.texture?.Sable || 0
+          sample?.texture?.Argile.toFixed(3) || 0,
+          sample?.texture?.Lemon.toFixed(3) || 0,
+          sample?.texture?.Sable.toFixed(3) || 0
         ];
         
         console.log(`texture for sample ${index}:`, texture);
