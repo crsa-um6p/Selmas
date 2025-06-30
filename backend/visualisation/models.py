@@ -26,6 +26,7 @@ class soilQuality(models.Model):
         NT = models.FloatField()
         P2O5 = models.FloatField()
         k2o = models.FloatField()
+        CaCO3 = models.FloatField()
         Code_labo = models.ForeignKey(soilSample, on_delete=models.CASCADE)
 
         def __str__(self):
