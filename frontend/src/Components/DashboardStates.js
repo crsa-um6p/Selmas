@@ -29,15 +29,33 @@ const DashboardStates = (props) => {
 
     <div className="max-w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
       <h6 className="text-md font-nunito text-blue-600 font-bold">
+         Electrical Conductivity
+      </h6>
+      <h4 className="font-bold tracking-tight text-gray-900">
+        {samples.map((sample, index) => (
+          <div key={index}>
+            {samples.length > 1 ? (
+                sample.Depth + " : " + parseFloat(sample.salinity.ec).toFixed(4) +" ms/cm"
+            ):(
+              parseFloat(sample.salinity.ec).toFixed(4) +" ms/cm"
+            )
+            }
+          </div>
+        ))}
+      </h4>
+    </div>
+
+    <div className="max-w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
+      <h6 className="text-md font-nunito text-blue-600 font-bold">
          Ex-change Sodium Potential
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
         {samples.map((sample, index) => (
           <div key={index}>
             {samples.length > 1 ? (
-                sample.Depth + " : " + parseFloat(sample.salinity.esp).toFixed(4)
+                sample.Depth + " : " + parseFloat(sample.salinity.esp).toFixed(4) +"%"
             ):(
-              parseFloat(sample.salinity.esp).toFixed(4)
+              parseFloat(sample.salinity.esp).toFixed(4) +"%"
             )
             
 
@@ -56,9 +74,9 @@ const DashboardStates = (props) => {
         {samples.map((sample, index) => (
           <div key={index}>
             {samples.length > 1 ? (
-                sample.Depth + " : " + sample.salinity.sar.toFixed(4)
+                sample.Depth + " : " + sample.salinity.sar.toFixed(4) +"%"
             ):(
-              sample.salinity.sar.toFixed(4)
+              sample.salinity.sar.toFixed(4) +"%"
             )
             }
           </div>
@@ -66,23 +84,7 @@ const DashboardStates = (props) => {
       </h4>
     </div>
 
-    <div className="max-w-full px-6 py-3 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100">
-      <h6 className="text-md font-nunito text-blue-600 font-bold">
-         Date of edition
-      </h6>
-      <h4 className="font-bold tracking-tight text-gray-900">
-        {samples.map((sample, index) => (
-          <div key={index}>
-            {samples.length > 1 ? (
-                sample.Depth + " : " + sample.Date_edition
-            ):(
-              sample.Date_edition
-            )
-            }
-          </div>
-        ))}
-      </h4>
-    </div>
+    
 
   </div>
 </>
