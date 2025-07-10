@@ -25,7 +25,7 @@ const QualityChart = (props) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
   
-  const elements = ["Ph level", "Organic matter", "Cu"];
+  const elements = ["Ph level", "Organic matter"];
   
   // Handle both single sample and multiple samples
   const samples = Array.isArray(props.selectedSample) ? props.selectedSample : [props.selectedSample];
