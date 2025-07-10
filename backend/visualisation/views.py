@@ -359,7 +359,8 @@ def fill_soil_quality(request):
                 NT=row['Nt %'],
                 P2O5=row['P2O5 mg/kg'],
                 k2o=row['K2O mg/kg'],
-                CaCO3=row['CaCO3 en%']
+                CaCO3=row['CaCO3 en%'],
+                BORE=row['BORE mg/kg']
             )
         except ValueError as e:
             print("--------------------------------")

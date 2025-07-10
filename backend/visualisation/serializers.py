@@ -59,7 +59,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "Organic matter": safe_number(q.Organic_matter if q else 0),
                 "Cu": safe_number(q.Cu if q else 0),
                 "Fe": safe_number(q.Fe if q else 0),
-                "NNH4": safe_number(q.NNH4 if q else 0),
+                "BORE": safe_number(q.BORE if q else 0),
                 "Nt": safe_number(q.NT if q else 0),
                 "CaCO3": safe_number(q.CaCO3 if q else 0),
             },
