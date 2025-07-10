@@ -192,10 +192,6 @@ def get_data(request):
         shape_poly = shape(geojson_polygon) 
         polygon_geom = GEOSGeometry(shape_poly.wkt, srid=4326)  # Convertir le polygone GeoJSON en GEOSGeometry pour filtrer les données géospatiales
 
-    
-    
-    
-        
 
     
 #_________________________________________________________________
@@ -363,6 +359,7 @@ def fill_soil_quality(request):
                 NT=row['Nt %'],
                 P2O5=row['P2O5 mg/kg'],
                 k2o=row['K2O mg/kg'],
+                CaCO3=row['CaCO3 en%']
             )
         except ValueError as e:
             print("--------------------------------")

@@ -31,8 +31,8 @@ const DashboardStates = (props) => {
          Ex-change Sodium Potential
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-      <div>Surface : {samples.sar_stats_surface.mean_sar.toFixed(4)}</div>
-        <div>Profondeur : {samples.sar_stats_profondeur.mean_sar.toFixed(4)}</div>
+      <div>Surface : {samples.esp_stats_surface.mean_esp.toFixed(4)}</div>
+        <div>Profondeur : {samples.esp_stats_profondeur.mean_esp.toFixed(4)}</div>
         
       </h4>
     </div>
@@ -42,8 +42,8 @@ const DashboardStates = (props) => {
          Sodium absorption ratio
       </h6>
       <h4 className="font-bold tracking-tight text-gray-900">
-      <div>Surface : {samples.esp_stats_surface.mean_esp.toFixed(4)}</div>
-        <div>Profondeur : {samples.esp_stats_profondeur.mean_esp.toFixed(4)}</div>
+      <div>Surface : {samples.sar_stats_surface.mean_sar.toFixed(4)}</div>
+        <div>Profondeur : {samples.sar_stats_profondeur.mean_sar.toFixed(4)}</div>
       </h4>
     </div>
 

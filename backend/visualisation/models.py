@@ -26,7 +26,7 @@ class soilQuality(models.Model):
         NT = models.FloatField()
         P2O5 = models.FloatField()
         k2o = models.FloatField()
-        # CaCO3 = models.FloatField()
+        CaCO3 = models.FloatField()
         Code_labo = models.ForeignKey(soilSample, on_delete=models.CASCADE)
 
         def __str__(self):
@@ -47,7 +47,7 @@ class salinityAndSodicityGroup(models.Model):
     Ec_pate_sature = models.FloatField()
     Sar = models.FloatField()
     Sar_interpretation = models.CharField(max_length=100)
-    Esp = models.CharField(max_length=100)
+    Esp = models.FloatField()
     Esp_interpretation = models.CharField(max_length=100)
     Esp_Ec_interpretation = models.CharField(max_length=100)
     Cl = models.FloatField()
