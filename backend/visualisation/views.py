@@ -193,6 +193,7 @@ def get_data(request):
         polygon_geom = GEOSGeometry(shape_poly.wkt, srid=4326)  # Convertir le polygone GeoJSON en GEOSGeometry pour filtrer les données géospatiales
 
 
+
     
 #_________________________________________________________________
     if variable == "soilSample":

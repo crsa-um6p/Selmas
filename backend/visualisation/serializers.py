@@ -45,6 +45,14 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
         else:
             ec = 0
     
+        if salinity_obj:
+            if salinity_obj.Ec_pate_sature < 0:
+                ec = salinity_obj.Ec_pate_sature
+            else:
+                ec = 0
+        else:
+            ec = 0
+    
         return {
             "Code_labo": obj.Code_labo,
             "Depth": obj.Depth,
@@ -59,6 +67,10 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "Organic matter": safe_number(q.Organic_matter if q else 0),
                 "Cu": safe_number(q.Cu if q else 0),
                 "Fe": safe_number(q.Fe if q else 0),
+                "BORE": safe_number(q.BORE if q else 0),
+                "Nt": safe_number(q.NT if q else 0),
+                "CaCO3": safe_number(q.CaCO3 if q else 0),
+                "Fe": safe_number(q.Fe if q else 0),
                 "NNH4": safe_number(q.NNH4 if q else 0),
                 "Nt": safe_number(q.NT if q else 0),
                 "CaCO3": safe_number(q.CaCO3 if q else 0),
@@ -67,6 +79,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "classification": salinity_obj.Classification if salinity_obj else "",
                 "sar": salinity_obj.Sar if salinity_obj else '',
                 "esp": salinity_obj.Esp if salinity_obj else '',
+                "ec": ec,
                 "ec": ec,
             }
         }
@@ -146,7 +159,9 @@ def serialize_to_geojson(queryset):
                         mean_organic_matter=Avg('soilquality__Organic_matter') if queryset.exists() else 0
                     )["mean_organic_matter"],
 
+
                 },
+
 
             },
             "total_samples": total_samples,
