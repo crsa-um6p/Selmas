@@ -1,8 +1,9 @@
 from rest_framework import serializers
-from .models import soilSample, salinityAndSodicityGroup
+from .models import soilSample, salinityAndSodicityGroup, soilQuality
 import math
 from django.db.models import Avg, Count, FloatField, Min, Max
 from django.db.models.functions import Cast
+import pandas as pd
 
 def safe_number(value):
     """Helper function to safely handle NaN and None values"""
@@ -71,7 +72,6 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "Nt": safe_number(q.NT if q else 0),
                 "CaCO3": safe_number(q.CaCO3 if q else 0),
                 "Fe": safe_number(q.Fe if q else 0),
-                "NNH4": safe_number(q.NNH4 if q else 0),
                 "Nt": safe_number(q.NT if q else 0),
                 "CaCO3": safe_number(q.CaCO3 if q else 0),
             },
@@ -133,7 +133,8 @@ def serialize_to_geojson(queryset):
     max_date = queryset.aggregate(
         max_date=Max('Date_edition')
     )
-
+    soil_quality_stats = soilQuality.objects.all()
+    df = pd.DataFrame(soil_quality_stats.values("CaCO3","NNH4","NT","Fe","Cu","BORE"))
     
     return {
         "type": "FeatureCollection",
@@ -158,8 +159,12 @@ def serialize_to_geojson(queryset):
                     "Organic matter": queryset.aggregate(
                         mean_organic_matter=Avg('soilquality__Organic_matter') if queryset.exists() else 0
                     )["mean_organic_matter"],
-
-
+                    "Cu": df["Cu"].mean() if df["Cu"].mean() is not None else 0,
+                    "Fe": df["Fe"].mean() if df["Fe"].mean() is not None else 0,
+                    "BORE": df["BORE"].mean() if df["BORE"].mean() is not None else 0,
+                    "NT": df["NT"].mean() if df["NT"].mean() is not None else 0,
+                    "CaCO3": df["CaCO3"].mean() if df["CaCO3"].mean() is not None else 0,
+                    
                 },
 
 
