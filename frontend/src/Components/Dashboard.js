@@ -4,6 +4,7 @@ import QualityChart from './charts/QualityChart'
 import DashboardMap from './DashboardMap'
 import DashboardStates from './DashboardStates'
 import DashboardAggregated from './DashboardAggregated'
+import MicroElementsChart from './charts/MicroElementsChart'
 // import axiosInstance from '../utils/axiosConfig'
 
 const Dashboard = () => {
@@ -54,13 +55,23 @@ const Dashboard = () => {
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full pt-4">
+
+
               <div className="space-y-3">
                 {selectedSample ?
                 <TextureChart selectedSample={selectedSample} />
                 :
                 <TextureChart selectedSample={GeoData.aggregated_data.properties} />
                 }
+
+                {selectedSample ?
+                <MicroElementsChart selectedSample={selectedSample} />
+                :   
+                <MicroElementsChart selectedSample={GeoData.aggregated_data.properties} />
+                }  
               </div>
+
+
               <div className="space-y-3">
                 {selectedSample ?
                 <QualityChart selectedSample={selectedSample} />
@@ -68,6 +79,7 @@ const Dashboard = () => {
                 <QualityChart selectedSample={GeoData.aggregated_data.properties} />
                 }
               </div>
+
               <div className="space-y-3">
                 <DashboardMap
                   GeoData={GeoData}
@@ -75,6 +87,7 @@ const Dashboard = () => {
                   selectedSample={selectedSample}
                 />
               </div>
+              
             </div>
 
           </>

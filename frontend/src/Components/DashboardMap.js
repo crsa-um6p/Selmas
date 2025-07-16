@@ -58,7 +58,7 @@ const DashboardMap = (props) => {
 return (
     <div>
         <MapContainer
-          className='min-h-[56vh] '
+          className='min-h-[56vh] h-full'
           center={[32.1, -7.7]}
           zoom={10}
           minZoom={6}
