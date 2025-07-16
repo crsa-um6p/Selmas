@@ -56,9 +56,9 @@ const DashboardMap = (props) => {
   const groupedSamples = props.GeoData ? groupSamplesByLocation(props.GeoData.features) : {};
 
 return (
-    <div>
+    <div className='h-full'>
         <MapContainer
-          className='min-h-[56vh] h-full'
+          className='h-full rounded-lg rounded-md'
           center={[32.1, -7.7]}
           zoom={10}
           minZoom={6}
