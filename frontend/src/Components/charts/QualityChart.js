@@ -125,6 +125,9 @@ const QualityChart = (props) => {
                 label: function(context) {
                   const label = context.label || '';
                   const value = context.parsed.y;
+                  if (label ==="Organic matter"){
+                    return `${label}: ${value} %`;
+                  }
                   return `${label}: ${value}`;
                 }
               }
