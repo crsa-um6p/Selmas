@@ -25,7 +25,7 @@ const MicroElementsChart = (props) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
   
-  const elements = ["Zn", "Cu", "BORE", "Fe"];
+  const elements = ["Cu", "BORE", "Fe"];
   
   // Handle both single sample and multiple samples
   const samples = Array.isArray(props.selectedSample) ? props.selectedSample : [props.selectedSample];
@@ -125,7 +125,7 @@ const MicroElementsChart = (props) => {
                 label: function(context) {
                   const label = context.label || '';
                   const value = context.parsed.y;
-                  return `${label}: ${value}`;
+                  return `${label}: ${value.toFixed(3)} mg/kg`;
                 }
               }
             }
