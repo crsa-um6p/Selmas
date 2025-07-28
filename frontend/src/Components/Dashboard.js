@@ -5,7 +5,7 @@ import DashboardMap from './DashboardMap'
 import DashboardStates from './DashboardStates'
 import DashboardAggregated from './DashboardAggregated'
 import MicroElementsChart from './charts/MicroElementsChart'
-import SoilMinerral from './charts/SoilMinerals'
+import SoilMinerals from './charts/SoilMinerals'
 
 import WellMineral from './charts/WellMineral'
 import WellComposition from './charts/WellComposition'
@@ -100,7 +100,16 @@ const Dashboard = () => {
                 :
                 <WellComposition selectedSample={selectedSample} />
                 }
-                <SoilMinerral selectedSample={GeoData.aggregated_data.properties} />
+
+                {selectedSample == null ?
+                <SoilMinerals selectedSample={GeoData.soil_data.aggregated_data.properties} />
+                :
+                selectedSample && selectedSample[0].type == "SoilSample" ?
+                <SoilMinerals selectedSample={selectedSample} />
+                :
+                <></>
+                }
+                
 
               </div>
 

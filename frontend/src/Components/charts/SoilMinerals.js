@@ -21,7 +21,7 @@ Chart.register(
   Title
 );
 
-const MicroElementsChart = (props) => {
+const SoilMinerals = (props) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
   
@@ -194,4 +194,4 @@ const MicroElementsChart = (props) => {
   );
 };
 
-export default MicroElementsChart;
+export default SoilMinerals;

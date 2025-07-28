@@ -58,9 +58,9 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
             "Date_edition": obj.Date_edition,
             "type": "SoilSample",
             "texture": {
-                "Argile%": texture_obj.Argile if texture_obj else 0,
-                "Lemon%": texture_obj.Lemon if texture_obj else 0,
-                "Sable%": texture_obj.Sable if texture_obj else 0
+                "Argile": texture_obj.Argile if texture_obj else 0,
+                "Lemon": texture_obj.Lemon if texture_obj else 0,
+                "Sable": texture_obj.Sable if texture_obj else 0
             },
             "quality": {
                 "Ph level": safe_number(q.Ph_level if q else 0),
