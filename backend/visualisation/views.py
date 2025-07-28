@@ -5,7 +5,7 @@ import json # Importer json pour traiter les données JSON
 from .models import * # Importer ALL les modèles que vous avez créés
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-from .serializers import serialize_to_geojson
+from .serializers import serialize_to_geojson, well_to_geojson
 from django.db.models import F
 from django.views.decorators.cache import cache_page
 from django.contrib.gis.geos import Point
@@ -301,10 +301,13 @@ def dashboard_data(request):
     print("--------------------------------")
     print("dashboard_data")
     print("--------------------------------")
-    data = soilSample.objects.all().order_by('Code_labo')
-    geojson_data = serialize_to_geojson(data)
+    soil_data = soilSample.objects.all().order_by('Code_labo')
+    geojson_data = serialize_to_geojson(soil_data)
+    water_data = Well.objects.all().order_by('Id_well')
+    geojson_data_water = well_to_geojson(water_data)
     
-    response = JsonResponse(geojson_data, safe=False)
+    
+    response = JsonResponse({"soil_data": geojson_data, "water_data": geojson_data_water}, safe=False)
     # response["Access-Control-Allow-Origin"] = "*"
     # response["Access-Control-Allow-Methods"] = "GET, OPTIONS"
     # response["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
