@@ -25,7 +25,7 @@ function Legend(props) {
             legend.onAdd = () => {
                 const div = L.DomUtil.create('div', 'info legend');
                 div.innerHTML += iconed("#39ba30", "Soil samples");
-                div.innerHTML += iconed("#1976d2", "Well");
+                div.innerHTML += iconed("#1976d2", "Water samples");
 
                      return div;
             }
