@@ -7,6 +7,9 @@ import DashboardAggregated from './DashboardAggregated'
 import MicroElementsChart from './charts/MicroElementsChart'
 import SoilMinerral from './charts/SoilMinerals'
 
+import WellMineral from './charts/WellMineral'
+import WellComposition from './charts/WellComposition'
+import WellStates from './WellStates'
 // import axiosInstance from '../utils/axiosConfig'
 
 const Dashboard = () => {
@@ -49,36 +52,53 @@ const Dashboard = () => {
           {GeoData ? 
           <>
             <div className="state_cards flex space-x-4 w-full">
-              {selectedSample ?
-               <DashboardStates selectedSample={selectedSample} GeoData={GeoData} />
+              {selectedSample == null ?
+               <DashboardAggregated aggregated_data={GeoData.soil_data.aggregated_data}/>
+               
                 : 
-                <DashboardAggregated aggregated_data={GeoData.aggregated_data} 
-              />}
+                selectedSample && selectedSample[0].type == "SoilSample" ?
+                <DashboardStates selectedSample={selectedSample} GeoData={GeoData}/>
+                :
+                <WellStates selectedSample={selectedSample} />
+              }
+              
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full pt-4">
 
 
               <div className="space-y-3">
-                {selectedSample ?
-                <TextureChart selectedSample={selectedSample} />
+
+                { selectedSample == null  ?
+                  <TextureChart selectedSample={GeoData.soil_data.aggregated_data.properties} />
+                : 
+                selectedSample && selectedSample[0].type == "SoilSample" ?
+                  <TextureChart selectedSample={selectedSample} />
                 :
-                <TextureChart selectedSample={GeoData.aggregated_data.properties} />
+                <WellMineral selectedSample={selectedSample} />
                 }
 
-                {selectedSample ?
+                {selectedSample == null ?
+                <MicroElementsChart selectedSample={GeoData.soil_data.aggregated_data.properties} />
+                :
+                selectedSample && selectedSample[0].type == "SoilSample" ?
                 <MicroElementsChart selectedSample={selectedSample} />
-                :   
-                <MicroElementsChart selectedSample={GeoData.aggregated_data.properties} />
-                }  
+                :
+                <></>
+                }
+
               </div>
 
 
               <div className="space-y-3">
-                {selectedSample ?
+
+              {selectedSample == null ?
+                <QualityChart selectedSample={GeoData.soil_data.aggregated_data.properties} />
+                :
+                selectedSample && selectedSample[0].type == "SoilSample" ?
                 <QualityChart selectedSample={selectedSample} />
                 :
-                <QualityChart selectedSample={GeoData.aggregated_data.properties} />
+                <WellComposition selectedSample={selectedSample} />
                 }
                 <SoilMinerral selectedSample={GeoData.aggregated_data.properties} />
 

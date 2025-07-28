@@ -5,6 +5,7 @@ import "leaflet-draw/dist/leaflet.draw.css";
 import L, { latLng, icon } from "leaflet";
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { Tooltip } from 'react-leaflet';
+import Legend from './Legend';
 
 
 const maxBounds = [
@@ -23,6 +24,15 @@ const DashboardMap = (props) => {
   // Define a green marker icon
   const greenIcon = L.icon({
     iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png',
+    shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+    iconSize: [25, 41],
+    iconAnchor: [12, 41],
+    popupAnchor: [1, -34],
+    shadowSize: [41, 41]
+  });
+
+  const blueIcon = L.icon({
+    iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-blue.png',
     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
     iconSize: [25, 41],
     iconAnchor: [12, 41],
@@ -53,7 +63,9 @@ const DashboardMap = (props) => {
     return groupedSamples;
   };
 
-  const groupedSamples = props.GeoData ? groupSamplesByLocation(props.GeoData.features) : {};
+  const groupedSamples = props.GeoData ? groupSamplesByLocation(props.GeoData.soil_data.features) : {};
+  const groupedWater = props.GeoData ? groupSamplesByLocation(props.GeoData.water_data.features) : {};
+  console.log("groupedWater",groupedWater);
 
 return (
     <div className='h-full'>
@@ -65,14 +77,17 @@ return (
           scrollWheelZoom={true}
           maxBounds={maxBounds}
         >
+          
           <TileLayer key={'e'} url={"https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"} attribution={'Tiles © <a href="https://services.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer">ArcGIS</a> | <a href="https://crsa.um6p.ma/">Selmas project - CRSA @ UM6P</a>'} />
           { props.GeoData && (
+            <>
+            
             <MarkerClusterGroup
               iconCreateFunction={cluster => {
                 const count = cluster.getChildCount();
                 return L.divIcon({
                   html: `<div style="
-                    background-color: #1976d2;
+                    background-color: #39ba30;
                     color: white;
                     border-radius: 50%;
                     width: 40px;
@@ -125,7 +140,71 @@ return (
                   </Marker>
                 );
               })}
+              
             </MarkerClusterGroup>
+            
+
+            <MarkerClusterGroup
+              iconCreateFunction={cluster => {
+                const count = cluster.getChildCount();
+                return L.divIcon({
+                  html: `<div style="
+                    background-color: #1976d2;
+                    color: white;
+                    border-radius: 50%;
+                    width: 40px;
+                    height: 40px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    font-size: 16px;
+                    border: 2px solid #fff;
+                    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+                  ">${count}</div>`,
+                  className: 'custom-cluster-icon',
+                  iconSize: [40, 40]
+                });
+              }}
+            >
+              {Object.entries(groupedWater).map(([locationKey, locationData], idx) => {
+                const { coordinates, samples } = locationData;
+                const sampleCount = samples.length;
+                
+                return (
+                  <Marker
+                    key={locationKey}
+                    position={coordinates}
+                    icon={blueIcon}
+                    eventHandlers={{
+                      click: (e) => {
+                        // Set only the Code_labo values as a list
+                        props.setSelectedSample(samples);
+                        console.log("sampleCodes",samples);
+                      },
+                      mouseover: (e) => {
+                        e.target.openTooltip();
+                      },
+                      mouseout: (e) => {
+                        e.target.closeTooltip();
+                      }
+                    }}
+                  >
+                    <Tooltip
+                      direction="auto"
+                      className="custom-tooltip"
+                      permanent={false}
+                    >
+                      <span>
+                        {sampleCount} well{sampleCount > 1 ? 's' : ''}<br />
+                        Location: {coordinates[0].toFixed(4)}, {coordinates[1].toFixed(4)}
+                      </span>
+                    </Tooltip>
+                  </Marker>
+                );
+              })}
+              
+            </MarkerClusterGroup>
+            </>
           )}
 
           {props.stationCoordonates && props.stationCoordonates.lat && props.stationCoordonates.lon}
@@ -133,7 +212,7 @@ return (
             A pretty CSS3 popup. <br /> Easily customizable.
           </Popup> */}
           
-          
+            <Legend/>
       </MapContainer>
     </div>
 )

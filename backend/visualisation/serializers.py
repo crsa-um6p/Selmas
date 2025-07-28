@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import soilSample, salinityAndSodicityGroup, soilQuality
+from .models import soilSample, salinityAndSodicityGroup, soilQuality, Well
 import math
 from django.db.models import Avg, Count, FloatField, Min, Max
 from django.db.models.functions import Cast
@@ -12,16 +12,14 @@ def safe_number(value):
     return value
 
 class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
-    type = serializers.SerializerMethodField()
     geometry = serializers.SerializerMethodField()
     properties = serializers.SerializerMethodField()
 
     class Meta:
         model = soilSample
-        fields = ['type', 'geometry', 'properties']
+        fields = ['geometry', 'properties']
 
-    def get_type(self, obj):
-        return "Feature"
+  
 
     def get_geometry(self, obj):
         # Check if localisation exists and is valid
@@ -58,6 +56,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
             "Code_labo": obj.Code_labo,
             "Depth": obj.Depth,
             "Date_edition": obj.Date_edition,
+            "type": "SoilSample",
             "texture": {
                 "Argile%": texture_obj.Argile if texture_obj else 0,
                 "Lemon%": texture_obj.Lemon if texture_obj else 0,
@@ -82,6 +81,48 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 
             }
         }
+
+
+class WellGeoJSONSerializer(serializers.ModelSerializer):
+    geometry = serializers.SerializerMethodField()
+    properties = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Well
+        fields = ['geometry', 'properties']
+
+
+    
+    def get_geometry(self, obj):
+        if obj.localisation and hasattr(obj.localisation, 'x') and hasattr(obj.localisation, 'y'):
+            return {
+                "type": "Point",
+                "coordinates": [obj.localisation.x, obj.localisation.y]
+            }
+        else:
+            return None
+        
+    def get_properties(self, obj):
+        return {
+            "Id_well": obj.Id_well,
+            "Date": obj.Date,
+            "Depth": safe_number(obj.Depth) if obj.Depth else 0,
+            "type": "Well",
+            "Na": safe_number(obj.Na) if obj.Na else 0,
+            "Ca": safe_number(obj.Ca) if obj.Ca else 0,
+            "Mg": safe_number(obj.Mg) if obj.Mg else 0,
+            "Cl": safe_number(obj.Cl) if obj.Cl else 0,
+            "SO4": safe_number(obj.SO4) if obj.SO4 else 0,
+            "NO3": safe_number(obj.NO3) if obj.NO3 else 0,
+            "ec": safe_number(obj.Ec)/1000 if obj.Ec else 0,
+
+    }
+def well_to_geojson(queryset):
+    features = WellGeoJSONSerializer(queryset, many=True).data
+    return {
+        "type": "FeatureCollection",
+        "features": features
+    }
 
 
 def serialize_to_geojson(queryset):
