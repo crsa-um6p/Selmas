@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import soilSample, salinityAndSodicityGroup, soilQuality
+from .models import soilSample, salinityAndSodicityGroup, soilQuality, Well
 import math
 from django.db.models import Avg, Count, FloatField, Min, Max
 from django.db.models.functions import Cast
@@ -21,7 +21,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
         fields = ['type', 'geometry', 'properties']
 
     def get_type(self, obj):
-        return "Feature"
+        return "SoilSample"
 
     def get_geometry(self, obj):
         # Check if localisation exists and is valid
@@ -83,6 +83,42 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "ec": ec,
             }
         }
+
+
+class WellGeoJSONSerializer(serializers.ModelSerializer):
+    type = serializers.SerializerMethodField()
+    geometry = serializers.SerializerMethodField()
+    properties = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Well
+        fields = ['type', 'geometry', 'properties']
+
+    def get_type(self, obj):
+        return "Well"
+    
+    def get_geometry(self, obj):
+        if obj.localisation and hasattr(obj.localisation, 'x') and hasattr(obj.localisation, 'y'):
+            return {
+                "type": "Point",
+                "coordinates": [obj.localisation.x, obj.localisation.y]
+            }
+        else:
+            return None
+        
+    def get_properties(self, obj):
+        return {
+            "Id_well": obj.Id_well,
+            "Date": obj.Date,
+            "Depth": obj.Depth,
+            "Water_depth": obj.Water_depth
+    }
+def well_to_geojson(queryset):
+    features = WellGeoJSONSerializer(queryset, many=True).data
+    return {
+        "type": "FeatureCollection",
+        "features": features
+    }
 
 
 def serialize_to_geojson(queryset):
