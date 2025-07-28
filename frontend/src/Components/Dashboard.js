@@ -5,6 +5,8 @@ import DashboardMap from './DashboardMap'
 import DashboardStates from './DashboardStates'
 import DashboardAggregated from './DashboardAggregated'
 import MicroElementsChart from './charts/MicroElementsChart'
+import SoilMinerral from './charts/SoilMinerals'
+
 // import axiosInstance from '../utils/axiosConfig'
 
 const Dashboard = () => {
@@ -78,6 +80,8 @@ const Dashboard = () => {
                 :
                 <QualityChart selectedSample={GeoData.aggregated_data.properties} />
                 }
+                <SoilMinerral selectedSample={GeoData.aggregated_data.properties} />
+
               </div>
 
               <div className="space-y-3">

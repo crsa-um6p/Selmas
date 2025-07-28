@@ -8,7 +8,8 @@ from django.views.decorators.http import require_http_methods
 from .serializers import serialize_to_geojson
 from django.db.models import F
 from django.views.decorators.cache import cache_page
-from django.contrib.gis.geos import Point
+from django.contrib.gis.geos import Point, GEOSGeometry
+from shapely.geometry import shape
 # Create your views here.
 
 # @csrf_exempt
@@ -275,7 +276,6 @@ def get_data(request):
             #data = Well.objects.all()
 
         data_list = list(data.values( "Id_well", "Date", "Depth", "Ph", "Ec", "Tds_ppm", "Salinity", "Resistivity", "Water_depth", "Pump_cal", "Temperature"))
-#__________________________________________________________________
     elif variable == "Amendment":
         filter_kwargs = {}
 
@@ -283,14 +283,14 @@ def get_data(request):
             if key not in ["variable", "filter"]:
                 filter_kwargs[f"{key}__range"] = (value["min"], value["max"])
 
-            if filter_kwargs:
-             data = Amendment.objects.filter(**filter_kwargs)
-
+        if filter_kwargs:
+            data = Amendment.objects.filter(**filter_kwargs)
         #else:
             #data = Amendment.objects.all()
 
-        data_list = list(data.values( "Id_amendment", "Date_collect", "Ph", "Ec", "Classe", "Cao", "Sio2", "Al2o3","Salinity_level","Fe2o3", "Mgo", "K2o", "Na2o", "Ttio2", "P2o5", "Mno", "S", "Clay", "Silt", "Sand", "Wc", "Name", "Lu_lc"))
+        data_list = list(data.values("Id_amendment", "Date_collect", "Ph", "Ec", "Classe", "Cao", "Sio2", "Al2o3", "Salinity_level", "Fe2o3", "Mgo", "K2o", "Na2o", "Ttio2", "P2o5", "Mno", "S", "Clay", "Silt", "Sand", "Wc", "Name", "Lu_lc"))
 
+    return JsonResponse(data_list, safe=False)
     return JsonResponse(data_list, safe=False)
 
 
@@ -311,7 +311,7 @@ def dashboard_data(request):
     return response
 
 
-def fill_soil_sample_table(request):
+def fill_soil_sample_table(request=None):
     soilSample.objects.all().delete()
     import pandas as pd
     data_file = pd.read_excel("new_data.xlsx")
@@ -325,7 +325,7 @@ def fill_soil_sample_table(request):
                 Date_edition=row["Date d'édition "]
             )
 
-def fill_soil_texture(request):
+def fill_soil_texture(request=None):
     soilTexture.objects.all().delete()
     import pandas as pd
     data_file = pd.read_excel("new_data.xlsx")
@@ -340,7 +340,7 @@ def fill_soil_texture(request):
         )
 
 
-def fill_soil_quality(request):
+def fill_soil_quality(request=None):
     soilQuality.objects.all().delete()
     import pandas as pd
     data_file = pd.read_excel("new_data.xlsx")
@@ -360,7 +360,10 @@ def fill_soil_quality(request):
                 NT=row['Nt %'],
                 P2O5=row['P2O5 mg/kg'],
                 k2o=row['K2O mg/kg'],
-                CaCO3=row['CaCO3 en%']
+                CaCO3=row['CaCO3 en%'],
+                BORE=row['BORE mg/kg']
+                
+
             )
         except ValueError as e:
             print("--------------------------------")
@@ -369,7 +372,7 @@ def fill_soil_quality(request):
             continue
 
 
-def fill_salinityandsodicitygroup(request):
+def fill_salinityandsodicitygroup(request=None):
     salinityAndSodicityGroup.objects.all().delete()
     import pandas as pd
     data_file = pd.read_excel("new_data.xlsx")
@@ -393,3 +396,38 @@ def fill_salinityandsodicitygroup(request):
             print(e)
             print("--------------------------------")
             continue
+
+
+
+def fill_well(request=None):
+    Well.objects.all().delete()
+    import pandas as pd
+    data_file = pd.read_excel("Ground_Water.xlsx")
+    for index, row in data_file.iloc[0:337].iterrows():
+        
+        try:
+            Well.objects.create(
+                Id_well=row['Code'],
+                localisation=Point(row["X"], row["Y"]),
+                Date=row['Date'],
+                Depth=row['Depth'],
+                Ph=row['pH'],
+                Temperature=row['T(°C)_Dec22'],
+                Ec=row['EC µs/cm'],
+                HCO3=row['HCO3-'],
+                Cl=row['Cl-'],
+                NO3=row['NO3-'],
+                SO4=row['SO4--'],
+                Na=row['Na+'],
+                K=row['K+'],
+                Mg=row['Mg++'],
+                Ca=row['Ca++'],
+            
+            )
+        except ValueError as e:
+            print("--------------------------------")
+            print(e)
+            print("--------------------------------")
+            continue
+
+                

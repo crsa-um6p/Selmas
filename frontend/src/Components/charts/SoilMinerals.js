@@ -21,11 +21,11 @@ Chart.register(
   Title
 );
 
-const QualityChart = (props) => {
+const MicroElementsChart = (props) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
   
-  const elements = ["Ph level", "Organic matter%"];
+  const elements = ["NT","CaCO3"];
   
   // Handle both single sample and multiple samples
   const samples = Array.isArray(props.selectedSample) ? props.selectedSample : [props.selectedSample];
@@ -125,10 +125,7 @@ const QualityChart = (props) => {
                 label: function(context) {
                   const label = context.label || '';
                   const value = context.parsed.y;
-                  if (label ==="Organic matter"){
-                    return `${label}: ${value.toFixed(3) } %`;
-                  }
-                  return `${label}: ${value.toFixed(3) }`;
+                  return `${label}: ${value.toFixed(3)} %`;
                 }
               }
             }
@@ -197,4 +194,4 @@ const QualityChart = (props) => {
   );
 };
 
-export default QualityChart;
+export default MicroElementsChart;

@@ -8,7 +8,7 @@ const TextureChart = (props) => {
   const chartRefs = useRef([]);
   const chartInstances = useRef([]);
   
-  const elements = ["Argile", "Limon", "Sable"];
+  const elements = ["Argile%", "Limon%", "Sable%"];
   console.log("props.selectedSample",props.selectedSample);
   
   // Handle both single sample and multiple samples

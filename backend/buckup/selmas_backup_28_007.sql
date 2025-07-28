@@ -1,0 +1,2791 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 16.1
+-- Dumped by pg_dump version 17.3
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET transaction_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+ALTER TABLE ONLY public.visualisation_soiltexture DROP CONSTRAINT "visualisation_soilte_Code_labo_id_cfe9e96a_fk_visualisa";
+ALTER TABLE ONLY public.visualisation_soilquality DROP CONSTRAINT "visualisation_soilqu_Code_labo_id_33de2e11_fk_visualisa";
+ALTER TABLE ONLY public.visualisation_salinityandsodicitygroup DROP CONSTRAINT "visualisation_salini_Code_labo_id_28095a8d_fk_visualisa";
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id;
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm;
+DROP INDEX public.visualisation_well_localisation_2cda295d_id;
+DROP INDEX public."visualisation_well_Id_well_c337fbb8_like";
+DROP INDEX public."visualisation_soiltexture_Code_labo_id_cfe9e96a_like";
+DROP INDEX public."visualisation_soiltexture_Code_labo_id_cfe9e96a";
+DROP INDEX public.visualisation_soilsample_localisation_1767fa7d_id;
+DROP INDEX public."visualisation_soilsample_Code_labo_5cf0aa46_like";
+DROP INDEX public."visualisation_soilquality_Code_labo_id_33de2e11_like";
+DROP INDEX public."visualisation_soilquality_Code_labo_id_33de2e11";
+DROP INDEX public."visualisation_salinityandsodicitygroup_Code_labo_id_28095a8d";
+DROP INDEX public."visualisation_salinityan_Code_labo_id_28095a8d_like";
+DROP INDEX public.visualisation_amendment_localisation_9d92d753_id;
+DROP INDEX public.django_session_session_key_c0390e0f_like;
+DROP INDEX public.django_session_expire_date_a5c62663;
+DROP INDEX public.django_admin_log_user_id_c564eba6;
+DROP INDEX public.django_admin_log_content_type_id_c4bce8eb;
+DROP INDEX public.auth_user_username_6821ab7c_like;
+DROP INDEX public.auth_user_user_permissions_user_id_a95ead1b;
+DROP INDEX public.auth_user_user_permissions_permission_id_1fbb5f2c;
+DROP INDEX public.auth_user_groups_user_id_6a12ed8b;
+DROP INDEX public.auth_user_groups_group_id_97559544;
+DROP INDEX public.auth_permission_content_type_id_2f476e4b;
+DROP INDEX public.auth_group_permissions_permission_id_84c5c92e;
+DROP INDEX public.auth_group_permissions_group_id_b120cbf9;
+DROP INDEX public.auth_group_name_a6ea08ec_like;
+ALTER TABLE ONLY public.visualisation_well DROP CONSTRAINT visualisation_well_pkey;
+ALTER TABLE ONLY public.visualisation_soiltexture DROP CONSTRAINT visualisation_soiltexture_pkey;
+ALTER TABLE ONLY public.visualisation_soilsample DROP CONSTRAINT visualisation_soilsample_pkey;
+ALTER TABLE ONLY public.visualisation_soilquality DROP CONSTRAINT visualisation_soilquality_pkey;
+ALTER TABLE ONLY public.visualisation_salinityandsodicitygroup DROP CONSTRAINT visualisation_salinityandsodicitygroup_pkey;
+ALTER TABLE ONLY public.visualisation_amendment DROP CONSTRAINT visualisation_amendment_pkey;
+ALTER TABLE ONLY public.django_session DROP CONSTRAINT django_session_pkey;
+ALTER TABLE ONLY public.django_migrations DROP CONSTRAINT django_migrations_pkey;
+ALTER TABLE ONLY public.django_content_type DROP CONSTRAINT django_content_type_pkey;
+ALTER TABLE ONLY public.django_content_type DROP CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq;
+ALTER TABLE ONLY public.django_admin_log DROP CONSTRAINT django_admin_log_pkey;
+ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_username_key;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq;
+ALTER TABLE ONLY public.auth_user_user_permissions DROP CONSTRAINT auth_user_user_permissions_pkey;
+ALTER TABLE ONLY public.auth_user DROP CONSTRAINT auth_user_pkey;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq;
+ALTER TABLE ONLY public.auth_user_groups DROP CONSTRAINT auth_user_groups_pkey;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_pkey;
+ALTER TABLE ONLY public.auth_permission DROP CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq;
+ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_pkey;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_pkey;
+ALTER TABLE ONLY public.auth_group_permissions DROP CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq;
+ALTER TABLE ONLY public.auth_group DROP CONSTRAINT auth_group_name_key;
+DROP TABLE public.visualisation_well;
+DROP TABLE public.visualisation_soiltexture;
+DROP TABLE public.visualisation_soilsample;
+DROP TABLE public.visualisation_soilquality;
+DROP TABLE public.visualisation_salinityandsodicitygroup;
+DROP TABLE public.visualisation_amendment;
+DROP TABLE public.django_session;
+DROP TABLE public.django_migrations;
+DROP TABLE public.django_content_type;
+DROP TABLE public.django_admin_log;
+DROP TABLE public.auth_user_user_permissions;
+DROP TABLE public.auth_user_groups;
+DROP TABLE public.auth_user;
+DROP TABLE public.auth_permission;
+DROP TABLE public.auth_group_permissions;
+DROP TABLE public.auth_group;
+DROP EXTENSION postgis;
+--
+-- Name: postgis; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS postgis WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION postgis; Type: COMMENT; Schema: -; Owner: 
+--
+
+COMMENT ON EXTENSION postgis IS 'PostGIS geometry and geography spatial types and functions';
+
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: auth_group; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group (
+    id integer NOT NULL,
+    name character varying(150) NOT NULL
+);
+
+
+ALTER TABLE public.auth_group OWNER TO postgres;
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_group ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_group_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_group_permissions (
+    id bigint NOT NULL,
+    group_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_group_permissions OWNER TO postgres;
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_group_permissions ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_group_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_permission; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_permission (
+    id integer NOT NULL,
+    name character varying(255) NOT NULL,
+    content_type_id integer NOT NULL,
+    codename character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.auth_permission OWNER TO postgres;
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_permission ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_user; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user (
+    id integer NOT NULL,
+    password character varying(128) NOT NULL,
+    last_login timestamp with time zone,
+    is_superuser boolean NOT NULL,
+    username character varying(150) NOT NULL,
+    first_name character varying(150) NOT NULL,
+    last_name character varying(150) NOT NULL,
+    email character varying(254) NOT NULL,
+    is_staff boolean NOT NULL,
+    is_active boolean NOT NULL,
+    date_joined timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.auth_user OWNER TO postgres;
+
+--
+-- Name: auth_user_groups; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_groups (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    group_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_groups OWNER TO postgres;
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_user_groups ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_user_groups_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_user ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_user_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: auth_user_user_permissions; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.auth_user_user_permissions (
+    id bigint NOT NULL,
+    user_id integer NOT NULL,
+    permission_id integer NOT NULL
+);
+
+
+ALTER TABLE public.auth_user_user_permissions OWNER TO postgres;
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.auth_user_user_permissions ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.auth_user_user_permissions_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_admin_log; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_admin_log (
+    id integer NOT NULL,
+    action_time timestamp with time zone NOT NULL,
+    object_id text,
+    object_repr character varying(200) NOT NULL,
+    action_flag smallint NOT NULL,
+    change_message text NOT NULL,
+    content_type_id integer,
+    user_id integer NOT NULL,
+    CONSTRAINT django_admin_log_action_flag_check CHECK ((action_flag >= 0))
+);
+
+
+ALTER TABLE public.django_admin_log OWNER TO postgres;
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.django_admin_log ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_admin_log_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_content_type; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_content_type (
+    id integer NOT NULL,
+    app_label character varying(100) NOT NULL,
+    model character varying(100) NOT NULL
+);
+
+
+ALTER TABLE public.django_content_type OWNER TO postgres;
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.django_content_type ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_content_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_migrations; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_migrations (
+    id bigint NOT NULL,
+    app character varying(255) NOT NULL,
+    name character varying(255) NOT NULL,
+    applied timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_migrations OWNER TO postgres;
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.django_migrations ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.django_migrations_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: django_session; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.django_session (
+    session_key character varying(40) NOT NULL,
+    session_data text NOT NULL,
+    expire_date timestamp with time zone NOT NULL
+);
+
+
+ALTER TABLE public.django_session OWNER TO postgres;
+
+--
+-- Name: visualisation_amendment; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_amendment (
+    "Id_amendment" integer NOT NULL,
+    localisation public.geometry(Point,4326) NOT NULL,
+    "Name" character varying(50) NOT NULL,
+    "Lu_lc" character varying(50) NOT NULL,
+    "Date_collect" date,
+    "Ph" double precision NOT NULL,
+    "Ec" double precision NOT NULL,
+    "Salinity_level" character varying(50) NOT NULL,
+    "Classe" integer NOT NULL,
+    "Cao" double precision NOT NULL,
+    "Sio2" double precision NOT NULL,
+    "Al2o3" double precision NOT NULL,
+    "Fe2o3" double precision NOT NULL,
+    "Mgo" double precision NOT NULL,
+    "K2o" double precision NOT NULL,
+    "Na2o" double precision NOT NULL,
+    "Ttio2" double precision NOT NULL,
+    "P2o5" double precision NOT NULL,
+    "Mno" double precision NOT NULL,
+    "S" double precision NOT NULL,
+    "Clay" double precision NOT NULL,
+    "Silt" double precision NOT NULL,
+    "Sand" double precision NOT NULL,
+    "Wc" double precision NOT NULL
+);
+
+
+ALTER TABLE public.visualisation_amendment OWNER TO postgres;
+
+--
+-- Name: visualisation_amendment_Id_amendment_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.visualisation_amendment ALTER COLUMN "Id_amendment" ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public."visualisation_amendment_Id_amendment_seq"
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: visualisation_salinityandsodicitygroup; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_salinityandsodicitygroup (
+    id bigint NOT NULL,
+    "Ec1_5" double precision NOT NULL,
+    "Ec_pate_sature" double precision NOT NULL,
+    "Sar" double precision NOT NULL,
+    "Sar_interpretation" character varying(100) NOT NULL,
+    "Esp" double precision NOT NULL,
+    "Esp_interpretation" character varying(100) NOT NULL,
+    "Esp_Ec_interpretation" character varying(100) NOT NULL,
+    "Cl" double precision NOT NULL,
+    "Classification" character varying(100) NOT NULL,
+    "Code_labo_id" character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.visualisation_salinityandsodicitygroup OWNER TO postgres;
+
+--
+-- Name: visualisation_salinityandsodicitygroup_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.visualisation_salinityandsodicitygroup ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.visualisation_salinityandsodicitygroup_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: visualisation_soilquality; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_soilquality (
+    id bigint NOT NULL,
+    "Ph_level" double precision NOT NULL,
+    "Organic_matter" double precision NOT NULL,
+    "Cu" double precision NOT NULL,
+    "Mn" double precision NOT NULL,
+    "Fe" double precision NOT NULL,
+    "Zn" double precision NOT NULL,
+    "NNH4" character varying(30) NOT NULL,
+    "NO3" double precision NOT NULL,
+    "NT" double precision NOT NULL,
+    "P2O5" double precision NOT NULL,
+    k2o double precision NOT NULL,
+    "Code_labo_id" character varying(30) NOT NULL,
+    "CaCO3" double precision NOT NULL,
+    "BORE" double precision NOT NULL
+);
+
+
+ALTER TABLE public.visualisation_soilquality OWNER TO postgres;
+
+--
+-- Name: visualisation_soilquality_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.visualisation_soilquality ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.visualisation_soilquality_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: visualisation_soilsample; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_soilsample (
+    "Code_labo" character varying(30) NOT NULL,
+    localisation public.geometry(Point,4326) NOT NULL,
+    "Depth" character varying(50) NOT NULL,
+    "Date_collect" date,
+    "Date_edition" date
+);
+
+
+ALTER TABLE public.visualisation_soilsample OWNER TO postgres;
+
+--
+-- Name: visualisation_soiltexture; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_soiltexture (
+    id bigint NOT NULL,
+    "Argile" double precision NOT NULL,
+    "Lemon" double precision NOT NULL,
+    "Sable" double precision NOT NULL,
+    "Soil_texture_v4" character varying(100) NOT NULL,
+    "Code_labo_id" character varying(30) NOT NULL
+);
+
+
+ALTER TABLE public.visualisation_soiltexture OWNER TO postgres;
+
+--
+-- Name: visualisation_soiltexture_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public.visualisation_soiltexture ALTER COLUMN id ADD GENERATED BY DEFAULT AS IDENTITY (
+    SEQUENCE NAME public.visualisation_soiltexture_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- Name: visualisation_well; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.visualisation_well (
+    "Id_well" character varying NOT NULL,
+    "Date" date,
+    localisation public.geometry(Point,4326),
+    "Depth" double precision NOT NULL,
+    "Ph" double precision NOT NULL,
+    "Temperature" double precision NOT NULL,
+    "Ec" double precision NOT NULL,
+    "HCO3" double precision NOT NULL,
+    "Cl" double precision NOT NULL,
+    "NO3" double precision NOT NULL,
+    "SO4" double precision NOT NULL,
+    "Na" double precision NOT NULL,
+    "K" double precision NOT NULL,
+    "Mg" double precision NOT NULL,
+    "Ca" double precision NOT NULL
+);
+
+
+ALTER TABLE public.visualisation_well OWNER TO postgres;
+
+--
+-- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group (id, name) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_group_permissions (id, group_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
+1	Can add log entry	1	add_logentry
+2	Can change log entry	1	change_logentry
+3	Can delete log entry	1	delete_logentry
+4	Can view log entry	1	view_logentry
+5	Can add permission	2	add_permission
+6	Can change permission	2	change_permission
+7	Can delete permission	2	delete_permission
+8	Can view permission	2	view_permission
+9	Can add group	3	add_group
+10	Can change group	3	change_group
+11	Can delete group	3	delete_group
+12	Can view group	3	view_group
+13	Can add user	4	add_user
+14	Can change user	4	change_user
+15	Can delete user	4	delete_user
+16	Can view user	4	view_user
+17	Can add content type	5	add_contenttype
+18	Can change content type	5	change_contenttype
+19	Can delete content type	5	delete_contenttype
+20	Can view content type	5	view_contenttype
+21	Can add session	6	add_session
+22	Can change session	6	change_session
+23	Can delete session	6	delete_session
+24	Can view session	6	view_session
+25	Can add puit	7	add_puit
+26	Can change puit	7	change_puit
+27	Can delete puit	7	delete_puit
+28	Can view puit	7	view_puit
+29	Can add sample	8	add_sample
+30	Can change sample	8	change_sample
+31	Can delete sample	8	delete_sample
+32	Can view sample	8	view_sample
+33	Can add texture	9	add_texture
+34	Can change texture	9	change_texture
+35	Can delete texture	9	delete_texture
+36	Can view texture	9	view_texture
+37	Can add amendment	10	add_amendment
+38	Can change amendment	10	change_amendment
+39	Can delete amendment	10	delete_amendment
+40	Can view amendment	10	view_amendment
+41	Can add well	11	add_well
+42	Can change well	11	change_well
+43	Can delete well	11	delete_well
+44	Can view well	11	view_well
+45	Can add soil quality	12	add_soilquality
+46	Can change soil quality	12	change_soilquality
+47	Can delete soil quality	12	delete_soilquality
+48	Can view soil quality	12	view_soilquality
+49	Can add salinity and sodicity group	13	add_salinityandsodicitygroup
+50	Can change salinity and sodicity group	13	change_salinityandsodicitygroup
+51	Can delete salinity and sodicity group	13	delete_salinityandsodicitygroup
+52	Can view salinity and sodicity group	13	view_salinityandsodicitygroup
+53	Can add soil sample	14	add_soilsample
+54	Can change soil sample	14	change_soilsample
+55	Can delete soil sample	14	delete_soilsample
+56	Can view soil sample	14	view_soilsample
+57	Can add soil texture	15	add_soiltexture
+58	Can change soil texture	15	change_soiltexture
+59	Can delete soil texture	15	delete_soiltexture
+60	Can view soil texture	15	view_soiltexture
+\.
+
+
+--
+-- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_groups (id, user_id, group_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_admin_log (id, action_time, object_id, object_repr, action_flag, change_message, content_type_id, user_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_content_type (id, app_label, model) FROM stdin;
+1	admin	logentry
+2	auth	permission
+3	auth	group
+4	auth	user
+5	contenttypes	contenttype
+6	sessions	session
+7	visualisation	puit
+8	visualisation	sample
+9	visualisation	texture
+10	visualisation	amendment
+11	visualisation	well
+12	visualisation	soilquality
+13	visualisation	salinityandsodicitygroup
+14	visualisation	soilsample
+15	visualisation	soiltexture
+\.
+
+
+--
+-- Data for Name: django_migrations; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_migrations (id, app, name, applied) FROM stdin;
+1	contenttypes	0001_initial	2025-05-02 17:03:51.298785+01
+2	auth	0001_initial	2025-05-02 17:03:51.517297+01
+3	admin	0001_initial	2025-05-02 17:03:51.563815+01
+4	admin	0002_logentry_remove_auto_add	2025-05-02 17:03:51.575853+01
+5	admin	0003_logentry_add_action_flag_choices	2025-05-02 17:03:51.585815+01
+6	contenttypes	0002_remove_content_type_name	2025-05-02 17:03:51.605814+01
+7	auth	0002_alter_permission_name_max_length	2025-05-02 17:03:51.613814+01
+8	auth	0003_alter_user_email_max_length	2025-05-02 17:03:51.624838+01
+9	auth	0004_alter_user_username_opts	2025-05-02 17:03:51.631787+01
+10	auth	0005_alter_user_last_login_null	2025-05-02 17:03:51.639737+01
+11	auth	0006_require_contenttypes_0002	2025-05-02 17:03:51.642731+01
+12	auth	0007_alter_validators_add_error_messages	2025-05-02 17:03:51.648708+01
+13	auth	0008_alter_user_username_max_length	2025-05-02 17:03:51.664252+01
+14	auth	0009_alter_user_last_name_max_length	2025-05-02 17:03:51.671562+01
+15	auth	0010_alter_group_name_max_length	2025-05-02 17:03:51.679562+01
+16	auth	0011_update_proxy_permissions	2025-05-02 17:03:51.68845+01
+17	auth	0012_alter_user_first_name_max_length	2025-05-02 17:03:51.696402+01
+18	sessions	0001_initial	2025-05-02 17:03:51.723634+01
+20	visualisation	0002_sample	2025-05-02 17:41:59.511915+01
+21	visualisation	0003_alter_sample_code_labo	2025-05-02 17:44:27.974118+01
+22	visualisation	0004_texture	2025-05-02 17:46:00.599101+01
+23	visualisation	0005_amendment_salinityandsodicitygroup_soilquality_and_more	2025-05-21 18:05:49.846434+01
+24	visualisation	0006_alter_salinityandsodicitygroup_esp	2025-07-10 11:42:49.965217+01
+25	visualisation	0007_salinityandsodicitygroup_esp2_and_more	2025-07-10 11:42:50.040564+01
+26	visualisation	0008_alter_salinityandsodicitygroup_esp	2025-07-10 12:03:27.861471+01
+27	visualisation	0009_remove_salinityandsodicitygroup_esp2_and_more	2025-07-10 12:18:43.984648+01
+28	visualisation	0010_soilquality_bore	2025-07-10 12:46:09.810973+01
+29	visualisation	0001_initial	2025-07-28 16:21:44.99303+01
+\.
+
+
+--
+-- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.django_session (session_key, session_data, expire_date) FROM stdin;
+\.
+
+
+--
+-- Data for Name: spatial_ref_sys; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM stdin;
+\.
+
+
+--
+-- Data for Name: visualisation_amendment; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_amendment ("Id_amendment", localisation, "Name", "Lu_lc", "Date_collect", "Ph", "Ec", "Salinity_level", "Classe", "Cao", "Sio2", "Al2o3", "Fe2o3", "Mgo", "K2o", "Na2o", "Ttio2", "P2o5", "Mno", "S", "Clay", "Silt", "Sand", "Wc") FROM stdin;
+10	0101000020E61000009D2ADF3312911EC03BE3FBE2520F4040	M16B	Bareground	2023-02-13	7.7	16.97	Extremely saline	5	9.6	47.02	13.73	4.49	5.23	2.61	1.36	0.6	0.27	0.11	0.13	9.06	69.17	21.74	8.12407681
+\.
+
+
+--
+-- Data for Name: visualisation_salinityandsodicitygroup; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_salinityandsodicitygroup (id, "Ec1_5", "Ec_pate_sature", "Sar", "Sar_interpretation", "Esp", "Esp_interpretation", "Esp_Ec_interpretation", "Cl", "Classification", "Code_labo_id") FROM stdin;
+1141	0.43	NaN	0.29218441984239585	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.030980275580481893	None to slight	non salin et non alcalin	253.39	Optimal	S51495
+1142	4.5	NaN	2.41416736990253	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.1947337082952642	Light to moderate	salin et non alcalin	6255.47	Saline-Sodic	S51496
+1143	0.18	NaN	0.15784702294256675	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.017332969336739765	None to slight	non salin et non alcalin	32.11	Optimal	S51497
+1144	0.1	NaN	0.06856309642804245	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.007660815219037051	None to slight	non salin et non alcalin	10.67	Optimal	S51498
+1145	0.24	NaN	0.21532138176730525	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.02296208814842499	None to slight	non salin et non alcalin	59.63	Optimal	S51499
+1146	2.2	NaN	0.012427394777138381	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0005428040811975201	None to slight	salin et non alcalin	17.03	Optimal	S51500
+1147	4.3	NaN	2.4473533064947657	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.19225943355170305	Light to moderate	salin et non alcalin	10135.54	Saline-Sodic	S51501
+1148	2.5	NaN	2.936563058617224	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.23974188338419786	Light to moderate	salin et non alcalin	3243.07	Sodic	S51502
+1149	22.98	NaN	20.014798832115265	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.626903012231578	High to very high	salin et non alcalin	43318.41	Saline-Sodic	S51503
+1150	9.2	NaN	7.705677884205026	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.42657431604601415	Moderate to high	salin et non alcalin	15975.51	Saline-Sodic	S51504
+1151	0.14	NaN	0.1543723943338927	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01691265742794436	None to slight	non salin et non alcalin	20.74	Optimal	S51505
+1152	0.08	NaN	0.0606078436385667	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.011517372388039484	None to slight	non salin et non alcalin	NaN	Optimal	S52007
+1153	0.11	NaN	0.07806759533510994	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.015075360944155942	None to slight	non salin et non alcalin	NaN	Optimal	S52008
+1154	0.1	NaN	0.08701785338169926	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.015109916928444132	None to slight	non salin et non alcalin	NaN	Optimal	S52009
+1155	0.08	NaN	0.061630576406068935	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01376812498657496	None to slight	non salin et non alcalin	NaN	Optimal	S52010
+1156	46.27	NaN	46.58589316986919	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7717645667531761	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52066
+1157	43.63	NaN	58.83706231903308	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8407524296473284	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52067
+1158	0.14	NaN	0.19625994245287587	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.031951934991188834	None to slight	non salin et non alcalin	NaN	Optimal	S52019
+1159	0.17	NaN	0.19268826587374935	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.032061674091835905	None to slight	non salin et non alcalin	NaN	Optimal	S52020
+1160	0.12	NaN	0.11339221822983336	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.018839187511829034	None to slight	non salin et non alcalin	NaN	Optimal	S52021
+1161	0.12	NaN	0.10804393208168611	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.017134146709325258	None to slight	non salin et non alcalin	NaN	Optimal	S52022
+1162	3.5	NaN	3.169363010020197	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.30444820438280645	Moderate to high	salin et non alcalin	NaN	Sodic	S52043
+1163	0.16	NaN	0.6682130587310963	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.11432471315965997	None to slight	non salin et non alcalin	NaN	Optimal	S52044
+1164	0.8	NaN	1.2231106892444188	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.17285812395093442	Light to moderate	salin et non alcalin	NaN	Sodic	S52045
+1165	1.3	NaN	1.8569082902074008	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.23567507079312613	Light to moderate	salin et non alcalin	NaN	Sodic	S52046
+1166	2.1	NaN	2.658871255015826	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.32403467218662985	Moderate to high	salin et non alcalin	NaN	Sodic	S52047
+1167	2.9	NaN	3.1153269498925025	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.33721196046227675	Moderate to high	salin et non alcalin	NaN	Sodic	S52048
+1168	2.3	NaN	2.4386518840055755	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.25863283995809455	Light to moderate	salin et non alcalin	NaN	Sodic	S52049
+1169	0.6	NaN	0.9213354770787707	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13088504490684855	None to slight	salin et non alcalin	NaN	Sodic	S52050
+1170	0.74	NaN	1.1151296409525695	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14331281409068075	None to slight	salin et non alcalin	NaN	Sodic	S52039
+1171	0.43	NaN	0.7279121419832089	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.11390173131707147	None to slight	non salin et non alcalin	NaN	Optimal	S52040
+1172	2.8	NaN	3.52283106836516	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3637590120247837	Moderate to high	salin et non alcalin	NaN	Sodic	S52041
+1173	1	NaN	1.0445830987416236	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13219184886675314	None to slight	salin et non alcalin	NaN	Sodic	S52042
+1174	0.51	NaN	0.3938561744015831	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04931249353243077	None to slight	salin et non alcalin	NaN	Optimal	S52056
+1175	0.6	NaN	0.3532256766841483	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.046060194144225984	None to slight	salin et non alcalin	NaN	Optimal	S52057
+1176	0.56	NaN	0.3726919570419639	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04693074582256642	None to slight	salin et non alcalin	NaN	Optimal	S52058
+1177	0.48	NaN	0.33407632156171063	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04578330127001385	None to slight	non salin et non alcalin	NaN	Optimal	S52059
+1178	0.37	NaN	0.29366758410769084	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.03868989846302273	None to slight	non salin et non alcalin	NaN	Optimal	S52060
+1179	0.36	NaN	0.45179727212697196	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.049276048256438686	None to slight	non salin et non alcalin	NaN	Optimal	S52035
+1180	0.31	NaN	0.25216197459345274	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.026770903785208768	None to slight	non salin et non alcalin	NaN	Optimal	S52036
+1181	3.1	NaN	1.422997311051046	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13256831687295415	None to slight	salin et non alcalin	NaN	Sodic	S52037
+1182	1.1	NaN	0.945473929392477	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09469220640162021	None to slight	salin et non alcalin	NaN	Sodic	S52038
+1183	1.2	NaN	0.716152007762455	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.07256607094035733	None to slight	salin et non alcalin	NaN	Optimal	S52031
+1184	0.92	NaN	0.6113939327485521	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.061893330395949506	None to slight	salin et non alcalin	NaN	Optimal	S52032
+1185	0.63	NaN	0.4330817279285422	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04640339327339092	None to slight	salin et non alcalin	NaN	Optimal	S52033
+1186	0.58	NaN	0.5621853150345366	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06103555927931342	None to slight	salin et non alcalin	NaN	Optimal	S52034
+1187	0.13	NaN	0.1322875634088921	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.026860594571551714	None to slight	non salin et non alcalin	NaN	Optimal	S52015
+1188	0.17	NaN	0.2082460087477613	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04438615682058027	None to slight	non salin et non alcalin	NaN	Optimal	S52016
+1189	0.13	NaN	0.11116567487971662	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.030424900250259544	None to slight	non salin et non alcalin	NaN	Optimal	S52017
+1190	0.33	NaN	0.35171052126306884	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.07490654076000298	None to slight	non salin et non alcalin	NaN	Optimal	S52018
+1191	0.12	NaN	0.10636037623133665	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.019859561928308615	None to slight	non salin et non alcalin	NaN	Optimal	S52011
+1192	0.11	NaN	0.06320379963973695	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.010613397426553851	None to slight	non salin et non alcalin	NaN	Optimal	S52012
+1193	0.1	NaN	0.10054893823406336	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.019579597114827797	None to slight	non salin et non alcalin	NaN	Optimal	S52013
+1194	0.11	NaN	0.09146688312653402	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01786620067347135	None to slight	non salin et non alcalin	NaN	Optimal	S52014
+1195	0.1	NaN	0.047278556650598755	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.010244696898022933	None to slight	non salin et non alcalin	NaN	Optimal	S52061
+1196	0.09	NaN	0.04389777277629652	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.009395975123754605	None to slight	non salin et non alcalin	NaN	Optimal	S52062
+1197	19.13	NaN	12.85151612330041	Sol modérément sodique – Risque modéré de sodicité	0.5015538276240162	High to very high	salin et non alcalin	NaN	Saline-Sodic	S52063
+1198	19.16	NaN	14.003144819001891	Sol modérément sodique – Risque modéré de sodicité	0.5226272124006792	High to very high	salin et non alcalin	NaN	Saline-Sodic	S52064
+1199	15.57	NaN	10.67348405332151	Sol modérément sodique – Risque modéré de sodicité	0.45793638377421364	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52065
+1200	0.24	NaN	0.2833114682408811	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.030867268042886073	None to slight	non salin et non alcalin	NaN	Optimal	S52027
+1201	0.54	NaN	0.5495586045362066	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.058215886833236107	None to slight	salin et non alcalin	NaN	Optimal	S52028
+1202	0.29	NaN	0.31788378413319096	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.03353681171259371	None to slight	non salin et non alcalin	NaN	Optimal	S52029
+1203	0.29	NaN	0.29998076914477	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.03203215773118627	None to slight	non salin et non alcalin	NaN	Optimal	S52030
+1204	1.1	NaN	0.5810583638392033	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06873378272219571	None to slight	salin et non alcalin	NaN	Optimal	S51999
+1205	10.49	NaN	3.4120770908185536	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.25513307689282205	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52000
+1206	3.7	NaN	1.8283825968483534	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.16946757685781622	Light to moderate	salin et non alcalin	NaN	Sodic	S52001
+1207	12.66	NaN	3.995410991329298	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.27200067587789445	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52002
+1208	1.3	NaN	0.8328005112419814	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.08231421738659148	None to slight	salin et non alcalin	NaN	Sodic	S52003
+1209	0.82	NaN	0.5907779664574567	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06023301316295439	None to slight	salin et non alcalin	NaN	Optimal	S52004
+1210	0.2	NaN	0.1507150482011024	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01649961221458397	None to slight	non salin et non alcalin	NaN	Optimal	S52005
+1211	0.27	NaN	0.2587848857057476	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.027455425872493222	None to slight	non salin et non alcalin	NaN	Optimal	S52006
+1212	6.7	NaN	4.891760051036483	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3270994144713739	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52051
+1213	7.8	NaN	5.172331447212653	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3443197045309734	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52052
+1214	15.4	NaN	8.36890562168297	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.40589120034376985	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52053
+1215	4.8	NaN	3.7867069392621593	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.2730265795364656	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52054
+1216	6.3	NaN	4.740258882884169	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.31507077626250424	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52055
+1217	0.34	NaN	0.4170919409890014	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0532665861785708	None to slight	non salin et non alcalin	NaN	Optimal	S52023
+1218	0.74	NaN	0.6961212470137522	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.07525586391616107	None to slight	salin et non alcalin	NaN	Optimal	S52024
+1219	0.29	NaN	0.3594687291826346	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.049172123602664486	None to slight	non salin et non alcalin	NaN	Optimal	S52025
+1220	0.39	NaN	0.3716948174552685	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.039224445573466625	None to slight	non salin et non alcalin	NaN	Optimal	S52026
+1221	57.09	NaN	55.904489314029476	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8091130646736603	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52068
+1222	42.15	NaN	36.13067317718427	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.725104040701276	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52069
+1223	36.3	NaN	34.51757972389899	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.6787510768658941	High to very high	salin et non alcalin	NaN	Saline-Sodic	S52070
+1224	49.48	NaN	64.77900187938599	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8452803602954505	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52071
+1225	17.72	NaN	14.748728266736267	Sol modérément sodique – Risque modéré de sodicité	0.5320630989819374	High to very high	salin et non alcalin	NaN	Saline-Sodic	S52072
+1226	42.54	NaN	52.79571378012278	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8243199723072929	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52073
+1227	40.93	NaN	52.21657291906053	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8065062236228963	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52074
+1228	30.54	NaN	31.586116219657967	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7297869767162213	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52075
+1229	24.46	NaN	16.11172003060618	Sol modérément sodique – Risque modéré de sodicité	0.4803805569343062	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S52076
+1230	46.65	NaN	44.59189792707622	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7762003125147753	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52077
+1231	44.48	NaN	50.80205478649316	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8082772689348242	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52078
+1232	14.76	NaN	15.500321418638674	Sol modérément sodique – Risque modéré de sodicité	0.6021042695194369	High to very high	salin et non alcalin	NaN	Saline-Sodic	S52079
+1233	55.6	NaN	54.91187297422068	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8110665879498304	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52080
+1234	52.85	NaN	55.967775155228466	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8011027957096094	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52081
+1235	42.7	NaN	51.32078114485964	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8150641072133464	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52082
+1236	56.96	NaN	65.6770803801708	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8304860909595739	Extremely high	salin et non alcalin	NaN	Saline-Sodic	S52083
+1237	4.7	NaN	1.9677860020321483	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.16605537893241115	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52084
+1238	4.2	NaN	1.8342797161592725	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.15867269763465117	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52085
+1239	4.2	NaN	1.6773970868248371	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14545755885604902	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52086
+1240	3.3	NaN	1.5542000417257786	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13578068431502754	None to slight	salin et non alcalin	NaN	Sodic	S52087
+1241	5.3	NaN	2.0239279871528706	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.16295837977842623	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52088
+1242	2.8	NaN	1.2573230320377737	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.11596937326242178	None to slight	salin et non alcalin	NaN	Sodic	S52089
+1243	4.2	NaN	1.6811097464917275	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14572402657713446	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52090
+1244	5.7	NaN	2.017905282536599	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.1674155187095149	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52091
+1245	4.1	NaN	1.3672860971998688	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.12502783563933856	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52092
+1246	2.9	NaN	1.3460825039466566	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.125952735144624	None to slight	salin et non alcalin	NaN	Sodic	S52093
+1247	4.3	NaN	1.7137144276329075	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14716796502747048	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52094
+1248	3.9	NaN	1.5259251536864789	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13798555783906538	None to slight	salin et non alcalin	NaN	Sodic	S52095
+1249	4.9	NaN	1.6967168328183402	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14333939874110502	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52096
+1250	4.7	NaN	1.553140266828752	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13538626261251227	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52097
+1251	5.8	NaN	2.051568984253027	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.16641588323244957	Light to moderate	salin et non alcalin	NaN	Saline-Sodic	S52098
+1252	5.2	NaN	1.7541647188193383	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.14967631344532917	None to slight	salin et non alcalin	NaN	Saline-Sodic	S52099
+1253	2.8	NaN	1.0595418841210862	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09960269225252615	None to slight	salin et non alcalin	NaN	Sodic	S52100
+1254	0.1	NaN	0.04896908328632369	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.006857355100951541	None to slight	non salin et non alcalin	NaN	Optimal	S53805
+1255	0.15	NaN	0.32019915823213996	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04432072819478418	None to slight	non salin et non alcalin	NaN	Optimal	S53806
+1256	0.23	NaN	0.35702800093987014	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.053519185252787045	None to slight	non salin et non alcalin	NaN	Optimal	S53807
+1257	0.24	NaN	0.3986770102983964	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06004399049626995	None to slight	non salin et non alcalin	NaN	Optimal	S53808
+1258	0.1	NaN	0.6660432968954956	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06503836733500838	None to slight	non salin et non alcalin	NaN	Optimal	S53809
+1259	0.43	NaN	0.46031269584753726	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04589046910287237	None to slight	non salin et non alcalin	NaN	Optimal	S53810
+1260	0.21	NaN	0.08383536111847541	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.008470785644617129	None to slight	non salin et non alcalin	NaN	Optimal	S53811
+1261	0.33	NaN	0.22316966697559434	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.022662839120118138	None to slight	non salin et non alcalin	NaN	Optimal	S53812
+1262	0.35	NaN	0.11113825478563652	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01102360922578975	None to slight	non salin et non alcalin	NaN	Optimal	S53813
+1263	0.11	NaN	0.370052354139582	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0362035886371812	None to slight	non salin et non alcalin	NaN	Optimal	S53814
+1264	0.17	NaN	0.026021672097932297	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.002564425959292366	None to slight	non salin et non alcalin	NaN	Optimal	S53815
+1265	0.15	NaN	0.00784289221264726	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0007835471978514446	None to slight	non salin et non alcalin	NaN	Optimal	S53816
+1266	0.13	NaN	0.11578181707256865	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.013622915922089604	None to slight	non salin et non alcalin	NaN	Optimal	S53817
+1267	0.13	NaN	0.12758209651647479	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.013279729485151317	None to slight	non salin et non alcalin	NaN	Optimal	S53818
+1268	0.27	NaN	0.33413321833202003	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.037284571141767954	None to slight	non salin et non alcalin	NaN	Optimal	S54264
+1269	0.29	NaN	2.281519664702727	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.22376609455795582	Light to moderate	non salin et non alcalin	NaN	Sodic	S54265
+1270	0.13	NaN	0.14703803275798857	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.02211893684618094	None to slight	non salin et non alcalin	NaN	Optimal	S54266
+1271	0.11	NaN	0.13392919122349473	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.029188140811925542	None to slight	non salin et non alcalin	NaN	Optimal	S54267
+1272	0.09	NaN	0.16694523266197803	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.030776430812075987	None to slight	non salin et non alcalin	NaN	Optimal	S54268
+1273	0.11	NaN	0.18787317422222127	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.034706680570707145	None to slight	non salin et non alcalin	NaN	Optimal	S54269
+1274	1.89	NaN	1.4130826499578177	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13622675332536843	None to slight	salin et non alcalin	NaN	Sodic	S54270
+1275	22.54	NaN	10.194167385532394	Sol modérément sodique – Risque modéré de sodicité	0.4443888824744629	Moderate to high	salin et non alcalin	NaN	Saline-Sodic	S54271
+1276	0.59	NaN	0.5968208145493196	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.07510619868980369	None to slight	salin et non alcalin	NaN	Optimal	S54272
+1277	0.1	NaN	0.10288832015579463	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.02318309232177306	None to slight	non salin et non alcalin	NaN	Optimal	S54273
+1278	0.33	NaN	0.44352758162149375	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06560749826241638	None to slight	non salin et non alcalin	NaN	Optimal	S54274
+1279	0.26	NaN	0.3014356079824731	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.033066549576670955	None to slight	non salin et non alcalin	NaN	Optimal	S54275
+1280	0.56	NaN	0.7786426564120122	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09675758523187508	None to slight	salin et non alcalin	NaN	Sodic	S54276
+1281	12.85	136.2	19.666618912053774	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.688389166859643	High to very high	salin et non alcalin	23638.34	Saline-Sodic	S55239
+1282	11.12	117.5	11.036184760683048	Sol modérément sodique – Risque modéré de sodicité	0.5281575602801243	High to very high	salin et non alcalin	20383.46	Saline-Sodic	S55240
+1283	7.74	84.9	9.461783801286627	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.5208748892989222	High to very high	salin et non alcalin	14496.16	Saline-Sodic	S55241
+1284	10.45	94.37	12.792012559621154	Sol modérément sodique – Risque modéré de sodicité	0.5676283781241058	High to very high	salin et non alcalin	23015.37	Saline-Sodic	S55242
+1285	9.91	126	12.36961532110413	Sol modérément sodique – Risque modéré de sodicité	0.5743963086988162	High to very high	salin et non alcalin	17104.58	Saline-Sodic	S55243
+1286	7.32	93.17	5.496903443806194	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3602372719691242	Moderate to high	salin et non alcalin	14598.9	Saline-Sodic	S55244
+1287	11	128.1	11.144096920179674	Sol modérément sodique – Risque modéré de sodicité	0.5354244493072999	High to very high	salin et non alcalin	19632.05	Saline-Sodic	S55245
+1288	11.6	111.6	7.706994287088632	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.41809564814549904	Moderate to high	salin et non alcalin	23899.74	Saline-Sodic	S55246
+1289	12.28	177	19.98808189425231	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.6934172396170716	High to very high	salin et non alcalin	24570.78	Sodic	S55247
+1290	10.26	126.7	15.259375649143665	Sol modérément sodique – Risque modéré de sodicité	0.6214524492072373	High to very high	salin et non alcalin	20018.93	Saline-Sodic	S55248
+1291	0.07	3.265	0.07903895216623477	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.013367588447704812	None to slight	non salin et non alcalin	37.17	Optimal	S55249
+1292	0.08	1.05	0.08663550549561956	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.014500304653359369	None to slight	non salin et non alcalin	19.46	Optimal	S55250
+1293	0.07	0.814	0.1405688953392889	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.026634582910768173	None to slight	non salin et non alcalin	14.75	Optimal	S55251
+1294	0.73	9.521	0.5571632522522583	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.08050683324919287	None to slight	salin et non alcalin	1093.94	Optimal	S55252
+1295	0.23	2.66	0.5756061836098318	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.08961317702119656	None to slight	non salin et non alcalin	165.18	Optimal	S55253
+1296	0.35	3.42	0.4277520320077549	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06704956437809627	None to slight	non salin et non alcalin	335.81	Optimal	S55254
+1297	2.21	3.21	0.039961951943157124	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.002109490530542441	None to slight	salin et non alcalin	30.24	Optimal	S55255
+1298	2.34	4.17	0.09833309533094253	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.005159277748900145	None to slight	salin et non alcalin	139.57	Optimal	S55256
+1299	18.78	157.8	24.32545634606118	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.6841861681404134	High to very high	salin et non alcalin	57653.9	Saline-Sodic	S55257
+1300	10.4	103.6	11.843784318361124	Sol modérément sodique – Risque modéré de sodicité	0.44289007344820813	Moderate to high	salin et non alcalin	26467.19	Saline-Sodic	S55258
+1301	0.46	5.812	0.5653581903752034	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.05636941320534911	None to slight	non salin et non alcalin	607.12	Optimal	S55259
+1302	2.96	26.16	4.019088136685958	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.29304541629340136	Light to moderate	salin et non alcalin	5960.88	Sodic	S55260
+1303	7.04	60.24	9.032629703303469	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.496427052291905	Moderate to high	salin et non alcalin	15021.28	Saline-Sodic	S55261
+1304	0.1	1.83	0.05403074523301576	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.005994869412342664	None to slight	non salin et non alcalin	28.51	Optimal	S55262
+1305	0.15	1.48	0.11263538549996156	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.012358658639916819	None to slight	non salin et non alcalin	86.15	Optimal	S55263
+1306	0.1	4.628	0.041372326894432085	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.008055420912675136	None to slight	non salin et non alcalin	13.09	Optimal	S56859
+1307	0.1	NaN	0.04756692386417926	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.008730284528698574	None to slight	non salin et non alcalin	13.09	Optimal	S56860
+1308	0.14	4.62	0.04029286779699421	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0044847901789029625	None to slight	non salin et non alcalin	20	Optimal	S56861
+1309	0.16	NaN	0.13207401409139938	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01452579404616774	None to slight	non salin et non alcalin	25.33	Optimal	S56862
+1310	8.67	62.56	17.749735733590704	Sol modérément sodique – Risque modéré de sodicité	0.6688265973007048	High to very high	salin et non alcalin	16466.36	Saline-Sodic	S56863
+1311	6.81	NaN	7.175732360327415	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.44543569050354487	Moderate to high	salin et non alcalin	11644.53	Sodic	S56864
+1312	2.52	12.39	4.066702799282998	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3090873457708223	Moderate to high	salin et non alcalin	2417.78	Sodic	S56865
+1313	1.49	NaN	2.0949415974366516	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.18451478074667316	Light to moderate	salin et non alcalin	1286.06	Sodic	S56866
+1314	6.91	43.85	5.258988365491982	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3322158026325268	Moderate to high	salin et non alcalin	12489.01	Saline-Sodic	S56867
+1315	7.39	NaN	6.13623968252217	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.36193370069265807	Moderate to high	salin et non alcalin	14566.2	Saline-Sodic	S56868
+1316	1.2	7.535	1.4562930690260532	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.13698499438011835	None to slight	salin et non alcalin	804.24	Sodic	S56869
+1317	8.4	NaN	7.277958583694498	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.4171049496572621	Moderate to high	salin et non alcalin	15121.1	Sodic	S56870
+1318	1.78	7.855	1.1493441424027624	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.1097195785924219	None to slight	salin et non alcalin	1272.28	Sodic	S56871
+1319	4.67	NaN	4.880990863271944	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.33981629792459844	Moderate to high	salin et non alcalin	14188.96	Sodic	S56872
+1320	6.23	41.12	4.5346198904773285	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3011946931623285	Moderate to high	salin et non alcalin	10023.55	Saline-Sodic	S56873
+1321	9.57	NaN	7.8629598722447795	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.4362315620868941	Moderate to high	salin et non alcalin	10870.07	Saline-Sodic	S56874
+1322	19.64	105.2	20.582410035915395	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.6817535088201638	High to very high	salin et non alcalin	23582.65	Saline-Sodic	S56875
+1323	12.68	NaN	9.026350522290526	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.44515189452583687	Moderate to high	salin et non alcalin	15042.67	Sodic	S56876
+1324	11.84	75.62	12.302121115879801	Sol modérément sodique – Risque modéré de sodicité	0.5405022476922177	High to very high	salin et non alcalin	23016.19	Saline-Sodic	S56877
+1325	11.26	NaN	6.1589586530300915	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.32430093167028623	Moderate to high	salin et non alcalin	14463.33	Saline-Sodic	S56878
+1326	4.86	21.67	3.408351389926393	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.22802743891004632	Light to moderate	salin et non alcalin	5697.71	Saline-Sodic	S56879
+1327	18.97	NaN	13.541235343572097	Sol modérément sodique – Risque modéré de sodicité	0.5324896375738399	High to very high	salin et non alcalin	33630.12	Saline-Sodic	S56880
+1328	8.84	52.38	5.985101062083746	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3514422120010101	Moderate to high	salin et non alcalin	8983.6	Saline-Sodic	S56881
+1329	16.35	NaN	11.377287609075825	Sol modérément sodique – Risque modéré de sodicité	0.5034054827467852	High to very high	salin et non alcalin	24175.45	Saline-Sodic	S56882
+1330	10.26	58.52	7.478790350133905	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.38801104190446745	Moderate to high	salin et non alcalin	20509.44	Saline-Sodic	S56883
+1331	10.61	NaN	5.80868534060008	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.31224288668234246	Moderate to high	salin et non alcalin	11906.14	Saline-Sodic	S56884
+1332	7.32	36.25	5.00723225120237	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3110708893935144	Moderate to high	salin et non alcalin	14992.22	Saline-Sodic	S56885
+1333	36	NaN	29.67569114210961	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7294178606361917	Extremely high	salin et non alcalin	122308.32	Sodic	S56886
+1334	32.1	154.1	31.04774485216389	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.71537096563187	Extremely high	salin et non alcalin	105209.04	Saline-Sodic	S56887
+1335	19.67	NaN	13.254124863711416	Sol modérément sodique – Risque modéré de sodicité	0.5292533342851539	High to very high	salin et non alcalin	32415.59	Saline-Sodic	S56888
+1336	26.04	118.3	38.64700369342809	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8179205188544424	Extremely high	salin et non alcalin	98471.73	Saline-Sodic	S56889
+1337	22.25	NaN	15.709371821894857	Sol modérément sodique – Risque modéré de sodicité	0.5789860282109542	High to very high	salin et non alcalin	74891.9	Saline-Sodic	S56890
+1338	19.42	106.3	12.950715971912523	Sol modérément sodique – Risque modéré de sodicité	0.5455544636368885	High to very high	salin et non alcalin	32415.59	Saline-Sodic	S56891
+1339	11.63	NaN	3.897562928148516	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.179459389518741	Light to moderate	salin et non alcalin	15964.28	Saline-Sodic	S56892
+1340	2.26	3.869	0.03287303103174346	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0014626425182085285	None to slight	salin et non alcalin	8441.4	Optimal	S56893
+1341	4.29	NaN	0.860559990788728	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.03746027482820501	None to slight	salin et non alcalin	61.09	Saline-Sodic	S56894
+1342	2.24	2.715	0.015768812041392962	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0007123484441350065	None to slight	salin et non alcalin	2758.99	Optimal	S56895
+1343	2.28	NaN	0.02603412797023164	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0011912207949076833	None to slight	salin et non alcalin	21.06	Optimal	S56896
+1344	6.32	37.01	1.945544357413684	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.08081948356367276	None to slight	salin et non alcalin	127.81	Saline-Sodic	S56897
+1345	16.63	NaN	7.857105320619785	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.26472734309808316	Light to moderate	salin et non alcalin	5937.84	Sodic	S56898
+1346	8.83	NaN	2.7226591657564616	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.10451529754064928	None to slight	salin et non alcalin	24649.56	Sodic	S56900
+1347	2.5	19.29	1.0947759570079216	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09565454838163662	None to slight	salin et non alcalin	9779.53	Sodic	S56901
+1348	8.42	NaN	4.199517706380305	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.25659307980433316	Light to moderate	salin et non alcalin	3254.12	Saline-Sodic	S56902
+1349	8.15	52.65	6.072443356028298	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.26716718851153265	Light to moderate	salin et non alcalin	11927.33	Sodic	S56903
+1350	14.87	NaN	6.295768442774741	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.25431754012608077	Light to moderate	salin et non alcalin	9207.57	Sodic	S56904
+1351	2.32	3.56	0.04647412479018783	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0020348653677325847	None to slight	salin et non alcalin	215.95	Optimal	S56905
+1352	6.2	NaN	1.466251065252383	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.05960668362905869	None to slight	salin et non alcalin	6462.67	Saline-Sodic	S56906
+1353	2.29	2.722	0.01683016530780561	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0007302382649946854	None to slight	salin et non alcalin	175.18	Optimal	S56907
+1354	2.35	NaN	0.040549677279229	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.001777014969746217	None to slight	salin et non alcalin	180.45	Optimal	S56908
+1355	3.28	22.31	1.5420319601729824	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.12285413263052042	None to slight	salin et non alcalin	3787.67	Sodic	S56909
+1356	6.89	NaN	2.9675243333497483	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.17277532476650864	Light to moderate	salin et non alcalin	140.05	Saline-Sodic	S56910
+1357	25.85	123	13.29675490096662	Sol modérément sodique – Risque modéré de sodicité	0.5137385035613737	High to very high	salin et non alcalin	96011.61	Saline-Sodic	S56911
+1358	22.18	NaN	8.865890298516375	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.395453044400064	Moderate to high	salin et non alcalin	74565.62	Saline-Sodic	S56912
+1359	0.47	4.368	0.9132699698032732	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.10568096765679909	None to slight	non salin et non alcalin	357.15	Sodic	S57083
+1360	0.4	NaN	0.8977926706403764	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.1019566343394137	None to slight	non salin et non alcalin	238.86	Sodic	S57084
+1361	1.16	7.024	1.3238493002195029	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.12070706083519506	None to slight	salin et non alcalin	1076.44	Sodic	S57085
+1362	2.55	NaN	2.2248275829147937	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.18929695419636364	Light to moderate	salin et non alcalin	3685.27	Sodic	S57086
+1363	2.36	11.54	1.4206615090865586	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.1332341455079729	None to slight	salin et non alcalin	4000.36	Sodic	S57087
+1364	4.99	NaN	4.667349937996839	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3457161744580203	Moderate to high	salin et non alcalin	5179.87	Saline-Sodic	S57088
+1365	0.42	3.17	0.6250764843190577	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.07504649056131467	None to slight	non salin et non alcalin	249.91	Optimal	S57089
+1366	0.28	NaN	0.5552621002008562	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.058500384454185025	None to slight	non salin et non alcalin	104.73	Optimal	S57090
+1367	0.16	0.63	0.06864577298066588	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.008758285066806605	None to slight	non salin et non alcalin	25.740000000000002	Optimal	S57091
+1368	1.38	NaN	0.8136709154668367	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0885475054071328	None to slight	salin et non alcalin	1295.61	Sodic	S57092
+1369	0.1	0.788	0.04641714505478953	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.00776282400979246	None to slight	non salin et non alcalin	86.17	Optimal	S57093
+1370	0.11	NaN	0.08656470197962368	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01516920960225317	None to slight	non salin et non alcalin	16.14	Optimal	S57094
+1371	0.22	1.39	0.16455158253664165	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.02189773181628443	None to slight	non salin et non alcalin	41.480000000000004	Optimal	S57095
+1372	0.72	NaN	0.6232608690600899	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.08148427586645196	None to slight	salin et non alcalin	687.84	Optimal	S57096
+1373	0.17	1.01	0.27404110572613977	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.02880694400402672	None to slight	non salin et non alcalin	106.36	Optimal	S73824
+1374	0.27	3.31	0.3861936223836848	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.041955272736779216	None to slight	non salin et non alcalin	212.72	Optimal	S73825
+1375	0.18	1.31	0.16812611522211882	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.01818280171873484	None to slight	non salin et non alcalin	70.91	Optimal	S73826
+1376	0.09	0.69	0.15510216429611035	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.025471294492301472	None to slight	non salin et non alcalin	141.81	Optimal	S73827
+1377	0.11	0.94	0.02897058709758434	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0032487787426760803	None to slight	non salin et non alcalin	177.27	Optimal	S73828
+1378	4.31	52.02	4.126794258565432	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3128344983364258	Moderate to high	salin et non alcalin	9075.97	Saline-Sodic	S73829
+1379	4.01	52.64	4.990784923594818	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3807529888227017	Moderate to high	salin et non alcalin	6736.07	Saline-Sodic	S73830
+1380	0.21	2.19	0.30064740071647383	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04180471203942935	None to slight	non salin et non alcalin	354.53	Optimal	S73831
+1381	0.07	0.65	0.033236432110748775	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0054957825813556375	None to slight	non salin et non alcalin	70.91	Optimal	S73832
+1382	8.66	112.5	0.8179997676720375	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06806183318310388	None to slight	salin et non alcalin	10990.43	Saline-Sodic	S73833
+1383	9.31	108.6	2.679269688211622	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.18670569272008095	Light to moderate	salin et non alcalin	14181.2	Saline-Sodic	S73834
+1384	0.21	0.97	0.14271473354335826	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.016440588149820006	None to slight	non salin et non alcalin	177.27	Optimal	S73835
+1385	0.09	0.81	0.03211505372079623	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.004595365038650499	None to slight	non salin et non alcalin	70.91	Optimal	S73836
+1386	0.11	0.97	0.039111519976968954	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.004197026096818418	None to slight	non salin et non alcalin	35.45	Optimal	S73837
+1387	0.07	0.52	0.0448074977630865	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.006018440892709592	None to slight	non salin et non alcalin	70.91	Optimal	S73838
+1388	0.29	2.58	0.21297294279551968	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.023326274881769297	None to slight	non salin et non alcalin	212.72	Optimal	S73839
+1389	0.11	1.02	0.259944969073433	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04087234212989583	None to slight	non salin et non alcalin	212.72	Optimal	S73840
+1390	0.22	1.96	0.4164519561906456	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.06584041226432724	None to slight	non salin et non alcalin	319.08	Optimal	S73841
+1391	0.47	5.36	0.03104492278641316	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0034656048578916875	None to slight	non salin et non alcalin	141.81	Optimal	S73842
+1392	1.19	10.27	1.2528513622706603	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.12039242817697322	None to slight	salin et non alcalin	1843.56	Sodic	S73843
+1393	0.3	2.6	0.2503014902940172	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.026231140228078084	None to slight	non salin et non alcalin	212.72	Optimal	S73844
+1394	0.2	1.52	0.03204919195780946	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.003262796426586601	None to slight	non salin et non alcalin	106.36	Optimal	S73845
+1395	0.56	7.13	0.47387316514851074	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.04778095869565869	None to slight	salin et non alcalin	638.15	Optimal	S73846
+1396	4.75	45.75	5.389971399304318	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.36282594019736003	Moderate to high	salin et non alcalin	9075.97	Saline-Sodic	S73847
+1397	4.16	59.84	5.555568078573658	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3860069553625483	Moderate to high	salin et non alcalin	7516.04	Saline-Sodic	S73848
+1398	12.09	135.6	26.275446615877893	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7464525127626617	Extremely high	salin et non alcalin	22689.92	Saline-Sodic	S73849
+1399	0.2	0.79	0.07283895059985368	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.010280975663726225	None to slight	non salin et non alcalin	638.15	Optimal	S73850
+1400	0.08	0.54	0.01895680546555125	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.0023650660028795316	None to slight	non salin et non alcalin	177.27	Optimal	S73851
+1401	12.07	113.3	6.265682285189748	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.36229746391858925	Moderate to high	salin et non alcalin	23044.45	Saline-Sodic	S73852
+1402	11.37	107.4	5.291065445093235	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.3110855860006388	Moderate to high	salin et non alcalin	22335.39	Saline-Sodic	S73853
+1403	17.11	165.3	13.598258481742091	Sol modérément sodique – Risque modéré de sodicité	0.5724419998927621	High to very high	salin et non alcalin	31907.7	Saline-Sodic	S73854
+1404	13.34	118.7	10.180153914088091	Sol modérément sodique – Risque modéré de sodicité	0.4919993422398052	Moderate to high	salin et non alcalin	23398.98	Saline-Sodic	S73855
+1405	12.67	145.6	10.653031463822394	Sol modérément sodique – Risque modéré de sodicité	0.4983142041468008	Moderate to high	salin et non alcalin	28362.4	Saline-Sodic	S73856
+1406	18.29	154.5	11.202136009462192	Sol modérément sodique – Risque modéré de sodicité	0.49221645449539786	Moderate to high	salin et non alcalin	30844.11	Saline-Sodic	S73857
+1407	11.48	110.3	9.4671323618881	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.48994261707181697	Moderate to high	salin et non alcalin	21271.8	Saline-Sodic	S73858
+1408	12.48	101.4	6.271804602834683	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.34601060901200836	Moderate to high	salin et non alcalin	21271.8	Saline-Sodic	S73859
+1409	14.97	143.4	14.060085770056622	Sol modérément sodique – Risque modéré de sodicité	0.5792970880418788	High to very high	salin et non alcalin	28716.93	Saline-Sodic	S73860
+1410	15.24	127	11.521895866162422	Sol modérément sodique – Risque modéré de sodicité	0.49528760954124856	Moderate to high	salin et non alcalin	30844.11	Saline-Sodic	S73861
+1411	5.43	73.06	4.266688422535876	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.30897823090897064	Moderate to high	salin et non alcalin	9217.78	Saline-Sodic	S73862
+1412	6.01	77.34	2.276627604427799	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.168654886431471	Light to moderate	salin et non alcalin	9997.75	Saline-Sodic	S73863
+1413	69.01	224.8	40.46074768959475	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.6878144693603682	High to very high	salin et non alcalin	140039.35	Saline-Sodic	S73864
+1414	11.64	83.23	5.291565779942551	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.24409090532806793	Light to moderate	salin et non alcalin	17726.5	Saline-Sodic	S73865
+1415	46.82	229.4	22.28870308161383	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.5416950893006024	High to very high	salin et non alcalin	92177.8	Saline-Sodic	S73866
+1416	11.34	84.42	4.487489686741303	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.20820162979071793	Light to moderate	salin et non alcalin	19499.15	Saline-Sodic	S73867
+1417	43.14	225	26.397375223679322	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.6463342064838075	High to very high	salin et non alcalin	90405.15	Saline-Sodic	S73868
+1418	9.29	71.2	7.500432344066186	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.43830258556922663	Moderate to high	salin et non alcalin	15953.85	Saline-Sodic	S73869
+1419	3.88	19.17	0.6758962487451734	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.03701188338872765	None to slight	salin et non alcalin	2907.15	Optimal	S73870
+1420	4.34	23	0.9392901468560173	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.051951600545229674	None to slight	salin et non alcalin	3545.3	Saline-Sodic	S73871
+1421	7.04	53.32	3.1887662656098903	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.23811504280093862	Light to moderate	salin et non alcalin	10494.09	Saline-Sodic	S73872
+1422	2.21	11.26	1.0010772425913166	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09678959123738287	None to slight	salin et non alcalin	1559.93	Sodic	S73873
+1423	20.02	178	11.897698178876912	Sol modérément sodique – Risque modéré de sodicité	0.400022277077123	Moderate to high	salin et non alcalin	35453	Saline-Sodic	S73874
+1424	16.38	114.4	7.1802130261356085	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.28600873361544576	Light to moderate	salin et non alcalin	26589.75	Saline-Sodic	S73875
+1425	5.57	87.62	6.716748129956632	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.45158081345746337	Moderate to high	salin et non alcalin	10635.9	Saline-Sodic	S73876
+1426	14.18	159.1	12.611305747964963	Sol modérément sodique – Risque modéré de sodicité	0.551544630182729	High to very high	salin et non alcalin	28362.4	Saline-Sodic	S73877
+1427	6.78	75	8.198821929328307	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.4825800539386278	Moderate to high	salin et non alcalin	29213.27	Saline-Sodic	S73878
+1428	11.82	129.6	9.242550891777624	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.44715364189316303	Moderate to high	salin et non alcalin	21271.8	Saline-Sodic	S73879
+1429	11.38	109.1	14.966234899044075	Sol modérément sodique – Risque modéré de sodicité	0.6256521737652647	High to very high	salin et non alcalin	31907.7	Saline-Sodic	S73880
+1430	15.03	147	13.122068813794094	Sol modérément sodique – Risque modéré de sodicité	0.5696482290465463	High to very high	salin et non alcalin	17017.44	Saline-Sodic	S73881
+1431	8.66	93.46	10.576840406808305	Sol modérément sodique – Risque modéré de sodicité	0.5418031547961881	High to very high	salin et non alcalin	27936.96	Saline-Sodic	S73882
+1432	14.7	140.4	12.516737672623766	Sol modérément sodique – Risque modéré de sodicité	0.5407161621020912	High to very high	salin et non alcalin	29425.99	Saline-Sodic	S73883
+1433	6.41	73.65	6.655756544866999	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.41316792922279055	Moderate to high	salin et non alcalin	13046.7	Saline-Sodic	S73884
+1434	15.66	140	10.199265658141222	Sol modérément sodique – Risque modéré de sodicité	0.46645439001573796	Moderate to high	salin et non alcalin	34034.88	Saline-Sodic	S73885
+1435	8	94.92	11.804041082094198	Sol modérément sodique – Risque modéré de sodicité	0.5695757998147168	High to very high	salin et non alcalin	18293.75	Saline-Sodic	S73886
+1436	19.69	130.7	11.666995445837335	Sol modérément sodique – Risque modéré de sodicité	0.5046660343628562	High to very high	salin et non alcalin	34034.88	Saline-Sodic	S73887
+1437	9.83	93.27	10.162338620061144	Sol modérément sodique – Risque modéré de sodicité	0.5299079384024584	High to very high	salin et non alcalin	19499.15	Saline-Sodic	S73888
+1438	10.89	92.72	9.290016537663385	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.42674253231063547	Moderate to high	salin et non alcalin	22335.39	Saline-Sodic	S73889
+1439	10.36	120.7	13.599688935335895	Sol modérément sodique – Risque modéré de sodicité	0.601032069099563	High to very high	salin et non alcalin	23398.98	Saline-Sodic	S73890
+1440	14.22	136	11.393529452182564	Sol modérément sodique – Risque modéré de sodicité	0.5049241409276607	High to very high	salin et non alcalin	30135.05	Saline-Sodic	S73891
+1441	10.17	127.2	12.748663226640984	Sol modérément sodique – Risque modéré de sodicité	0.5871266405118247	High to very high	salin et non alcalin	21271.8	Saline-Sodic	S73892
+1442	12.07	121.2	10.06943464929592	Sol modérément sodique – Risque modéré de sodicité	0.4718539382487451	Moderate to high	salin et non alcalin	27298.81	Saline-Sodic	S73893
+1443	0.56	7.8	0.9362304987713138	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.09139933690232326	None to slight	salin et non alcalin	992.68	Sodic	S73894
+1444	3.28	47.19	3.76851703355127	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.27789593499559634	Light to moderate	salin et non alcalin	7516.04	Sodic	S73895
+1445	32.35	218.2	34.03723087104031	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7381278558211867	Extremely high	salin et non alcalin	81541.9	Saline-Sodic	S73896
+1446	9.1	56.29	10.916412895134595	Sol modérément sodique – Risque modéré de sodicité	0.5594043031518057	High to very high	salin et non alcalin	15953.85	Saline-Sodic	S73897
+1447	35	126	36.614650370437445	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.784035977522193	Extremely high	salin et non alcalin	68424.29	Saline-Sodic	S73898
+1448	10.59	136.2	8.02020685284932	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.36499687524593566	Moderate to high	salin et non alcalin	21626.33	Saline-Sodic	S73899
+1449	29.72	203.6	35.05817623624638	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7643526468997487	Extremely high	salin et non alcalin	76578.48	Saline-Sodic	S73900
+1450	10.77	72.11	11.001370285679673	Sol modérément sodique – Risque modéré de sodicité	0.4981953520894455	Moderate to high	salin et non alcalin	19853.68	Saline-Sodic	S73901
+1451	23.74	164	22.606845780127728	Sol sodique – Risque élevé de dispersion, structure du sol détériorée	0.6780721810854251	High to very high	salin et non alcalin	49988.73	Saline-Sodic	S73902
+1452	8.45	66.61	9.242043188497588	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.4737487617642748	Moderate to high	salin et non alcalin	18151.94	Saline-Sodic	S73903
+1453	35.1	235.2	38.882946613044126	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7785736176737396	Extremely high	salin et non alcalin	87214.38	Saline-Sodic	S73904
+1454	7.45	66.24	11.324449857833011	Sol modérément sodique – Risque modéré de sodicité	0.5439656702479023	High to very high	salin et non alcalin	17726.5	Saline-Sodic	S73905
+1455	40.28	223	40.78440840864086	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7904636054408051	Extremely high	salin et non alcalin	91468.74	Saline-Sodic	S73906
+1456	12.57	76.16	12.366998157956578	Sol modérément sodique – Risque modéré de sodicité	0.531577964587645	High to very high	salin et non alcalin	19853.68	Saline-Sodic	S73907
+1457	33.49	214.8	37.263862896915654	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7848172855921645	Extremely high	salin et non alcalin	78705.66	Saline-Sodic	S73908
+1458	7.96	70.92	12.409536584801941	Sol modérément sodique – Risque modéré de sodicité	0.5535371980697945	High to very high	salin et non alcalin	20562.74	Saline-Sodic	S73909
+1459	43.66	226	30.249454706572163	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7777584781190817	Extremely high	salin et non alcalin	91468.74	Saline-Sodic	S73910
+1460	8.36	52.79	8.477231898249848	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.4410835685782703	Moderate to high	salin et non alcalin	14323.01	Saline-Sodic	S73911
+1461	43.17	222.1	41.34360633270312	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7976184218443507	Extremely high	salin et non alcalin	85087.2	Saline-Sodic	S73912
+1462	11.26	79.08	12.227714222428132	Sol modérément sodique – Risque modéré de sodicité	0.5342497414628447	High to very high	salin et non alcalin	18790.09	Saline-Sodic	S73913
+1463	33.23	196.1	32.02122507382206	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7460118773666963	Extremely high	salin et non alcalin	74805.83	Saline-Sodic	S73914
+1464	10.41	60.94	9.561524275972937	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.46830655362907714	Moderate to high	salin et non alcalin	17726.5	Saline-Sodic	S73915
+1465	45.15	218.4	39.578437963647715	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7827357816518281	Extremely high	salin et non alcalin	90759.68	Saline-Sodic	S73916
+1466	9.75	60.08	10.846430353282699	Sol modérément sodique – Risque modéré de sodicité	0.5314066709703029	High to very high	salin et non alcalin	20917.27	Saline-Sodic	S73917
+1467	33.96	186.5	30.322721502600523	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7442750934532368	Extremely high	salin et non alcalin	67006.17	Saline-Sodic	S73918
+1468	10.78	67.1	10.749226568201355	Sol modérément sodique – Risque modéré de sodicité	0.5100119670844766	High to very high	salin et non alcalin	22689.92	Saline-Sodic	S73919
+1469	34.33	194.4	29.95695090663737	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7372529574163642	Extremely high	salin et non alcalin	67360.7	Saline-Sodic	S73920
+1470	9.37	58.94	9.546004645621391	Sol non sodique – Faible risque de dispersion, perméabilité normale	0.47608820475001107	Moderate to high	salin et non alcalin	17726.5	Saline-Sodic	S73921
+1471	38.43	206	42.84308181799655	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.8120817824388644	Extremely high	salin et non alcalin	74451.3	Saline-Sodic	S73922
+1472	13.72	79.09	12.376808873400261	Sol modérément sodique – Risque modéré de sodicité	0.5329799802270246	High to very high	salin et non alcalin	21271.8	Saline-Sodic	S73923
+1473	46.44	213	34.651410060331884	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7715471614323072	Extremely high	salin et non alcalin	92532.33	Saline-Sodic	S73924
+1474	13.55	72.3	13.937389868585754	Sol modérément sodique – Risque modéré de sodicité	0.5655549794698521	High to very high	salin et non alcalin	22689.92	Saline-Sodic	S73925
+1475	36.18	202.4	37.34657878015416	Sol très sodique – Très haut risque de dispersion, dégradation sévère	0.7989370977950556	Extremely high	salin et non alcalin	69487.88	Saline-Sodic	S73926
+1476	12.28	73.52	14.514565193970968	Sol modérément sodique – Risque modéré de sodicité	0.5921538750565994	High to very high	salin et non alcalin	20917.27	Saline-Sodic	S73927
+\.
+
+
+--
+-- Data for Name: visualisation_soilquality; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_soilquality (id, "Ph_level", "Organic_matter", "Cu", "Mn", "Fe", "Zn", "NNH4", "NO3", "NT", "P2O5", k2o, "Code_labo_id", "CaCO3", "BORE") FROM stdin;
+1202	8.34	3.409	1.49	19.86	6.02	1.68	3.07	97.67	0.21	106.79	421.24	S51495	7.118927973199329	1.85
+1203	8.18	5.592	1.09	5.34	3.41	4.72	3.24	20.04	0.22	308.67	389.5	S51496	6.05343723907598	2.96
+1204	8.8	1.469	1.1	4.84	4.48	0.37	1.43	5.5	0.05	60.25	405.94	S51497	9.385382059800666	1.03
+1205	8.84	1.362	1.11	4.47	4.13	0.43	2.69	0.23	0.1	62.72	415.69	S51498	6.2691557536918365	0.53
+1206	8.54	2.259	1.5	6.64	5.75	0.57	2.52	27.87	0.1	62.43	591.29	S51499	5.426464449700848	1.09
+1207	7.61	2.504	0.49	5.35	3.1	0.48	7.85	6.44	0.1565	22.51	168.16	S51500	3.7614934522151016	1.04
+1208	8.07	2.083	2.85	17.15	9.38	1.77	4.71	98.07	0.1301875	88.61	1409.09	S51501	6.280530355896719	6.86
+1209	8.66	1.606	1.07	1.64	2.64	0.51	0.98	6.99	0.100375	45.56	1220.69	S51502	4.327923429047024	10.66
+1210	7.85	2.668	2.36	26.52	8.67	1.79	11.98	77.93	0.16675	70.62	1578.14	S51503	0	7.78
+1211	8.18	1.668	2.15	17.69	6.74	1.02	18.36	47.85	0.10425	55.49	1560.86	S51504	3.8760766879688795	14.58
+1212	8.77	1.389	1.37	7.09	5.39	0.4	3.4699999999999998	2.46	0.0868125	54.16	613.69	S51505	5.443886097152428	1.22
+1213	8.38	1.401	0.78	7.67	2.95	0.47	nan	NaN	NaN	62.3	407.09	S52007	0.08343763037129745	0.9
+1214	8.36	1.691	0.71	6.9	2.58	0.36	nan	NaN	NaN	71.67	375.3	S52008	0.0501043841336117	0.88
+1215	8.48	1.385	0.48	5.28	1.93	0.36	nan	NaN	NaN	68.22	442.52	S52009	0.18394648829431443	0.76
+1216	8.25	1.329	0.68	7	2.02	0.29	nan	NaN	NaN	44.66	323.76	S52010	0	0.97
+1217	7.84	3.742	1.41	37.4	4.78	1.35	nan	NaN	NaN	54.96	804.47	S52066	4.516308893225537	1.86
+1218	8.04	3.564	1.48	22.21	4.59	1.51	nan	NaN	NaN	64.39	985.88	S52067	0.20137043770102087	3.38
+1219	8.39	2.095	0.76	10.6	3.07	0.82	nan	NaN	NaN	80.6	381.34	S52019	0.2004175365344468	1.71
+1220	8.2	1.658	0.99	10	3.47	0.44	nan	NaN	NaN	46.07	303.86	S52020	0.24993057484032208	1.65
+1221	8.39	1.786	1.32	10.63	4.93	0.64	nan	NaN	NaN	44.17	293.56	S52021	0	1.21
+1222	8.4	1.749	2.16	13.22	5.64	1.07	nan	NaN	NaN	61.62	294.26	S52022	0	2.08
+1223	7.95	3.025	3.52	52.51	3.75	1.89	nan	NaN	NaN	170.78	645.74	S52043	0.8322929671244277	1.32
+1224	8.83	2.476	1.38	19.18	6.11	0.75	nan	NaN	NaN	65.93	286.69	S52044	0.08367033886487238	1.13
+1225	8.53	3.429	3.89	12.07	4.52	1.43	nan	NaN	NaN	44.17	305.08	S52045	0.43551088777219427	1.24
+1226	8.48	3.177	1.43	17.61	4.2	2.42	nan	NaN	NaN	50.83	299.58	S52046	0.41736227045075125	1.12
+1227	8.01	2.507	1.9	38.99	6.35	1.37	nan	NaN	NaN	65.93	433.94	S52047	0.15020862308762167	1.17
+1228	8.09	2.118	1.9	28.69	4.66	1.18	nan	NaN	NaN	42.64	341.82	S52048	0.35161155295102553	0.99
+1229	8.31	4.248	0.86	25.1	3.44	3.31	nan	NaN	NaN	65.87	572.99	S52049	0.7496876301541026	2.04
+1230	8.58	3.533	1.21	16.36	4.46	1.18	nan	NaN	NaN	50.91	428.36	S52050	0.6663890045814245	1.38
+1231	8.64	3.73	0.92	13.43	3.53	2.32	nan	NaN	NaN	41.71	548.27	S52039	0.7169654022509379	2.04
+1232	8.68	2.474	0.84	6.61	3.25	1.07	nan	NaN	NaN	51.57	365.63	S52040	0.6545454545454545	1.06
+1233	8.45	2.317	2.56	17.78	3.06	0.89	nan	NaN	NaN	43.1	476.62	S52041	0.41946308724832204	1.74
+1234	8.59	3.146	0.93	13.45	3.11	3.36	nan	NaN	NaN	64.17	375.04	S52042	0.9819694868238557	1.46
+1235	8.25	3.242	1.04	20.45	3.75	1.35	nan	NaN	NaN	83.13	515.02	S52056	0.16722408026755856	1.92
+1236	8.2	3.254	0.8	14.14	2.48	1.06	nan	NaN	NaN	84.35	438.92	S52057	0.1506276150627615	1.73
+1237	8.2	3.018	0.84	16.22	2.63	0.98	nan	NaN	NaN	77.01	466.53	S52058	0.2673350041771094	1.79
+1238	8.1	3.302	0.84	17.06	2.9	1.02	nan	NaN	NaN	86.84	464.38	S52059	0.8513005981360411	1.67
+1239	8.18	3.207	0.89	22.5	3.57	1.11	nan	NaN	NaN	86.16	477.51	S52060	0.6702974444909928	1.59
+1240	8.73	4.612	0.67	6.96	3.72	3.19	nan	NaN	NaN	33.81	631.01	S52035	2.86706487012085	1.06
+1241	8.51	4.167	1	11.38	3.47	1.6	nan	NaN	NaN	71.59	539.74	S52036	7.105043187517414	0.71
+1242	7.88	2.553	1.49	28.54	2.17	1.1	nan	NaN	NaN	57.17	1286.51	S52037	0.9837432263443102	0.61
+1243	8.3	2.561	1.25	15.98	3.61	0.97	nan	NaN	NaN	98.04	1006.87	S52038	1.8980963045912653	0.78
+1244	7.94	4.925	0.88	27.96	2.92	2.05	nan	NaN	NaN	118.95	649.89	S52031	9.878610297195479	1.57
+1245	8.15	4.633	0.89	19.95	3.85	2.26	nan	NaN	NaN	228.24	821.58	S52032	9.19092048461217	1.63
+1246	8.26	3.742	0.71	11.44	3.8	0.61	nan	NaN	NaN	35.79	188.91	S52033	7.112158602523223	0.95
+1247	8.42	4.637	0.83	18.63	3.35	2.34	nan	NaN	NaN	100.39	526.14	S52034	1.855928661000418	1.31
+1248	8.39	1.436	0.44	8.11	2.22	0.52	nan	NaN	NaN	88.95	288.11	S52015	0.016699137211244084	0.68
+1249	8.15	2.091	0.28	6.65	2.03	0.76	nan	NaN	NaN	179.33	275.75	S52016	0.03354297693920335	0.53
+1250	8.28	0.856	0.25	3.81	1.31	0.27	nan	NaN	NaN	35.45	102.34	S52017	0	0.44
+1251	8.07	1.281	0.31	7.03	1.25	0.28	nan	NaN	NaN	51.85	198.89	S52018	0.08334490901514098	0.73
+1252	8.22	1.726	0.6	10.21	2.73	0.37	nan	NaN	NaN	56.21	342.55	S52011	0.03332870434661852	0.76
+1253	8.3	1.853	0.65	10.22	3.13	0.41	nan	NaN	NaN	56.1	363.05	S52012	0.16613595458950575	1.03
+1254	8.36	1.668	0.51	9.67	2.5	0.39	nan	NaN	NaN	54.85	294.27	S52013	0.06685236768802229	1.09
+1255	8.42	1.407	0.59	12.35	2.64	0.34	nan	NaN	NaN	49.53	285	S52014	0.08349568605622042	0.92
+1256	8.53	1.214	0.47	5.58	1.72	0.26	nan	NaN	NaN	35.76	263.16	S52061	0.16773832820799553	0.54
+1257	8.52	1.508	0.54	6.57	1.87	0.29	nan	NaN	NaN	30.66	268.64	S52062	0.08343763037129745	0.77
+1258	7.86	3.727	0.97	27.47	1.84	2.92	nan	NaN	NaN	122.75	685.48	S52063	8.476454293628807	2.37
+1259	7.89	3.463	0.96	32.91	1.76	2.97	nan	NaN	NaN	102.53	659.73	S52064	8.372871895060005	3.1
+1260	7.91	3.36	1.02	30.01	1.72	3.05	nan	NaN	NaN	100.94	566.51	S52065	8.390434904209203	2.4
+1261	8.63	4.507	0.69	6.05	4.99	20.56	nan	NaN	NaN	50.49	351.53	S52028	9.032617786451073	1.21
+1262	8.22	4.459	1.51	5.94	3.4	4.94	nan	NaN	NaN	180.21	266.1	S51999	2	1.29
+1263	7.78	4.463	2.04	28.79	1.4	4.33	nan	NaN	NaN	158.91	450.7	S52000	0.49951436103787994	1.97
+1264	7.94	11.26	0.53	10.64	2.23	5.32	nan	NaN	NaN	891.76	594.9	S52001	1.0986267166042445	2.69
+1265	8.06	3.564	0.55	7.42	1.26	1.71	nan	NaN	NaN	117.64	506.77	S52002	0.4021223122032951	1.4
+1266	8.28	2.29	0.67	5.22	2.24	0.5	nan	NaN	NaN	49.87	539.93	S52003	5.015324602953469	1.2
+1267	8.38	1.967	0.58	4.31	1.79	0.31	nan	NaN	NaN	35.76	512.04	S52004	5.119311875693675	0.97
+1268	8.75	1.757	0.51	2.99	1.67	0.32	nan	NaN	NaN	52.98	697.57	S52005	6.894150417827296	0.95
+1269	8.81	1.946	0.56	5.59	1.99	0.39	nan	NaN	NaN	55.64	987.53	S52006	5.278592375366569	0.82
+1270	8.42	2.233	0.54	2.47	2.92	0.33	nan	NaN	NaN	57.28	1005.88	S52051	18.453795610233463	2.56
+1271	8.42	2.2	0.61	3.3	1.26	0.35	nan	NaN	NaN	58.47	931.41	S52052	20.11173184357542	2.49
+1272	7.95	4.478	1.03	31.25	2.19	3.56	nan	NaN	NaN	219.42	661.33	S52053	8.32639467110741	3.81
+1273	8.44	2.02	0.59	2.63	1.26	0.33	nan	NaN	NaN	68.83	910.04	S52054	20.87682672233821	2.55
+1274	8.41	2.066	0.53	2.1	0.96	0.31	nan	NaN	NaN	55.07	995.79	S52055	16.703786191536746	2.7
+1275	8.57	3.595	2.75	14.17	4.63	4.57	nan	NaN	NaN	52.76	668.41	S52023	0.08339124391938846	1.25
+1276	8.33	5.122	0.93	22.39	4.21	5.32	nan	NaN	NaN	60.32	668.51	S52024	0.28337269065147935	1.95
+1277	8.57	3.216	1.22	10.81	4.14	2.95	nan	NaN	NaN	60.15	531.37	S52025	0.6681514476614698	0.86
+1278	8.35	5.53	0.94	21.11	5.66	11.08	nan	NaN	NaN	39.27	517.73	S52026	9.9020979020979	1.42
+1279	7.91	3.68	1.48	19.97	5.98	1.15	nan	NaN	NaN	47.03	1402.98	S52068	0.5840634125990821	5.47
+1280	7.9	3.184	1.16	30.08	3.3	1.18	nan	NaN	NaN	40.97	714.06	S52069	0.3679955394480067	1.45
+1281	7.88	3.324	1.58	54.89	5.38	1.52	nan	NaN	NaN	71.15	942.52	S52070	0.08344923504867871	5.89
+1282	7.9	3.455	1.55	33.27	5.81	1.45	nan	NaN	NaN	59.88	1030.3	S52071	0	3.66
+1283	7.97	3.862	1.49	21.18	6.58	1.4	nan	NaN	NaN	82.56	755.55	S52072	2.179379715004191	5.94
+1284	7.99	3.583	1.73	41.44	6	1.47	nan	NaN	NaN	69.99	958.08	S52073	0.16671297582661848	3.76
+1285	7.76	3.885	1.86	111.93	6.48	1.87	nan	NaN	NaN	75.46	676.28	S52074	0.08362369337979095	2.64
+1286	7.85	3.415	1.9	76.39	5.94	2.77	nan	NaN	NaN	77.67	850.88	S52075	0.08341443069651049	5.05
+1287	7.95	3.409	1.97	47.08	9.7	1.92	nan	NaN	NaN	90.3	687.2	S52076	0.1842288904396371	4.8
+1288	8.27	2.868	1.01	11.09	3.99	0.77	nan	NaN	NaN	40.68	581.17	S52077	8.33101916134407	2.26
+1289	8.08	3.434	1.77	30.08	6.48	1.79	nan	NaN	NaN	67.73	1237.1	S52078	2.5076623014767345	4.72
+1290	8.33	2.117	1.83	7.75	4.66	0.93	nan	NaN	NaN	77.07	1149.35	S52079	8.320621273055055	6.43
+1291	8.11	2.5	0.94	9.32	3.7	0.61	nan	NaN	NaN	35.7	727.14	S52080	2.081309837657833	4.49
+1292	7.85	3.659	1.5	45.36	5	1.38	nan	NaN	NaN	47.65	911.75	S52081	0.3009614044865543	1.79
+1293	8.08	3.052	1.77	18.71	5.97	1.09	nan	NaN	NaN	59.49	1084.99	S52082	0.2505916747876931	4.09
+1294	7.91	3.653	1.89	26.92	8.89	2.18	nan	NaN	NaN	63.42	1675.07	S52083	0.3671255736337088	6.81
+1295	8.09	1.557	1.55	12.78	2.51	0.75	nan	NaN	NaN	56.37	525.44	S52084	4.045131633932303	1.37
+1296	8.08	1.398	1.49	11.33	2.49	0.65	nan	NaN	NaN	54.56	522.95	S52085	2.5542570951585977	1.4
+1297	8.06	1.588	1.28	15.62	1.89	0.83	nan	NaN	NaN	61.21	508.77	S52086	8.071002634863403	1.33
+1298	8.12	1.417	1.55	10.94	2.77	0.69	nan	NaN	NaN	59.85	515.75	S52087	7.532431301436742	1.36
+1299	8.03	1.427	1.52	13.66	2.58	0.68	nan	NaN	NaN	55.61	501.19	S52088	7.63485477178423	1.23
+1300	8.18	1.406	1.52	11.44	2.62	0.61	nan	NaN	NaN	63.59	485.05	S52089	0.31640299750208156	1.71
+1301	8.06	1.617	1.45	15.67	2.14	0.85	nan	NaN	NaN	53.4	523.89	S52090	8.113759933082392	1.34
+1302	8	1.45	1.42	12.33	2.35	0.64	nan	NaN	NaN	56.4	525.65	S52091	6.283161128176486	1.31
+1303	8.08	1.619	1.55	15.45	2.43	0.78	nan	NaN	NaN	60.9	518.25	S52092	3.3819241982507293	1.38
+1304	8.15	1.613	1.42	12.56	2.36	0.71	nan	NaN	NaN	57.22	534.04	S52093	5.192629815745393	1.12
+1305	7.98	1.665	1.28	17	1.71	0.84	nan	NaN	NaN	56.15	550.94	S52094	5.176732535485666	1.3
+1306	8.09	1.454	1.42	11.46	2.36	0.6	nan	NaN	NaN	59.91	506.85	S52095	3.9089766857461954	1.45
+1307	8.01	1.601	1.44	18.62	1.92	0.98	nan	NaN	NaN	55.07	537.94	S52096	3.3379694019471478	1.15
+1308	8.03	1.791	1.3	13.87	1.97	0.75	nan	NaN	NaN	68.12	538.76	S52097	3.0112923462986196	1.09
+1309	7.99	1.706	1.39	18.66	1.81	0.94	nan	NaN	NaN	56.48	542.04	S52098	1.503340757238307	1.24
+1310	7.98	1.77	1.38	17.53	2.05	0.89	nan	NaN	NaN	56.51	517.02	S52099	3.0205565655153124	1.34
+1311	8.16	1.594	1.52	12.49	2.25	0.69	nan	NaN	NaN	58.3	521.44	S52100	7.074490220557635	1
+1312	8.46	1.5386	2.4699999999999998	17.3	11.629999999999999	0.77	nan	NaN	0.1	60	1210.02	S53805	0.16648168701442842	0.3098
+1313	8.22	1.7554	1.98	12.51	5.83	0.44	nan	NaN	0.09	48	1040.89	S53806	0.18425460636515914	0.341
+1314	8.19	3.1349	1.6799999999999997	26.419999999999998	10.62	1.04	nan	NaN	0.12	67	913.09	S53807	0.13335185442422556	0.4278
+1315	8.12	2.5568	1.38	18.419999999999998	7.250000000000001	0.53	nan	NaN	0.13	59	527.67	S53808	0.1503759398496241	0.4544
+1316	8.56	3.3028	1.2999999999999998	6.58	2.66	0.8800000000000001	nan	NaN	0.15	69	793.4	S53809	4.805555555555556	0.5725
+1317	8.88	2.9096	1.2199999999999998	6.05	2.45	0.78	nan	NaN	0.12	73	614.92	S53810	4.789006107717936	0.5781
+1318	8.58	3.2773	1.69	24.41	6.92	1.31	nan	NaN	0.15	80	1314.47	S53811	3.601340033500837	0.5611
+1319	8.6	3.0223	1.25	8.2	2.5999999999999996	0.8700000000000001	nan	NaN	0.16	62	740.5	S53812	5.235967606813738	0.5062
+1320	8.24	5.8493	1.19	22.86	6.08	1.89	nan	NaN	0.24	132	988.68	S53813	14.170602945262573	0.54
+1321	8.04	5.4964	0.9400000000000001	12.03	2.96	1.22	nan	NaN	0.28	79	364.14	S53814	17.854671280276815	0.5424
+1322	8.41	3.1838	2.04	11.59	6.45	0.94	nan	NaN	0.07	91	1112.04	S53815	4.8197820620285	0.4519
+1323	8.69	2.7821	1.27	3.9800000000000004	2.0599999999999996	0.51	nan	NaN	0.05	66	866.76	S53816	4.610226320201173	0.3834
+1324	8.55	1.4175	1.6599999999999997	7.3500000000000005	6.0600000000000005	0.75	nan	NaN	0.02	71	573.18	S53817	1.8	0.2899
+1325	8.74	1.0667	1.3899999999999997	3.87	2.76	0.29	nan	NaN	0.07	53	605	S53818	3.3	0.3342
+1326	8.67	3.43	0.7000000000000001	7.89	3.87	1.4200000000000002	nan	NaN	0.18	38.03	465.97	S54264	2.510460251046025	0.4846
+1327	8.1	4.15	1.1099999999999999	22.779999999999998	3.26	0.97	nan	NaN	0.19	34.95	674.07	S54265	0.36820083682008375	0.5399
+1328	8.57	1.15	1.0299999999999998	11.92	6.53	0.38999999999999996	nan	NaN	0.09	53.73	355.49	S54266	0.5863465028619294	0.4199
+1329	8.35	0.89	0.66	13.879999999999999	4.8500000000000005	0.31	nan	NaN	0.07	47.28	287.48	S54267	0.16689847009735742	0.3305
+1330	8.53	1.27	0.9899999999999999	10.34	5.57	0.32	nan	NaN	0.08	52.53	339.77	S54268	0.16715419974926865	0.3819
+1331	8.43	0.69	0.9600000000000001	11.28	5.430000000000001	0.35000000000000003	nan	NaN	0.09	62.55	375.02	S54269	0.1843832937561112	0.4171
+1332	8.09	4.06	1.25	34.14	4.7700000000000005	1.57	nan	NaN	0.2	40.2	673.41	S54270	1.4180453218406783	0.5412
+1333	7.63	3.65	1.38	46.61	2.87	3.51	nan	NaN	0.16	112.2	799.98	S54271	8.32408435072142	0.5411
+1334	8.19	3.48	1.0899999999999999	12.67	3.04	1.07	nan	NaN	0.17	41.49	488.01	S54272	0.5860192549183758	0.5001
+1335	8.32	0.74	0.63	9.45	3.0700000000000003	0.3	nan	NaN	0.06	31.82	279.31	S54273	0.11725293132328306	0.324
+1336	7.81	4.73	2.04	64.52	16.13	7.1	nan	NaN	0.18	390.39	1144.16	S54274	0.3344947735191638	0.5411
+1337	8.51	5.6	0.87	15.049999999999999	2.7199999999999998	3.1799999999999997	nan	NaN	0.24	39.73	605.5	S54275	7.287617990005554	0.5411
+1338	8.64	3.18	0.99	9.26	2.81	0.94	nan	NaN	0.13	33.19	773	S54276	0.5851212036779047	0.4539
+1339	8.32	0.806	0.99	16.21	4.86	0.75	<0,5	26.42	0.060375	59.84	426.92	S55239	7.59651307596513	1.87
+1340	8.12	1.009	0.88	4.88	2.83	0.65	<0,5	26.07	0.0630625	35.52	607.12	S55240	5.592654424040067	1.78
+1341	8.44	0.258	1.32	9.12	6.11	0.45	<0,5	22.73	0.0425	95.08	516.67	S55241	3.9587973273942088	2.01
+1342	8.19	0.694	0.81	3.73	2.95	0.33	<0,5	47.56	0.043375	69.63	505.14	S55242	6.327181906479812	1.98
+1343	8.35	1.126	1.09	22.07	9.96	0.75	<0,5	35.26	0.070375	87.52	447.89	S55243	9.297780259667737	1.48
+1344	8.15	1.195	0.77	5.12	3.68	0.58	<0,5	47.05	0.0746875	51.34	418.59	S55244	8.73907615480649	1.57
+1345	8.27	0.536	0.72	8.41	7.09	0.34	<0,5	54.18	0.035	41.82	219.44	S55245	14.615812917594653	1.25
+1346	8.03	0.548	0.48	4.87	3.56	0.3	<0,5	128.44	0.03425	31.7	194.65	S55246	16.569037656903767	0.94
+1347	8.52	0.806	0.97	9.01	5.71	0.27	<0,5	39.7	0.050375	42.97	298.09	S55247	12.479201331114808	2
+1348	8.44	0.694	0.7	3.67	3.7	0.22	<0,5	68.31	0.04375	38.26	277.38	S55248	10.8153078202995	2
+1349	8.77	0.815	1.2	9.48	5.03	0.35	<0,5	1.5	0.059375	59.61	501.73	S55249	0.016655100624566273	1.05
+1350	8.8	0.863	0.99	6.02	3	0.27	<0,5	8.66	0.0539375	40.57	402.88	S55250	0.03333333333333334	0.88
+1351	8.79	1.449	1.56	14.15	6.55	0.5	<0,5	0.41	0.0905625	60.52	264.02	S55251	0	1.02
+1352	7.95	1.573	1.25	16.08	3.72	0.4	<0,5	173.03	0.0983125	49.75	269.21	S55252	0	1
+1353	8.53	1.631	1.65	20.8	7.09	0.51	<0,5	65.96	0.11	69.6	429.05	S55253	0	1.16
+1354	8.31	1.569	1.25	10.68	3.8	0.34	<0,5	39.79	0.0980625	49.38	318.5	S55254	0	1.71
+1355	8.01	1.121	0.8	11.67	4.17	0.33	<0,5	4.36	0.0700625	42.92	185.64	S55255	2.6778242677824267	1.45
+1356	8.03	1.307	0.54	6.25	2.07	0.3	<0,5	11.88	0.0816875	40.83	154.28	S55256	2.6301828842663686	1.28
+1357	7.97	2.219	2.49	59.74	11.09	1.77	3.19	95.05	0.13	80.69	1458.75	S55257	1.4129380800664912	3.8
+1358	8.14	1.545	1.49	7.88	6.41	0.76	<0,5	36.51	0.0965625	58.69	2101.94	S55258	2.6163522012578615	4.28
+1359	8.46	1.786	3.08	10.31	26.57	1.07	<0,5	5.25	0.111625	103.94	1294.24	S55259	2.8317601332593005	2
+1360	8.26	1.619	1.78	5.17	9.02	0.8	<0,5	11.61	0.1011875	71.51	1409.6	S55260	2.6166666666666667	5
+1361	8.38	0.648	0.58	4.58	7.32	0.66	<0,5	27.98	0.05	49.35	328.52	S55261	55.864369093941065	1.44
+1362	8.74	1.428	0.69	3.92	1.83	0.35	<0,5	16.52	0.08925	62.98	774.5	S55263	26.170301430754265	1.27
+1363	8.46	0.305	0.85	0.98	3.56	0.31	18.21	3.1	0.06	19.96	147.67	S56863	49.16666666666667	1.26
+1364	8.59	0.256	0.72	0.43	2.54	0.22	15.12	2.04	0.05	18.46	129.96	S56864	55.580357142857146	1.27
+1365	8.1	3.019	3.06	21.52	15.99	2.26	19.66	2.37	0.15	72.34	1541.79	S56867	2.7893422148209823	1.67
+1366	8.38	1.286	2.69	14.71	16.32	0.9	18.06	1.31	0.08	60.12	1470.9	S56873	3.506818814361258	2.87
+1367	8.45	1.053	2.2	6.61	11.28	0.64	14.21	3	0.08	47.44	1383	S56874	4.00946679660309	2.53
+1368	8.19	2.521	3.28	50.96	18.65	1.65	51.98	8.27	0.014	86.94	1364.2	S56875	0.7685881370091898	1.61
+1369	8.51	1.765	2.2	5.62	11.38	0.65	29.06	0.75	0.011	67.14	1812.38	S56876	3.580349708576186	3.62
+1370	8.18	2.145	3.44	42.96	17.06	1.9	51.47	9.03	0.13	88.18	1156.54	S56877	1.1604285515514123	1.92
+1371	8.48	1.42	2.41	5.14	11.82	0.65	28.65	2.64	0.09	46.62	1519.7	S56878	2.7072053311120365	3.58
+1372	8.31	1.206	2.97	12.7	18.98	0.87	20.2	5.01	0.05	72.02	1440.96	S56879	2.969882877858338	3.65
+1373	8.46	1.6	2.59	10.54	14.34	0.76	50.05	6.68	0.09	57.16	1562.87	S56880	2.7064538514920193	2.99
+1374	8.39	1.255	2.72	14.06	15.75	0.83	17.11	2.33	0.08	93.12	1421.46	S56881	2.951849267271458	2.89
+1375	8.1	3.191	3.58	66.73	27.37	2.27	53.04	12.21	0.15	123.75	1185.96	S56883	2.0798668885191347	3.13
+1376	8.47	1.381	2.66	10.91	16.67	0.75	10.16	2.02	0.09	84.92	1416.5	S56885	2.5797503467406377	2.87
+1377	8.5	1.855	2	5.95	11.06	0.52	39.28	3.96	0.09	66.11	1597.58	S56886	0.8327550312283136	1.73
+1378	8.45	2.678	2.89	36.21	16.68	1.3	24.65	7.05	0.15	88.63	1458.23	S56887	2.750381997499653	3.3
+1379	8.49	1.819	2.06	4.5	11.81	0.64	52.49	0.9	0.098	46.88	1642.58	S56888	2.5062656641604013	3.19
+1380	8.2	3.017	3.03	83.97	12.33	1.9	43.35	8.18	0.15	88.76	670.2	S56889	0.4931735859570911	1.55
+1381	8.19	2.327	2.8	20.02	13.73	1.23	56.86	2.24	0.14	61.17	984.9	S56890	0.8151947871897964	1.92
+1382	8.21	2.499	3.05	70.03	12.61	1.8	53.6	3.37	0.14	89.57	836.98	S56891	0.9141274238227145	2.42
+1383	8.07	3.426	3.68	126.6	26.71	2.95	26.52	8.17	0.17	66.88	1895.27	S56911	2.6692617822883355	2.48
+1384	8.89	0.974	0.98	2.79	1.27	0.67	<0.5	47.26	0.0712	65.45	686.95	S57083	7.8925505400166145	0.97
+1385	9.13	0.744	0.6	0.74	0.51	0.33	<0.5	33.98	0.0547	47.25	593.73	S57084	7.109995817649518	0.45
+1386	8.38	1.557	2.34	6.4	3.28	0.62	<0.5	28.33	0.1129	71.16	1375.23	S57085	9.143807148794679	0.53
+1387	8.21	1.577	1.64	2.88	1.09	0.74	1.56	63.28	0.1143	55.75	1374.7	S57086	6.153525239883187	0.56
+1388	8.09	2.266	2.01	1.84	2.09	1.29	<0.5	31.64	0.1636	155.15	1445.2	S57087	2.0055710306406684	1.08
+1389	8.2	0.854	0.98	0.36	0.42	0.74	<0.5	12.51	0.0626	46.35	1553.56	S57088	3.1618360837609205	0.57
+1390	9.04	1.798	0.6	1.57	0.55	0.87	<0.5	0.28	0.1301	99.58	1244.36	S57089	4.390243902439025	0.48
+1391	8.94	1.262	0.9	1.7	0.84	0.54	<0.5	1.75	0.0918	45.27	1006.38	S57090	2.2597293904310227	0.5
+1392	8.32	1.577	0.91	5.74	0.92	0.48	<0.5	80.59	0.1143	77.19	897.94	S57092	6.041666666666667	0.86
+1393	8.62	1.454	0.9	2.42	3.46	0.7	<0.5	9.64	0.1055	57.23	601.53	S57093	1.6692168590902767	0.87
+1394	8.85	0.806	0.75	0.84	1.29	0.47	<0.5	11.25	0.0592	37.66	512.47	S57094	1.2529583739384658	0.96
+1395	8.58	2.369	2.44	16.58	2.31	0.38	<0.5	18.86	0.171	99.1	1308.03	S57095	1.5824541921154915	0.69
+1396	8.37	1.707	1.34	2.69	1.23	0.39	<0.5	17.99	0.1236	56.2	1029.71	S57096	0.5838198498748958	0.82
+1397	8.67	1.54	NaN	NaN	NaN	NaN	nan	NaN	NaN	37	520	S73824	NaN	1.1
+1398	8.48	0.97	NaN	NaN	NaN	NaN	nan	NaN	NaN	22	611	S73825	NaN	1.12
+1399	8.47	2.25	NaN	NaN	NaN	NaN	nan	NaN	NaN	87	914	S73826	NaN	0.81
+1400	8.71	1.27	NaN	NaN	NaN	NaN	nan	NaN	NaN	35	672	S73827	NaN	0.73
+1401	8.07	1.6	NaN	NaN	NaN	NaN	nan	NaN	NaN	56	792	S73829	NaN	0.96
+1402	8.34	1.27	NaN	NaN	NaN	NaN	nan	NaN	NaN	65	823	S73830	NaN	0.93
+1403	8.58	1.19	NaN	NaN	NaN	NaN	nan	NaN	NaN	47	917	S73831	NaN	0.53
+1404	8.63	1.72	NaN	NaN	NaN	NaN	nan	NaN	NaN	55	984	S73832	NaN	0.44
+1405	8.71	0.92	NaN	NaN	NaN	NaN	nan	NaN	NaN	23	872	S73833	NaN	0.44
+1406	8.75	0.94	NaN	NaN	NaN	NaN	nan	NaN	NaN	32	1116	S73834	NaN	0.64
+1407	8.6	1.42	NaN	NaN	NaN	NaN	nan	NaN	NaN	39	365	S73835	NaN	0.5
+1408	8.45	1.02	NaN	NaN	NaN	NaN	nan	NaN	NaN	40	378	S73836	NaN	0.59
+1409	8.4	2.38	NaN	NaN	NaN	NaN	nan	NaN	NaN	40	368	S73837	NaN	0.7
+1410	8.59	1.19	NaN	NaN	NaN	NaN	nan	NaN	NaN	21	262	S73838	NaN	0.41
+1411	8.37	1.68	NaN	NaN	NaN	NaN	nan	NaN	NaN	34	552	S73839	NaN	0.81
+1412	8.4	1.27	NaN	NaN	NaN	NaN	nan	NaN	NaN	40	873	S73840	NaN	0.51
+1413	8.45	1.52	NaN	NaN	NaN	NaN	nan	NaN	NaN	43	416	S73841	NaN	0.75
+1414	8.08	1.04	NaN	NaN	NaN	NaN	nan	NaN	NaN	70	510	S73842	NaN	0.36
+1415	8.42	1.51	NaN	NaN	NaN	NaN	nan	NaN	NaN	70	261	S73844	NaN	0.63
+1416	8.4	1.14	NaN	NaN	NaN	NaN	nan	NaN	NaN	52	863	S73845	NaN	0.91
+1417	8.45	1.37	NaN	NaN	NaN	NaN	nan	NaN	NaN	92	1164	S73846	NaN	0.85
+1418	8.3	1.1	NaN	NaN	NaN	NaN	nan	NaN	NaN	43	555	S73847	NaN	1.51
+1419	8.54	0.88	NaN	NaN	NaN	NaN	nan	NaN	NaN	38	456	S73848	NaN	1.12
+1420	8.71	1.14	NaN	NaN	NaN	NaN	nan	NaN	NaN	42	361	S73849	NaN	1.35
+1421	8.45	2.03	NaN	NaN	NaN	NaN	nan	NaN	NaN	46	443	S73850	NaN	0.7
+1422	8.61	1.23	NaN	NaN	NaN	NaN	nan	NaN	NaN	27	683	S73851	NaN	0.55
+1423	8.01	0.65	NaN	NaN	NaN	NaN	nan	NaN	NaN	27	278	S73852	NaN	1.06
+1424	8.66	0.58	NaN	NaN	NaN	NaN	nan	NaN	NaN	12	200	S73853	NaN	0.85
+1425	8.18	0.76	NaN	NaN	NaN	NaN	nan	NaN	NaN	28	338	S73854	NaN	0.95
+1426	8.13	0.65	NaN	NaN	NaN	NaN	nan	NaN	NaN	13	249	S73855	NaN	0.8
+1427	8.11	1.08	NaN	NaN	NaN	NaN	nan	NaN	NaN	37	458	S73856	NaN	1.21
+1428	8.03	1.06	NaN	NaN	NaN	NaN	nan	NaN	NaN	13	387	S73857	NaN	1.08
+1429	8.25	1.13	NaN	NaN	NaN	NaN	nan	NaN	NaN	41	504	S73858	NaN	1.38
+1430	8.04	1.17	NaN	NaN	NaN	NaN	nan	NaN	NaN	19	444	S73859	NaN	1.32
+1431	8.18	1.29	NaN	NaN	NaN	NaN	nan	NaN	NaN	43	537	S73860	NaN	2
+1432	8.02	1.34	NaN	NaN	NaN	NaN	nan	NaN	NaN	18	457	S73861	NaN	1.19
+1433	8.41	0.75	NaN	NaN	NaN	NaN	nan	NaN	NaN	42	385	S73862	NaN	1.29
+1434	7.97	1.17	NaN	NaN	NaN	NaN	nan	NaN	NaN	27	356	S73863	NaN	1.03
+1435	8.03	2.68	NaN	NaN	NaN	NaN	nan	NaN	NaN	19	1354	S73864	NaN	6.13
+1436	8.18	1.31	NaN	NaN	NaN	NaN	nan	NaN	NaN	26	626	S73865	NaN	4.12
+1437	8.33	2.17	NaN	NaN	NaN	NaN	nan	NaN	NaN	31	760	S73866	NaN	7.64
+1438	8.21	1.22	NaN	NaN	NaN	NaN	nan	NaN	NaN	31	440	S73867	NaN	3.11
+1439	8.36	3.23	NaN	NaN	NaN	NaN	nan	NaN	NaN	24	973	S73868	NaN	3.62
+1440	8.28	2.11	NaN	NaN	NaN	NaN	nan	NaN	NaN	30	592	S73869	NaN	1.71
+1441	8.18	1.47	NaN	NaN	NaN	NaN	nan	NaN	NaN	22	233	S73870	NaN	1.39
+1442	8.18	1.78	NaN	NaN	NaN	NaN	nan	NaN	NaN	17	248	S73871	NaN	1.35
+1443	8.24	1.5	NaN	NaN	NaN	NaN	nan	NaN	NaN	63	441	S73872	NaN	1.94
+1444	8.26	1.49	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	385	S73873	NaN	1.9
+1445	8.33	1.33	NaN	NaN	NaN	NaN	nan	NaN	NaN	23	185	S73874	NaN	3.12
+1446	8.35	1.14	NaN	NaN	NaN	NaN	nan	NaN	NaN	13	290	S73875	NaN	2
+1447	8.63	0.77	NaN	NaN	NaN	NaN	nan	NaN	NaN	30	178	S73876	NaN	1.51
+1448	8.02	0.89	NaN	NaN	NaN	NaN	nan	NaN	NaN	19	417	S73877	NaN	0.85
+1449	8.4	0.52	NaN	NaN	NaN	NaN	nan	NaN	NaN	30	177	S73878	NaN	1.25
+1450	7.92	0.75	NaN	NaN	NaN	NaN	nan	NaN	NaN	15	145	S73879	NaN	0.8
+1451	8.47	0.74	NaN	NaN	NaN	NaN	nan	NaN	NaN	33	232	S73880	NaN	0.9
+1452	8.16	0.91	NaN	NaN	NaN	NaN	nan	NaN	NaN	18	168	S73881	NaN	0.73
+1453	8.58	0.88	NaN	NaN	NaN	NaN	nan	NaN	NaN	36	169	S73882	NaN	1.43
+1454	8.11	0.78	NaN	NaN	NaN	NaN	nan	NaN	NaN	14	140	S73883	NaN	0.92
+1455	8.35	1.05	NaN	NaN	NaN	NaN	nan	NaN	NaN	40	270	S73884	NaN	1.62
+1456	8.64	1.33	NaN	NaN	NaN	NaN	nan	NaN	NaN	47	267	S73886	NaN	2
+1457	8.63	1.5	NaN	NaN	NaN	NaN	nan	NaN	NaN	51	342	S73888	NaN	2.01
+1458	8.1	1.59	NaN	NaN	NaN	NaN	nan	NaN	NaN	24	459	S73889	NaN	2
+1459	8.58	1.43	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	298	S73890	NaN	2.21
+1460	8.61	1.31	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	210	S73892	NaN	1.76
+1461	9	1.07	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	237	S73894	NaN	1.12
+1462	8.44	1.44	NaN	NaN	NaN	NaN	nan	NaN	NaN	37	286	S73895	NaN	1.1
+1463	8.4	1.69	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	860	S73897	NaN	2.21
+1464	8.06	2.49	NaN	NaN	NaN	NaN	nan	NaN	NaN	60	1592	S73900	NaN	0.7
+1465	8.24	1.46	NaN	NaN	NaN	NaN	nan	NaN	NaN	40	1230	S73901	NaN	0.9
+1466	8.28	1.52	NaN	NaN	NaN	NaN	nan	NaN	NaN	38	1223	S73903	NaN	1
+1467	8.39	1.55	NaN	NaN	NaN	NaN	nan	NaN	NaN	36	1272	S73905	NaN	1.16
+1468	8.03	2.77	NaN	NaN	NaN	NaN	nan	NaN	NaN	57	1490	S73906	NaN	0.61
+1469	8.21	1.47	NaN	NaN	NaN	NaN	nan	NaN	NaN	38	1177	S73907	NaN	0.59
+1470	8.29	1.45	NaN	NaN	NaN	NaN	nan	NaN	NaN	35	1162	S73909	NaN	0.61
+1471	7.96	3.01	NaN	NaN	NaN	NaN	nan	NaN	NaN	61	788	S73910	NaN	2
+1472	8.28	1.56	NaN	NaN	NaN	NaN	nan	NaN	NaN	42	1017	S73911	NaN	2.11
+1473	8.23	1.61	NaN	NaN	NaN	NaN	nan	NaN	NaN	39	1004	S73913	NaN	2.26
+1474	7.98	3.24	NaN	NaN	NaN	NaN	nan	NaN	NaN	72	1353	S73914	NaN	2
+1475	8.22	1.44	NaN	NaN	NaN	NaN	nan	NaN	NaN	42	1192	S73915	NaN	0.91
+1476	8	2.87	NaN	NaN	NaN	NaN	nan	NaN	NaN	63	1426	S73916	NaN	2.02
+1477	8.09	2.53	NaN	NaN	NaN	NaN	nan	NaN	NaN	64	1507	S73918	NaN	0.73
+1478	8.27	1.52	NaN	NaN	NaN	NaN	nan	NaN	NaN	43	1209	S73919	NaN	0.74
+1479	8.3	1.67	NaN	NaN	NaN	NaN	nan	NaN	NaN	49	1334	S73921	NaN	1.12
+1480	8.02	2.91	NaN	NaN	NaN	NaN	nan	NaN	NaN	58	1386	S73924	NaN	2.02
+1481	8.19	1.6	NaN	NaN	NaN	NaN	nan	NaN	NaN	39	1091	S73925	NaN	2
+1482	8.1	2.6	NaN	NaN	NaN	NaN	nan	NaN	NaN	62	1157	S73926	NaN	2.14
+1483	8.16	1.47	NaN	NaN	NaN	NaN	nan	NaN	NaN	42	1028	S73927	NaN	2.22
+\.
+
+
+--
+-- Data for Name: visualisation_soilsample; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_soilsample ("Code_labo", localisation, "Depth", "Date_collect", "Date_edition") FROM stdin;
+S51495	0101000020E610000086764EB340DB1EC0338AE59656094040	Surface	2022-06-07	2022-06-27
+S51496	0101000020E610000002637D0393DB1EC0406CE9D154094040	Surface	2022-06-07	2022-06-27
+S51497	0101000020E6100000DA8EA9BBB2DB1EC09468C9E369094040	Surface	2022-06-07	2022-06-27
+S51498	0101000020E61000001DCC26C0B0DC1EC0CAFACDC474094040	Surface	2022-06-07	2022-06-27
+S51499	0101000020E61000005B5F24B4E5DC1EC04C530438BD094040	Surface	2022-06-07	2022-06-27
+S51500	0101000020E6100000213CDA3862DD1EC0FA0AD28C450B4040	Surface	2022-06-07	2022-06-27
+S51501	0101000020E6100000478FDFDBF4F71EC033198EE7330E4040	Surface	2022-06-07	2022-06-27
+S51502	0101000020E61000001407D0EFFBF71EC00F0F61FC340E4040	Profondeur	2022-06-07	2022-06-27
+S51503	0101000020E6100000A81C93C5FDE71EC0FB75A73B4F0E4040	Surface	2022-06-07	2022-06-27
+S51504	0101000020E6100000E17EC00303E81EC0185B0872500E4040	Surface	2022-06-07	2022-06-27
+S51505	0101000020E6100000E17EC00303E81EC0185B0872500E4040	Profondeur	2022-06-07	2022-06-27
+S52007	0101000020E61000005D177E703EA51EC0AF42CA4FAA094040	Surface	2022-06-10	2022-07-04
+S52008	0101000020E61000005D177E703EA51EC0E162450DA6094040	Surface	2022-06-10	2022-07-04
+S52009	0101000020E6100000E9B81AD995A61EC05AF5B9DA8A094040	Surface	2022-06-10	2022-07-04
+S52010	0101000020E61000000C5C1E6B46A61EC095D6DF1280094040	Surface	2022-06-10	2022-07-04
+S52066	0101000020E6100000271422E010EA1EC0F59D5F94A00B4040	Surface	2022-06-10	2022-07-04
+S52067	0101000020E6100000A9FA95CE87E71EC0307F85CC950B4040	Surface	2022-06-10	2022-07-04
+S52019	0101000020E610000066DCD440F3991EC0AF94658863094040	Surface	2022-06-13	2022-07-04
+S52020	0101000020E610000070ED444948A41EC073A25D8594094040	Surface	2022-06-13	2022-07-04
+S52021	0101000020E6100000525F96766AAE1EC08BA2495A58094040	Surface	2022-06-13	2022-07-04
+S52022	0101000020E6100000AED85F764FAE1EC0C7BC8E3864094040	Surface	2022-06-13	2022-07-04
+S52043	0101000020E6100000179CC1DF2FF61EC0454AB3791C124040	Surface	2022-06-13	2022-07-04
+S52044	0101000020E6100000D57B2AA73DF51EC06B9F8EC70C124040	Surface	2022-06-13	2022-07-04
+S52045	0101000020E61000009E29745E63F71EC03716140665124040	Surface	2022-06-13	2022-07-04
+S52046	0101000020E61000009E29745E63F71EC076FBAC3253124040	Surface	2022-06-13	2022-07-04
+S52047	0101000020E61000006891ED7C3FF51EC0F7949C137B124040	Surface	2022-06-13	2022-07-04
+S52048	0101000020E610000025EA059FE6F41EC01844A4A65D124040	Surface	2022-06-13	2022-07-04
+S52049	0101000020E61000002BA226FA7CF41EC03F3BE0BA62124040	Surface	2022-06-13	2022-07-04
+S52050	0101000020E610000000378B170BF31EC06DE34F5436124040	Surface	2022-06-13	2022-07-04
+S52039	0101000020E61000002E1D739EB1FF1EC07B849A2155124040	Surface	2022-06-13	2022-07-04
+S52040	0101000020E61000008B355CE49EFE1EC08141D2A755124040	Surface	2022-06-13	2022-07-04
+S52041	0101000020E61000009D7FBBECD7FD1EC0A4FACE2F4A124040	Surface	2022-06-13	2022-07-04
+S52042	0101000020E61000003561FBC918FF1EC0E8FA3E1C24124040	Surface	2022-06-13	2022-07-04
+S52056	0101000020E6100000FD14C78157DB1EC0BEC1172653094040	Surface	2022-06-13	2022-07-04
+S52057	0101000020E61000003B730F09DFDB1EC0FF76D9AF3B094040	Surface	2022-06-13	2022-07-04
+S52058	0101000020E6100000EC6987BF26DB1EC015C9570229094040	Surface	2022-06-13	2022-07-04
+S52059	0101000020E6100000D63BDC0E0DDB1EC0E3C5C21039094040	Surface	2022-06-13	2022-07-04
+S52060	0101000020E61000000D51853FC3DB1EC0C495B37746094040	Surface	2022-06-13	2022-07-04
+S52035	0101000020E6100000DA9255116EF21EC0FE7DC68503154040	Surface	2022-06-13	2022-07-04
+S52036	0101000020E6100000632992AF04F21EC08483BD8921154040	Surface	2022-06-13	2022-07-04
+S52037	0101000020E6100000016C4084B8F21EC01899805F23154040	Surface	2022-06-13	2022-07-04
+S52038	0101000020E6100000396403E962F31EC071C79BFC16154040	Surface	2022-06-13	2022-07-04
+S52031	0101000020E6100000058BC3995FED1EC0B42094F771144040	Surface	2022-06-13	2022-07-04
+S52032	0101000020E6100000327381CB63ED1EC0F8C264AA60144040	Surface	2022-06-13	2022-07-04
+S52033	0101000020E61000000116F9F543EC1EC03F52448655144040	Surface	2022-06-13	2022-07-04
+S52034	0101000020E6100000FF1F274C18ED1EC0DF6C73637A144040	Surface	2022-06-13	2022-07-04
+S52015	0101000020E61000006823D74D29AF1EC0D6011077F5044040	Surface	2022-06-13	2022-07-04
+S52016	0101000020E6100000C85EEFFE78AF1EC016325706D5044040	Surface	2022-06-13	2022-07-04
+S52017	0101000020E61000004AD3A0681EB01EC005DD5ED218054040	Surface	2022-06-13	2022-07-04
+S52018	0101000020E6100000D82B2CB81FB01EC005DD5ED218054040	Surface	2022-06-13	2022-07-04
+S52011	0101000020E6100000D42CD0EE90B21EC0289D4830D5084040	Surface	2022-06-13	2022-07-04
+S52012	0101000020E610000072874D64E6B21EC0B9FFC874E8084040	Surface	2022-06-13	2022-07-04
+S52013	0101000020E610000083BEF4F6E7B21EC049F4328AE5084040	Surface	2022-06-13	2022-07-04
+S52014	0101000020E6100000942F682101B31EC024F0879FFF084040	Surface	2022-06-13	2022-07-04
+S52061	0101000020E61000000D39B69E21AC1EC0EE5F596952084040	Surface	2022-06-14	2022-07-04
+S52062	0101000020E6100000170FEF39B0AC1EC01AF7E6374C084040	Surface	2022-06-14	2022-07-04
+S52063	0101000020E610000091B6F1272AAB1EC05EBC1FB75F084040	Surface	2022-06-14	2022-07-04
+S52064	0101000020E6100000A053909F8DAC1EC0C498F4F752084040	Surface	2022-06-14	2022-07-04
+S52065	0101000020E6100000959A3DD00AAC1EC0F2B4FCC055084040	Surface	2022-06-14	2022-07-04
+S52027	0101000020E61000001E6D1CB116EF1EC02594BE1072144040	Surface	2022-06-14	2022-07-04
+S52028	0101000020E6100000FC8A355CE4EE1EC025B1A4DC7D144040	Surface	2022-06-14	2022-07-04
+S52029	0101000020E61000002AFF5A5EB9EE1EC0F7C8E6AA79144040	Surface	2022-06-14	2022-07-04
+S52030	0101000020E61000002AA8A8FA95EE1EC0C72DE6E786144040	Surface	2022-06-14	2022-07-04
+S51999	0101000020E6100000111E6D1CB1B61EC0F37684D382094040	Surface	2022-06-14	2022-07-04
+S52000	0101000020E610000087A4164A26B71EC0F0DAA50D87094040	Surface	2022-06-14	2022-07-04
+S52001	0101000020E61000002A83B4102EB61EC03A747ADE8D094040	Surface	2022-06-14	2022-07-04
+S52002	0101000020E61000002B137EA99FB71EC0C7D9740470094040	Surface	2022-06-14	2022-07-04
+S52003	0101000020E6100000A60F5D50DFF21EC0FC19DEACC1074040	Surface	2022-06-14	2022-07-04
+S52004	0101000020E6100000A08CF161F6F21EC067B96C74CE074040	Surface	2022-06-14	2022-07-04
+S52005	0101000020E6100000D2FE0758ABF61EC08066101FD8074040	Surface	2022-06-14	2022-07-04
+S52006	0101000020E610000063EFC517EDF11EC0639813B4C9074040	Surface	2022-06-14	2022-07-04
+S52051	0101000020E6100000A8FE412443AE1EC04260E5D022094040	Surface	2022-06-14	2022-07-04
+S52052	0101000020E6100000DA1CE736E1AE1EC0785F950B95094040	Surface	2022-06-14	2022-07-04
+S52053	0101000020E6100000EBE40CC51DAF1EC005172B6A30094040	Surface	2022-06-14	2022-07-04
+S52054	0101000020E610000025E659492BAE1EC00708E6E8F1094040	Surface	2022-06-14	2022-07-04
+S52055	0101000020E610000042D13C8045AE1EC0A8E3310395094040	Surface	2022-06-14	2022-07-04
+S52023	0101000020E610000057410C74EDAB1EC0008C67D0D0094040	Surface	2022-06-14	2022-07-04
+S52024	0101000020E6100000404D2D5BEBAB1EC006836BEEE8094040	Surface	2022-06-14	2022-07-04
+S52025	0101000020E6100000460A65E1EBAB1EC006836BEEE8094040	Surface	2022-06-14	2022-07-04
+S52026	0101000020E6100000B1BFEC9E3CAC1EC06B0E10CCD1094040	Surface	2022-06-14	2022-07-04
+S52068	0101000020E6100000D49AE61DA7E81EC05C397B67B40B4040	Surface	2022-06-15	2022-07-04
+S52069	0101000020E61000004359F8FA5AE71EC0DECCE847C30B4040	Surface	2022-06-15	2022-07-04
+S52070	0101000020E610000082397AFCDEE61EC019E8DA17D00B4040	Surface	2022-06-15	2022-07-04
+S52071	0101000020E61000004E7CB5A338E71EC0DC9E20B1DD0B4040	Surface	2022-06-15	2022-07-04
+S52072	0101000020E61000004DD87E32C6E71EC0FCE42840140C4040	Surface	2022-06-15	2022-07-04
+S52073	0101000020E6100000506D7022FAE51EC0F7CABC55D70B4040	Surface	2022-06-15	2022-07-04
+S52074	0101000020E61000004F0647C9ABE31EC01805C1E3DB0B4040	Surface	2022-06-15	2022-07-04
+S52075	0101000020E61000005CAB3DEC85E21EC07F4FAC53E50B4040	Surface	2022-06-15	2022-07-04
+S52076	0101000020E61000006A85E97B0DE11EC070D1C952EB0B4040	Surface	2022-06-15	2022-07-04
+S52077	0101000020E61000002F87DD770CDF1EC0C3F17C06D40B4040	Surface	2022-06-15	2022-07-04
+S52078	0101000020E610000061DF4E22C2DF1EC02A36E675C40B4040	Surface	2022-06-15	2022-07-04
+S52079	0101000020E61000001024EF1CCAE01EC01B4AED45B40B4040	Surface	2022-06-15	2022-07-04
+S52080	0101000020E6100000FB3A70CE88E21EC01C959BA8A50B4040	Surface	2022-06-15	2022-07-04
+S52081	0101000020E61000003012DA722EE51EC0A741D13C800B4040	Surface	2022-06-15	2022-07-04
+S52082	0101000020E6100000F0DAA50D87E51EC00684D6C3970B4040	Surface	2022-06-15	2022-07-04
+S52083	0101000020E6100000AED3484BE56D1EC06B573211800D4040	Surface	2022-06-15	2022-07-04
+S52084	0101000020E6100000C2189128B46C1EC089EE59D7680D4040	Surface	2022-06-15	2022-07-04
+S52085	0101000020E6100000FB75A73B4F6C1EC0A9DDAF027C0D4040	Surface	2022-06-15	2022-07-04
+S52086	0101000020E6100000516C054D4B6C1EC0772B4B74960D4040	Surface	2022-06-15	2022-07-04
+S52087	0101000020E610000053944BE3176E1EC0C6FCDCD0940D4040	Surface	2022-06-15	2022-07-04
+S52088	0101000020E610000047C8409E5D6E1EC0A1F31ABB440D4040	Surface	2022-06-15	2022-07-04
+S52089	0101000020E61000007F86376BF06E1EC0CDAD1056630D4040	Surface	2022-06-15	2022-07-04
+S52090	0101000020E61000007077D66EBB701EC0E36DA5D7660D4040	Surface	2022-06-15	2022-07-04
+S52091	0101000020E6100000215B96AFCB701EC0F581E49D430D4040	Surface	2022-06-15	2022-07-04
+S52092	0101000020E610000047B071FDBB6E1EC0AE4A22FB200D4040	Surface	2022-06-15	2022-07-04
+S52093	0101000020E6100000309C6B98A1711EC038BBB54C860D4040	Surface	2022-06-15	2022-07-04
+S52094	0101000020E61000009ED32CD0EE701EC05000C5C8920D4040	Surface	2022-06-15	2022-07-04
+S52095	0101000020E6100000ABCC94D6DF721EC0F645425BCE0D4040	Surface	2022-06-15	2022-07-04
+S52096	0101000020E61000004B5CC7B8E2621EC08A58C4B0C30C4040	Surface	2022-06-15	2022-07-04
+S52097	0101000020E6100000D0D1AA9674641EC062BCE6559D0B4040	Surface	2022-06-15	2022-07-04
+S52098	0101000020E610000061A417B5FB651EC09BA9108FC40B4040	Surface	2022-06-15	2022-07-04
+S52099	0101000020E6100000D5415E0F26651EC0ECA17DACE00B4040	Surface	2022-06-15	2022-07-04
+S52100	0101000020E6100000E7A8A3E36A641EC0D7DB662AC40B4040	Surface	2022-06-15	2022-07-04
+S53805	0101000020E6100000560E2DB29DEF1EC0228E75711B154040	Surface	2022-07-29	2022-08-18
+S53806	0101000020E6100000560E2DB29DEF1EC0228E75711B154040	Profondeur	2022-07-29	2022-08-18
+S53807	0101000020E61000005682C5E1CCEF1EC01361C3D32B154040	Surface	2022-07-29	2022-08-18
+S53808	0101000020E61000005682C5E1CCEF1EC01361C3D32B154040	Profondeur	2022-07-29	2022-08-18
+S53809	0101000020E6100000B3CD8DE909EB1EC058A835CD3B164040	Surface	2022-07-29	2022-08-18
+S53810	0101000020E6100000B3CD8DE909EB1EC058A835CD3B164040	Profondeur	2022-07-29	2022-08-18
+S53811	0101000020E6100000B3075A8121EB1EC0CA32C4B12E164040	Surface	2022-07-29	2022-08-18
+S53812	0101000020E6100000B3075A8121EB1EC0CA32C4B12E164040	Profondeur	2022-07-29	2022-08-18
+S53813	0101000020E61000004209336DFFEA1EC04BEA043411164040	Surface	2022-07-29	2022-08-18
+S53814	0101000020E61000004209336DFFEA1EC04BEA043411164040	Profondeur	2022-07-29	2022-08-18
+S53815	0101000020E61000002D3E05C078E61EC020D26F5F07164040	Surface	2022-07-29	2022-08-18
+S53816	0101000020E61000002D3E05C078E61EC020D26F5F07164040	Profondeur	2022-07-29	2022-08-18
+S53817	0101000020E610000010069E7B0FD71EC06C09F9A067134040	Surface	2022-07-29	2022-08-18
+S53818	0101000020E610000010069E7B0FD71EC06C09F9A067134040	Profondeur	2022-07-29	2022-08-18
+S54264	0101000020E6100000302FC03E3AB51EC02634492C29074040	Surface	2022-08-03	2022-08-18
+S54265	0101000020E610000073F38DE89EB51EC012DC48D922074040	Surface	2022-08-03	2022-08-18
+S54266	0101000020E6100000B821C66B5EB51EC012A27C410B074040	Surface	2022-08-03	2022-08-18
+S54267	0101000020E61000004A5E9D6340B61EC0DA907F6610074040	Surface	2022-08-03	2022-08-18
+S54268	0101000020E6100000BC3E73D6A7EC1EC061A92EE065144040	Surface	2022-08-03	2022-08-18
+S54269	0101000020E61000003F00A94D9CEC1EC0BC79AA436E144040	Surface	2022-08-03	2022-08-18
+S54270	0101000020E61000003F00A94D9CEC1EC0944E24986A144040	Surface	2022-08-03	2022-08-18
+S54271	0101000020E610000095D4096822EC1EC05B608F8994144040	Surface	2022-08-03	2022-08-18
+S54272	0101000020E6100000BB61DBA2CCA61EC0488AC8B08A094040	Surface	2022-08-03	2022-08-18
+S54273	0101000020E6100000FC1A498270A51EC082E673EE76094040	Surface	2022-08-03	2022-08-18
+S54274	0101000020E61000007EA99F3715A91EC0DDB6EF517F094040	Surface	2022-08-03	2022-08-18
+S54275	0101000020E61000002E90A0F831661EC0C4B12E6EA30B4040	Surface	2022-08-03	2022-08-18
+S54276	0101000020E6100000BBD05CA791661EC0425E0F26C50B4040	Surface	2022-08-03	2022-08-18
+S55239	0101000020E61000001990BDDEFD711EC0A857CA32C4114040	Surface	2022-09-15	2022-10-26
+S55240	0101000020E61000001990BDDEFD711EC0A857CA32C4114040	Profondeur	2022-09-15	2022-10-26
+S55241	0101000020E6100000DD41EC4CA1731EC044FAEDEBC0114040	Surface	2022-09-15	2022-10-26
+S55242	0101000020E6100000DD41EC4CA1731EC044FAEDEBC0114040	Profondeur	2022-09-15	2022-10-26
+S55243	0101000020E61000008D5DA27A6B801EC09C33A2B437104040	Surface	2022-09-15	2022-10-26
+S55244	0101000020E61000008D5DA27A6B801EC09C33A2B437104040	Profondeur	2022-09-15	2022-10-26
+S55245	0101000020E61000006EC0E78711821EC055C1A8A44E104040	Surface	2022-09-15	2022-10-26
+S55246	0101000020E61000006EC0E78711821EC055C1A8A44E104040	Profondeur	2022-09-15	2022-10-26
+S55247	0101000020E6100000C4EBFA05BB811EC02AA913D044104040	Surface	2022-09-15	2022-10-26
+S55248	0101000020E6100000C4EBFA05BB811EC02AA913D044104040	Profondeur	2022-09-15	2022-10-26
+S55249	0101000020E61000009B1BD31396B81EC0C442AD69DE094040	Surface	2022-09-15	2022-10-26
+S55250	0101000020E61000009B1BD31396B81EC0C442AD69DE094040	Profondeur	2022-09-15	2022-10-26
+S55251	0101000020E61000000135B56CADCF1EC00DE02D90A0084040	Surface	2022-09-15	2022-10-26
+S55252	0101000020E61000000135B56CADCF1EC00DE02D90A0084040	Profondeur	2022-09-15	2022-10-26
+S55253	0101000020E6100000AAF1D24D62D01EC0E3C798BB96084040	Surface	2022-09-15	2022-10-26
+S55254	0101000020E6100000AAF1D24D62D01EC0E3C798BB96084040	Profondeur	2022-09-15	2022-10-26
+S55255	0101000020E61000009161156F64DE1EC0DE718A8EE40A4040	Surface	2022-09-15	2022-10-26
+S55256	0101000020E61000009161156F64DE1EC0DE718A8EE40A4040	Profondeur	2022-09-15	2022-10-26
+S55257	0101000020E610000014ED2AA4FCE41EC0143FC6DCB50C4040	Surface	2022-09-15	2022-10-26
+S55258	0101000020E610000014ED2AA4FCE41EC0143FC6DCB50C4040	Profondeur	2022-09-15	2022-10-26
+S55259	0101000020E6100000B875374F75E81EC0ADFA5C6DC50E4040	Surface	2022-09-15	2022-10-26
+S55260	0101000020E6100000B875374F75E81EC0ADFA5C6DC50E4040	Profondeur	2022-09-15	2022-10-26
+S55261	0101000020E6100000EDD3F19881EA1EC08195438B6C0F4040	Surface	2022-09-15	2022-10-26
+S55262	0101000020E6100000984C158C4AEA1EC0C7293A92CB0F4040	Surface	2022-09-15	2022-10-26
+S55263	0101000020E6100000984C158C4AEA1EC0C7293A92CB0F4040	Profondeur	2022-09-15	2022-10-26
+S56859	0101000020E610000092EA3BBF28F11EC013622EA9DA124040	Surface	2022-10-27	2022-11-25
+S56860	0101000020E610000092EA3BBF28F11EC013622EA9DA124040	Profondeur	2022-10-27	2022-11-25
+S56861	0101000020E610000032E5435035EA1EC067B96C74CE0F4040	Surface	2022-10-27	2022-11-25
+S56862	0101000020E610000032E5435035EA1EC067B96C74CE0F4040	Profondeur	2022-10-27	2022-11-25
+S56863	0101000020E610000004C8D0B183EA1EC01D386744690F4040	Surface	2022-10-27	2022-11-25
+S56864	0101000020E610000004C8D0B183EA1EC01D386744690F4040	Profondeur	2022-10-27	2022-11-25
+S56865	0101000020E610000034A1496249E91EC0580394861A0F4040	Surface	2022-10-27	2022-11-25
+S56866	0101000020E610000034A1496249E91EC0580394861A0F4040	Profondeur	2022-10-27	2022-11-25
+S56867	0101000020E6100000A22AA6D24FE81EC0B5705985CD0E4040	Surface	2022-10-27	2022-11-25
+S56868	0101000020E6100000A22AA6D24FE81EC0B5705985CD0E4040	Profondeur	2022-10-27	2022-11-25
+S56869	0101000020E610000051137D3ECAE81EC0BF2CEDD45C0E4040	Surface	2022-10-27	2022-11-25
+S56870	0101000020E610000051137D3ECAE81EC0BF2CEDD45C0E4040	Profondeur	2022-10-27	2022-11-25
+S56871	0101000020E610000051137D3ECAE81EC0BF2CEDD45C0E4040	Profondeur	2022-10-27	2022-11-25
+S56872	0101000020E610000051137D3ECAE81EC0BF2CEDD45C0E4040	Profondeur	2022-10-27	2022-11-25
+S56873	0101000020E61000009F0436E7E0E91EC06C938AC6DA0D4040	Surface	2022-10-27	2022-11-25
+S56874	0101000020E61000009F0436E7E0E91EC06C938AC6DA0D4040	Profondeur	2022-10-27	2022-11-25
+S56875	0101000020E61000009F0436E7E0E91EC06C938AC6DA0D4040	Profondeur	2022-10-27	2022-11-25
+S56876	0101000020E61000009F0436E7E0E91EC06C938AC6DA0D4040	Profondeur	2022-10-27	2022-11-25
+S56877	0101000020E6100000DC9DB5DB2EE41EC07F501729940D4040	Surface	2022-10-27	2022-11-25
+S56878	0101000020E6100000DC9DB5DB2EE41EC07F501729940D4040	Profondeur	2022-10-27	2022-11-25
+S56879	0101000020E6100000DC9DB5DB2EE41EC07F501729940D4040	Profondeur	2022-10-27	2022-11-25
+S56880	0101000020E6100000DC9DB5DB2EE41EC07F501729940D4040	Profondeur	2022-10-27	2022-11-25
+S56881	0101000020E61000000B444FCAA4E61EC0F9D7F2CAF50C4040	Surface	2022-10-27	2022-11-25
+S56882	0101000020E61000000B444FCAA4E61EC0F9D7F2CAF50C4040	Profondeur	2022-10-27	2022-11-25
+S56883	0101000020E61000000B444FCAA4E61EC0F9D7F2CAF50C4040	Profondeur	2022-10-27	2022-11-25
+S56884	0101000020E61000000B444FCAA4E61EC0F9D7F2CAF50C4040	Profondeur	2022-10-27	2022-11-25
+S56885	0101000020E61000005B7B9FAA42E31EC003B2D7BB3F0C4040	Surface	2022-10-27	2022-11-25
+S56886	0101000020E61000005B7B9FAA42E31EC003B2D7BB3F0C4040	Profondeur	2022-10-27	2022-11-25
+S56887	0101000020E61000005B7B9FAA42E31EC003B2D7BB3F0C4040	Profondeur	2022-10-27	2022-11-25
+S56888	0101000020E61000005B7B9FAA42E31EC003B2D7BB3F0C4040	Profondeur	2022-10-27	2022-11-25
+S56889	0101000020E610000016FBCBEEC9E31EC06534F279C50B4040	Surface	2022-10-27	2022-11-25
+S56890	0101000020E610000016FBCBEEC9E31EC06534F279C50B4040	Profondeur	2022-10-27	2022-11-25
+S56891	0101000020E6100000522CB7B41AE21EC03D9B559FAB0B4040	Surface	2022-10-27	2022-11-25
+S56892	0101000020E6100000522CB7B41AE21EC03D9B559FAB0B4040	Profondeur	2022-10-27	2022-11-25
+S56893	0101000020E61000000E6B2A8BC2DE1EC0D82D02637D0B4040	Surface	2022-10-27	2022-11-25
+S56894	0101000020E61000000E6B2A8BC2DE1EC0D82D02637D0B4040	Profondeur	2022-10-27	2022-11-25
+S56895	0101000020E610000061DD787764DC1EC0B5DD04DF340B4040	Surface	2022-10-27	2022-11-25
+S56896	0101000020E610000061DD787764DC1EC0B5DD04DF340B4040	Profondeur	2022-10-27	2022-11-25
+S56897	0101000020E61000007978CF81E5D81EC03F1C2444F90A4040	Surface	2022-10-27	2022-11-25
+S56898	0101000020E61000007978CF81E5D81EC03F1C2444F90A4040	Profondeur	2022-10-27	2022-11-25
+S56899	0101000020E6100000838AAA5FE9DC1EC07651F4C0C70A4040	Surface	2022-10-27	2022-11-25
+S56900	0101000020E6100000838AAA5FE9DC1EC07651F4C0C70A4040	Profondeur	2022-10-27	2022-11-25
+S56901	0101000020E6100000BDE2A9471ADC1EC0965F0663440A4040	Surface	2022-10-27	2022-11-25
+S56902	0101000020E6100000BDE2A9471ADC1EC0965F0663440A4040	Profondeur	2022-10-27	2022-11-25
+S56903	0101000020E6100000800BB265F9DA1EC073D9E89C9F0A4040	Surface	2022-10-27	2022-11-25
+S56904	0101000020E6100000800BB265F9DA1EC073D9E89C9F0A4040	Profondeur	2022-10-27	2022-11-25
+S56905	0101000020E6100000990E9D9E77E31EC021CA17B4900A4040	Surface	2022-10-27	2022-11-25
+S56906	0101000020E6100000990E9D9E77E31EC021CA17B4900A4040	Profondeur	2022-10-27	2022-11-25
+S56907	0101000020E61000008063CF9ECBE41EC0BA85AE44A00A4040	Surface	2022-10-27	2022-11-25
+S56908	0101000020E61000008063CF9ECBE41EC0BA85AE44A00A4040	Profondeur	2022-10-27	2022-11-25
+S56909	0101000020E610000077BF0AF0DDE61EC094313ECC5E0A4040	Surface	2022-10-27	2022-11-25
+S56910	0101000020E610000077BF0AF0DDE61EC094313ECC5E0A4040	Profondeur	2022-10-27	2022-11-25
+S56911	0101000020E6100000B7EBA52902FC1EC01B2FDD24060D4040	Surface	2022-10-27	2022-11-25
+S56912	0101000020E6100000B7EBA52902FC1EC01B2FDD24060D4040	Profondeur	2022-10-27	2022-11-25
+S57083	0101000020E610000084BC1E4C8ADF1EC0EDD632198E114040	Surface	2022-11-02	2022-11-17
+S57084	0101000020E610000084BC1E4C8ADF1EC0EDD632198E114040	Profondeur	2022-11-02	2022-11-17
+S57085	0101000020E61000009C340D8AE6D11EC08AC745B588104040	Surface	2022-11-02	2022-11-17
+S57086	0101000020E61000009C340D8AE6D11EC08AC745B588104040	Profondeur	2022-11-02	2022-11-17
+S57087	0101000020E61000001AE1ED4108E81EC0A14CA3C9C50E4040	Surface	2022-11-02	2022-11-17
+S57088	0101000020E61000001AE1ED4108E81EC0A14CA3C9C50E4040	Profondeur	2022-11-02	2022-11-17
+S57089	0101000020E6100000410E4A98693B1FC04FE5B4A7E4044040	Surface	2022-11-02	2022-11-17
+S57090	0101000020E6100000410E4A98693B1FC04FE5B4A7E4044040	Profondeur	2022-11-02	2022-11-17
+S57091	0101000020E61000002A1C412AC52E1FC02331410DDF044040	Surface	2022-11-02	2022-11-17
+S57092	0101000020E61000002A1C412AC52E1FC02331410DDF044040	Profondeur	2022-11-02	2022-11-17
+S57093	0101000020E610000007B13385CE3B1FC0AF7AC03C64044040	Surface	2022-11-02	2022-11-17
+S57094	0101000020E610000007B13385CE3B1FC0AF7AC03C64044040	Profondeur	2022-11-02	2022-11-17
+S57095	0101000020E610000007B13385CE3B1FC0AF7AC03C64044040	Surface	2022-11-02	2022-11-17
+S57096	0101000020E610000007B13385CE3B1FC0AF7AC03C64044040	Profondeur	2022-11-02	2022-11-17
+S73824	0101000020E61000001676905804C91FC003859D09DD094040	Surface	2023-12-22	2024-01-24
+S73825	0101000020E610000046604945A5991FC0BB9E4374E3084040	Surface	2023-12-22	2024-01-24
+S73826	0101000020E610000046604945A5991FC0BB9E4374E3084040	Profondeur	2023-12-22	2024-01-24
+S73827	0101000020E610000000F4D8EFB95C1FC096F7BA0A3E0A4040	Surface	2023-12-22	2024-01-24
+S73828	0101000020E61000001EE20DD338441FC0EDD5E3988E084040	Surface	2023-12-22	2024-01-24
+S73829	0101000020E61000003BE8D5AAA4321FC0E6C47792CF064040	Surface	2023-12-22	2024-01-24
+S73830	0101000020E61000004B36B940CB321FC0061B4B16FF064040	Surface	2023-12-22	2024-01-24
+S73831	0101000020E610000066D80224952F1FC05C601F3517074040	Surface	2023-12-22	2024-01-24
+S73832	0101000020E61000005D68C56FBE4C1FC0BFFFB7DBB3094040	Surface	2023-12-22	2024-01-24
+S73833	0101000020E61000005D68C56FBE4C1FC0BFFFB7DBB3094040	Profondeur	2023-12-22	2024-01-24
+S73834	0101000020E61000005D68C56FBE4C1FC0BFFFB7DBB3094040	Profondeur	2023-12-22	2024-01-24
+S73835	0101000020E6100000011A26CC14BA1FC02874EA0C04004040	Surface	2023-12-22	2024-01-24
+S73836	0101000020E6100000AEF7D9D0E6AB1FC0592DE3B869FB3F40	Surface	2023-12-22	2024-01-24
+S73837	0101000020E6100000BA11C014B8AB1FC0B183A3140FFF3F40	Surface	2023-12-22	2024-01-24
+S73838	0101000020E61000002A58E36C3AA21FC03ACFD8976CF03F40	Surface	2023-12-22	2024-01-24
+S73839	0101000020E6100000B51B7DCC07541FC002D369DD06FD3F40	Surface	2023-12-22	2024-01-24
+S73840	0101000020E6100000BEC0AC50A42B1FC0310917F208024040	Surface	2023-12-22	2024-01-24
+S73841	0101000020E61000008F1CE90C8CCC1EC0FB3A70CE88084040	Surface	2023-12-22	2024-01-24
+S73842	0101000020E610000030F5F3A622651EC0F38DE89E75154040	Surface	2023-12-22	2024-01-24
+S73843	0101000020E610000015AA9B8BBF7D1EC0BA85AE44A0164040	Surface	2023-12-22	2024-01-24
+S73844	0101000020E61000004A5E9D6340961EC0E10B93A982174040	Surface	2023-12-22	2024-01-24
+S73845	0101000020E6100000486C770FD08D1EC06C3EAE0D15154040	Surface	2023-12-22	2024-01-24
+S73846	0101000020E6100000A915A6EF35241EC04ED53DB2B9104040	Surface	2023-12-22	2024-01-24
+S73847	0101000020E610000067F2CD3637161EC0B0E2546B61124040	Surface	2023-12-22	2024-01-24
+S73848	0101000020E6100000274C18CDCA361EC0630CACE3F80F4040	Surface	2023-12-22	2024-01-24
+S73849	0101000020E6100000999D45EF54901EC0632B685A620F4040	Surface	2023-12-22	2024-01-24
+S73850	0101000020E610000012BF620D17D91EC058E36C3A02084040	Surface	2023-12-22	2024-01-24
+S73851	0101000020E61000007EE36BCF2C891FC045DAC69FA8FC3F40	Surface	2023-12-22	2024-01-24
+S73852	0101000020E6100000C9F3800615821EC05FA3D2754E104040	Surface	2023-12-22	2024-01-24
+S73853	0101000020E6100000C9F3800615821EC05FA3D2754E104040	Profondeur	2023-12-22	2024-01-24
+S73854	0101000020E610000088A9CBED0F821EC03D87624851104040	Surface	2023-12-22	2024-01-24
+S73855	0101000020E610000088A9CBED0F821EC03D87624851104040	Profondeur	2023-12-22	2024-01-24
+S73856	0101000020E610000084661837AD821EC048CD87BD53104040	Surface	2023-12-22	2024-01-24
+S73857	0101000020E610000084661837AD821EC048CD87BD53104040	Profondeur	2023-12-22	2024-01-24
+S73858	0101000020E61000000362DB6B0A831EC0B81E85EB51104040	Surface	2023-12-22	2024-01-24
+S73859	0101000020E61000000362DB6B0A831EC0B81E85EB51104040	Profondeur	2023-12-22	2024-01-24
+S73860	0101000020E610000086EDC5DBFB821EC0BA5716A246104040	Surface	2023-12-22	2024-01-24
+S73861	0101000020E610000086EDC5DBFB821EC0BA5716A246104040	Profondeur	2023-12-22	2024-01-24
+S73862	0101000020E610000083604491A4801EC04D609C345C104040	Surface	2023-12-22	2024-01-24
+S73863	0101000020E610000083604491A4801EC04D609C345C104040	Profondeur	2023-12-22	2024-01-24
+S73864	0101000020E6100000A61C0818BFF11EC0100F250BB60A4040	Surface	2023-12-22	2024-01-24
+S73865	0101000020E6100000A61C0818BFF11EC0100F250BB60A4040	Profondeur	2023-12-22	2024-01-24
+S73866	0101000020E6100000B9E985F189F11EC0E00865F4B60A4040	Surface	2023-12-22	2024-01-24
+S73867	0101000020E6100000B9E985F189F11EC0E00865F4B60A4040	Profondeur	2023-12-22	2024-01-24
+S73868	0101000020E6100000163166B20CF11EC0C66D3480B70A4040	Surface	2023-12-22	2024-01-24
+S73869	0101000020E6100000163166B20CF11EC0C66D3480B70A4040	Profondeur	2023-12-22	2024-01-24
+S73870	0101000020E610000045D9AA8639F01EC06AA05B24BC0A4040	Surface	2023-12-22	2024-01-24
+S73871	0101000020E610000045D9AA8639F01EC06AA05B24BC0A4040	Profondeur	2023-12-22	2024-01-24
+S73872	0101000020E6100000485962C7BBF21EC0AFA22361AE0A4040	Surface	2023-12-22	2024-01-24
+S73873	0101000020E6100000485962C7BBF21EC0AFA22361AE0A4040	Profondeur	2023-12-22	2024-01-24
+S73874	0101000020E6100000485962C7BBF21EC0F498D66AC30A4040	Surface	2023-12-22	2024-01-24
+S73875	0101000020E6100000485962C7BBF21EC0F498D66AC30A4040	Profondeur	2023-12-22	2024-01-24
+S73876	0101000020E6100000641BC074BD811EC0AF5A99F04B104040	Surface	2023-12-22	2024-01-24
+S73877	0101000020E6100000641BC074BD811EC0AF5A99F04B104040	Profondeur	2023-12-22	2024-01-24
+S73878	0101000020E6100000F10C5C16FA811EC031B521D64D104040	Surface	2023-12-22	2024-01-24
+S73879	0101000020E6100000F10C5C16FA811EC031B521D64D104040	Profondeur	2023-12-22	2024-01-24
+S73880	0101000020E61000002EB5181B3E821EC0F94B49DE52104040	Surface	2023-12-22	2024-01-24
+S73881	0101000020E61000002EB5181B3E821EC0F94B49DE52104040	Profondeur	2023-12-22	2024-01-24
+S73882	0101000020E6100000366BF82F73821EC0F19EA0A056104040	Surface	2023-12-22	2024-01-24
+S73883	0101000020E6100000366BF82F73821EC0F19EA0A056104040	Profondeur	2023-12-22	2024-01-24
+S73884	0101000020E610000003786E4EE3821EC0499D802642104040	Surface	2023-12-22	2024-01-24
+S73885	0101000020E610000003786E4EE3821EC0499D802642104040	Profondeur	2023-12-22	2024-01-24
+S73886	0101000020E610000015C915E656831EC01C63C49149104040	Surface	2023-12-22	2024-01-24
+S73887	0101000020E610000015C915E656831EC01C63C49149104040	Profondeur	2023-12-22	2024-01-24
+S73888	0101000020E6100000FC46E825CE831EC0E3ABFCB650104040	Surface	2023-12-22	2024-01-24
+S73889	0101000020E6100000FC46E825CE831EC0E3ABFCB650104040	Profondeur	2023-12-22	2024-01-24
+S73890	0101000020E6100000B3E821435C831EC0C12BD54758104040	Surface	2023-12-22	2024-01-24
+S73891	0101000020E6100000B3E821435C831EC0C12BD54758104040	Profondeur	2023-12-22	2024-01-24
+S73892	0101000020E61000007EC4F17495831EC097EDD8426F104040	Surface	2023-12-22	2024-01-24
+S73893	0101000020E61000007EC4F17495831EC097EDD8426F104040	Profondeur	2023-12-22	2024-01-24
+S73894	0101000020E6100000B08651314A831EC0EE78D5FB74104040	Surface	2023-12-22	2024-01-24
+S73895	0101000020E6100000B08651314A831EC0EE78D5FB74104040	Profondeur	2023-12-22	2024-01-24
+S73896	0101000020E610000011001C7BF60C1FC01F9DBAF2590A4040	Surface	2023-12-22	2024-01-24
+S73897	0101000020E610000011001C7BF60C1FC01F9DBAF2590A4040	Profondeur	2023-12-22	2024-01-24
+S73898	0101000020E61000005B5F24B4E50C1FC07862D68BA10A4040	Surface	2023-12-22	2024-01-24
+S73899	0101000020E61000005B5F24B4E50C1FC07862D68BA10A4040	Profondeur	2023-12-22	2024-01-24
+S73900	0101000020E61000000E7781D41E0D1FC0221ADD41EC0A4040	Surface	2023-12-22	2024-01-24
+S73901	0101000020E61000000E7781D41E0D1FC0221ADD41EC0A4040	Profondeur	2023-12-22	2024-01-24
+S73902	0101000020E6100000C13A8E1F2A0D1FC0BA66F2CD360B4040	Surface	2023-12-22	2024-01-24
+S73903	0101000020E6100000C13A8E1F2A0D1FC0BA66F2CD360B4040	Profondeur	2023-12-22	2024-01-24
+S73904	0101000020E6100000598B4F01300E1FC073BA2C26360B4040	Surface	2023-12-22	2024-01-24
+S73905	0101000020E6100000598B4F01300E1FC073BA2C26360B4040	Profondeur	2023-12-22	2024-01-24
+S73906	0101000020E61000004D2EC6C03A0E1FC083A44FABE80A4040	Surface	2023-12-22	2024-01-24
+S73907	0101000020E61000004D2EC6C03A0E1FC083A44FABE80A4040	Profondeur	2023-12-22	2024-01-24
+S73908	0101000020E61000007E7214200A0E1FC03B5F3F06A30A4040	Surface	2023-12-22	2024-01-24
+S73909	0101000020E61000007E7214200A0E1FC03B5F3F06A30A4040	Profondeur	2023-12-22	2024-01-24
+S73910	0101000020E6100000F2E9B12D030E1FC087FE092E560A4040	Surface	2023-12-22	2024-01-24
+S73911	0101000020E6100000F2E9B12D030E1FC087FE092E560A4040	Profondeur	2023-12-22	2024-01-24
+S73912	0101000020E6100000E4B44C2B2A0F1FC0D1CB28965B0A4040	Surface	2023-12-22	2024-01-24
+S73913	0101000020E6100000E4B44C2B2A0F1FC0D1CB28965B0A4040	Profondeur	2023-12-22	2024-01-24
+S73914	0101000020E6100000906B43C5380F1FC091F2936A9F0A4040	Surface	2023-12-22	2024-01-24
+S73915	0101000020E6100000906B43C5380F1FC091F2936A9F0A4040	Profondeur	2023-12-22	2024-01-24
+S73916	0101000020E61000000ECAEA0C420F1FC0711FB935E90A4040	Surface	2023-12-22	2024-01-24
+S73917	0101000020E61000000ECAEA0C420F1FC0711FB935E90A4040	Profondeur	2023-12-22	2024-01-24
+S73918	0101000020E6100000D95BCAF9620F1FC09D716DEA340B4040	Surface	2023-12-22	2024-01-24
+S73919	0101000020E6100000D95BCAF9620F1FC09D716DEA340B4040	Profondeur	2023-12-22	2024-01-24
+S73920	0101000020E6100000574B536762101FC014B2F336360B4040	Surface	2023-12-22	2024-01-24
+S73921	0101000020E6100000574B536762101FC014B2F336360B4040	Profondeur	2023-12-22	2024-01-24
+S73922	0101000020E610000002E5633565101FC02F4D11E0F40A4040	Surface	2023-12-22	2024-01-24
+S73923	0101000020E610000002E5633565101FC02F4D11E0F40A4040	Profondeur	2023-12-22	2024-01-24
+S73924	0101000020E61000001C7C613255101FC0C1AA7AF99D0A4040	Surface	2023-12-22	2024-01-24
+S73925	0101000020E61000001C7C613255101FC0C1AA7AF99D0A4040	Profondeur	2023-12-22	2024-01-24
+S73926	0101000020E6100000771211FE45101FC033DFC14F5C0A4040	Surface	2023-12-22	2024-01-24
+S73927	0101000020E6100000771211FE45101FC033DFC14F5C0A4040	Profondeur	2023-12-22	2023-12-29
+\.
+
+
+--
+-- Data for Name: visualisation_soiltexture; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_soiltexture (id, "Argile", "Lemon", "Sable", "Soil_texture_v4", "Code_labo_id") FROM stdin;
+818	36	34	30	Clay Loam	S51495
+819	40	34	26	Clay Loam	S51496
+820	34	36	30	Clay Loam	S51497
+821	28	44	28	Clay Loam	S51498
+822	38	38	24	Clay Loam	S51499
+823	10	50	40	Loam	S51500
+824	36	42	22	Clay Loam	S51501
+825	46	28	26	Clay	S51502
+826	12	80	8	Silt Loam	S51503
+827	64	24	12	Clay	S51504
+828	32	34	34	Clay Loam	S51505
+829	26	28	46	Loam	S52007
+830	22	22	56	Sandy Clay Loam	S52008
+831	22	26	52	Sandy Clay Loam	S52009
+832	16	18	66	Sandy Loam	S52010
+833	28	50	22	Clay Loam	S52066
+834	22	62	16	Silt Loam	S52067
+835	28	18	54	Sandy Clay Loam	S52019
+836	30	18	52	Sandy Clay Loam	S52020
+837	20	12	68	Sandy Loam	S52021
+838	22	18	60	Sandy Clay Loam	S52022
+839	28	16	56	Sandy Clay Loam	S52043
+840	28	14	58	Sandy Clay Loam	S52044
+841	26	12	62	Sandy Clay Loam	S52045
+842	24	22	54	Sandy Clay Loam	S52046
+843	28	12	60	Sandy Clay Loam	S52047
+844	28	18	54	Sandy Clay Loam	S52048
+845	20	16	64	Sandy Loam	S52049
+846	24	14	62	Sandy Clay Loam	S52050
+847	26	22	52	Sandy Clay Loam	S52039
+848	26	12	62	Sandy Clay Loam	S52040
+849	24	14	62	Sandy Clay Loam	S52041
+850	26	16	58	Sandy Clay Loam	S52042
+851	20	20	60	Sandy Loam	S52056
+852	26	22	52	Sandy Clay Loam	S52057
+853	22	22	56	Sandy Clay Loam	S52058
+854	22	18	60	Sandy Clay Loam	S52059
+855	20	28	52	Loam	S52060
+856	28	20	52	Sandy Clay Loam	S52035
+857	26	20	54	Sandy Clay Loam	S52036
+858	34	28	38	Clay Loam	S52037
+859	40	26	34	Clay Loam	S52038
+860	20	28	52	Loam	S52031
+861	20	26	54	Sandy Loam	S52032
+862	22	26	52	Sandy Clay Loam	S52033
+863	28	20	52	Sandy Clay Loam	S52034
+864	20	18	62	Sandy Loam	S52015
+865	12	18	70	Sandy Loam	S52016
+866	14	16	70	Sandy Loam	S52017
+867	14	16	70	Sandy Loam	S52018
+868	22	24	54	Sandy Clay Loam	S52011
+869	26	20	54	Sandy Clay Loam	S52012
+870	24	22	54	Sandy Clay Loam	S52013
+871	22	20	58	Sandy Clay Loam	S52014
+872	14	14	72	Sandy Loam	S52061
+873	14	12	74	Sandy Loam	S52062
+874	12	36	52	Loam	S52063
+875	10	40	50	Loam	S52064
+876	10	38	52	Loam	S52065
+877	24	26	50	Sandy Clay Loam	S52027
+878	24	22	54	Sandy Clay Loam	S52028
+879	28	26	46	Sandy Clay Loam	S52029
+880	24	28	48	Loam	S52030
+881	26	20	54	Sandy Clay Loam	S51999
+882	18	30	52	Loam	S52000
+883	28	24	48	Sandy Clay Loam	S52001
+884	22	28	50	Loam	S52002
+885	38	28	34	Clay Loam	S52003
+886	32	34	34	Clay Loam	S52004
+887	26	34	40	Loam	S52005
+888	32	28	40	Clay Loam	S52006
+889	30	26	44	Clay Loam	S52051
+890	30	28	42	Clay Loam	S52052
+891	10	44	46	Loam	S52053
+892	28	28	44	Clay Loam	S52054
+893	28	24	48	Sandy Clay Loam	S52055
+894	30	24	46	Sandy Clay Loam	S52023
+895	20	18	62	Sandy Loam	S52024
+896	26	20	54	Sandy Clay Loam	S52025
+897	22	22	56	Sandy Clay Loam	S52026
+898	24	64	12	Silt Loam	S52068
+899	22	56	22	Silt Loam	S52069
+900	20	68	12	Silt Loam	S52070
+901	22	70	8	Silt Loam	S52071
+902	10	66	24	Silt Loam	S52072
+903	22	68	10	Silt Loam	S52073
+904	24	68	8	Silt Loam	S52074
+905	16	74	10	Silt Loam	S52075
+906	12	74	14	Silt Loam	S52076
+907	22	32	46	Loam	S52077
+908	22	70	8	Silt Loam	S52078
+909	44	44	12	Silty Clay	S52079
+910	22	26	52	Sandy Clay Loam	S52080
+911	22	70	8	Silt Loam	S52081
+912	22	76	2	Silt Loam	S52082
+913	26	54	20	Silt Loam	S52083
+914	46	30	24	Clay	S52084
+915	44	34	22	Clay	S52085
+916	44	34	22	Clay	S52086
+917	46	34	20	Clay	S52087
+918	48	32	20	Clay	S52088
+919	48	24	28	Clay	S52089
+920	42	34	24	Clay	S52090
+921	46	28	26	Clay	S52091
+922	42	34	24	Clay	S52092
+923	44	30	26	Clay	S52093
+924	42	30	28	Clay	S52094
+925	46	28	26	Clay	S52095
+926	44	28	28	Clay	S52096
+927	44	28	28	Clay	S52097
+928	46	26	28	Clay	S52098
+929	42	30	28	Clay	S52099
+930	44	30	26	Clay	S52100
+931	24	38	38	Loam	S53805
+932	40	30	30	Clay Loam	S53806
+933	30	34	36	Clay Loam	S53807
+934	36	26	38	Clay Loam	S53808
+935	30	30	40	Clay Loam	S53809
+936	32	30	38	Clay Loam	S53810
+937	22	44	34	Loam	S53811
+938	30	42	28	Clay Loam	S53812
+939	20	34	46	Loam	S53813
+940	18	32	50	Loam	S53814
+941	30	40	30	Clay Loam	S53815
+942	36	36	28	Clay Loam	S53816
+943	20	32	48	Loam	S53817
+944	18	32	50	Loam	S53818
+945	20	30	50	Loam	S54264
+946	22	34	44	Loam	S54265
+947	20	28	52	Loam	S54266
+948	14	14	72	Sandy Loam	S54267
+949	20	20	60	Sandy Loam	S54268
+950	20	22	58	Sandy Loam	S54269
+951	22	22	56	Sandy Clay Loam	S54270
+952	12	56	32	Silt Loam	S54271
+953	24	40	36	Loam	S54272
+954	16	20	64	Sandy Loam	S54273
+955	20	20	60	Sandy Loam	S54274
+956	14	28	58	Sandy Loam	S54275
+957	30	28	42	Clay Loam	S54276
+958	28	28	44	Clay Loam	S55239
+959	34	26	40	Clay Loam	S55240
+960	42	24	34	Clay	S55241
+961	40	22	38	Clay Loam	S55242
+962	26	32	42	Loam	S55243
+963	26	34	40	Loam	S55244
+964	26	24	50	Sandy Clay Loam	S55245
+965	16	40	44	Loam	S55246
+966	22	24	54	Sandy Clay Loam	S55247
+967	24	16	60	Sandy Clay Loam	S55248
+968	30	26	44	Clay Loam	S55249
+969	32	24	44	Clay Loam	S55250
+970	32	40	28	Clay Loam	S55251
+971	50	32	18	Clay	S55252
+972	42	38	20	Clay	S55253
+973	50	30	20	Clay	S55254
+974	10	50	40	Loam	S55255
+975	10	52	38	Silt Loam	S55256
+976	26	64	10	Silt Loam	S55257
+977	46	34	20	Clay	S55258
+978	50	30	20	Clay	S55259
+979	60	20	20	Clay	S55260
+980	20	16	64	Sandy Loam	S55261
+981	16	40	44	Loam	S55262
+982	16	40	44	Loam	S55263
+983	26	24	50	Sandy Clay Loam	S56859
+984	30	26	44	Clay Loam	S56860
+985	16	42	42	Loam	S56861
+986	18	34	48	Loam	S56862
+987	36	28	36	Clay Loam	S56863
+988	36	26	38	Clay Loam	S56864
+989	52	30	18	Clay	S56865
+990	56	30	14	Clay	S56866
+991	60	28	12	Clay	S56867
+992	58	24	18	Clay	S56868
+993	64	22	14	Clay	S56869
+994	64	20	16	Clay	S56870
+995	64	28	8	Clay	S56871
+996	62	22	16	Clay	S56872
+997	60	26	14	Clay	S56873
+998	64	22	14	Clay	S56874
+999	72	14	14	Clay	S56875
+1000	68	24	8	Clay	S56876
+1001	64	28	8	Clay	S56877
+1002	60	30	10	Clay	S56878
+1003	66	24	10	Clay	S56879
+1004	60	26	14	Clay	S56880
+1005	66	28	6	Clay	S56881
+1006	68	24	8	Clay	S56882
+1007	66	30	4	Clay	S56883
+1008	60	28	12	Clay	S56884
+1009	56	34	10	Clay	S56885
+1010	36	38	26	Clay Loam	S56886
+1011	20	74	6	Silt Loam	S56887
+1012	62	30	8	Clay	S56888
+1013	68	26	6	Clay	S56889
+1014	56	36	8	Clay	S56890
+1015	62	30	8	Clay	S56891
+1016	48	30	22	Clay	S56892
+1017	10	62	28	Silt Loam	S56893
+1018	12	62	26	Silt Loam	S56894
+1019	10	58	32	Silt Loam	S56895
+1020	12	42	46	Loam	S56896
+1021	10	62	28	Silt Loam	S56897
+1022	12	60	28	Silt Loam	S56898
+1023	18	32	50	Loam	S56899
+1024	12	48	40	Loam	S56900
+1025	46	40	14	Silty Clay	S56901
+1026	10	72	18	Silt Loam	S56902
+1027	12	60	28	Silt Loam	S56903
+1028	12	62	26	Silt Loam	S56904
+1029	12	44	44	Loam	S56905
+1030	12	46	42	Loam	S56906
+1031	12	54	34	Silt Loam	S56907
+1032	10	60	30	Silt Loam	S56908
+1033	30	30	40	Clay Loam	S56909
+1034	10	58	32	Silt Loam	S56910
+1035	12	80	8	Silt Loam	S56911
+1036	10	78	12	Silt Loam	S56912
+1037	26	26	48	Sandy Clay Loam	S57083
+1038	22	26	52	Sandy Clay Loam	S57084
+1039	50	36	14	Clay	S57085
+1040	48	34	18	Clay	S57086
+1041	62	30	8	Clay	S57087
+1042	52	22	26	Clay	S57088
+1043	26	34	40	Loam	S57089
+1044	34	32	34	Clay Loam	S57090
+1045	26	40	34	Loam	S57091
+1046	28	34	38	Clay Loam	S57092
+1047	18	30	52	Loam	S57093
+1048	24	26	50	Sandy Clay Loam	S57094
+1049	28	28	44	Clay Loam	S57095
+1050	34	28	38	Clay Loam	S57096
+1051	28	46	26	Clay Loam	S73824
+1052	24	36	40	Loam	S73825
+1053	14	44	42	Loam	S73826
+1054	20	34	46	Loam	S73827
+1055	20	44	36	Loam	S73828
+1056	30	32	38	Clay Loam	S73829
+1057	22	30	48	Loam	S73830
+1058	22	44	34	Loam	S73831
+1059	22	28	50	Loam	S73832
+1060	8	36	56	Sandy Loam	S73833
+1061	10	40	50	Loam	S73834
+1062	20	32	48	Loam	S73835
+1063	16	24	60	Sandy Loam	S73836
+1064	20	30	50	Loam	S73837
+1065	16	58	26	Silt Loam	S73838
+1066	22	42	36	Loam	S73839
+1067	34	44	22	Clay Loam	S73840
+1068	40	36	24	Clay Loam	S73841
+1069	24	40	36	Loam	S73842
+1070	34	38	28	Clay Loam	S73843
+1071	30	44	26	Clay Loam	S73844
+1072	24	46	30	Loam	S73845
+1073	20	32	48	Loam	S73846
+1074	34	40	26	Clay Loam	S73847
+1075	22	32	46	Loam	S73848
+1076	30	38	32	Clay Loam	S73849
+1077	30	30	40	Clay Loam	S73850
+1078	22	42	36	Loam	S73851
+1079	28	40	32	Clay Loam	S73852
+1080	30	44	26	Clay Loam	S73853
+1081	32	36	32	Clay Loam	S73854
+1082	32	28	40	Clay Loam	S73855
+1083	34	34	32	Clay Loam	S73856
+1084	30	32	38	Clay Loam	S73857
+1085	40	36	24	Clay Loam	S73858
+1086	38	32	30	Clay Loam	S73859
+1087	40	34	26	Clay Loam	S73860
+1088	36	34	30	Clay Loam	S73861
+1089	22	28	50	Loam	S73862
+1090	24	24	52	Sandy Clay Loam	S73863
+1091	38	42	20	Clay Loam	S73864
+1092	14	62	24	Silt Loam	S73865
+1093	26	54	20	Silt Loam	S73866
+1094	14	62	24	Silt Loam	S73867
+1095	24	56	20	Silt Loam	S73868
+1096	36	40	24	Clay Loam	S73869
+1097	12	68	20	Silt Loam	S73870
+1098	14	62	24	Silt Loam	S73871
+1099	36	44	20	Clay Loam	S73872
+1100	34	42	24	Clay Loam	S73873
+1101	18	46	36	Loam	S73874
+1102	14	50	36	Loam	S73875
+1103	22	22	56	Sandy Clay Loam	S73876
+1104	26	32	42	Loam	S73877
+1105	32	38	30	Clay Loam	S73878
+1106	10	60	30	Silt Loam	S73879
+1107	36	34	30	Clay Loam	S73880
+1108	34	32	34	Clay Loam	S73881
+1109	36	34	30	Clay Loam	S73882
+1110	30	30	40	Clay Loam	S73883
+1111	40	30	30	Clay Loam	S73884
+1112	10	64	26	Silt Loam	S73885
+1113	40	34	26	Clay Loam	S73886
+1114	30	44	26	Clay Loam	S73887
+1115	40	36	24	Clay Loam	S73888
+1116	44	38	18	Clay	S73889
+1117	44	38	18	Clay	S73890
+1118	20	64	16	Silt Loam	S73891
+1119	36	36	28	Clay Loam	S73892
+1120	40	40	20	Clay Loam	S73893
+1121	20	50	30	Loam	S73894
+1122	30	42	28	Clay Loam	S73895
+1123	20	76	4	Silt Loam	S73896
+1124	64	32	4	Clay	S73897
+1125	52	44	4	Silty Clay	S73898
+1126	62	32	6	Clay	S73899
+1127	30	68	2	Silty Clay Loam	S73900
+1128	64	28	8	Clay	S73901
+1129	58	36	6	Clay	S73902
+1130	60	34	6	Clay	S73903
+1131	22	72	6	Silt Loam	S73904
+1132	60	34	6	Clay	S73905
+1133	24	68	8	Silt Loam	S73906
+1134	60	34	6	Clay	S73907
+1135	32	58	10	Silty Clay Loam	S73908
+1136	64	30	6	Clay	S73909
+1137	22	74	4	Silt Loam	S73910
+1138	64	32	4	Clay	S73911
+1139	26	70	4	Silt Loam	S73912
+1140	66	30	4	Clay	S73913
+1141	22	72	6	Silt Loam	S73914
+1142	64	28	8	Clay	S73915
+1143	20	74	6	Silt Loam	S73916
+1144	66	28	6	Clay	S73917
+1145	40	56	4	Silty Clay Loam	S73918
+1146	60	34	6	Clay	S73919
+1147	60	36	4	Clay	S73920
+1148	62	32	6	Clay	S73921
+1149	62	34	4	Clay	S73922
+1150	64	30	6	Clay	S73923
+1151	32	62	6	Silty Clay Loam	S73924
+1152	62	34	4	Clay	S73925
+1153	60	36	4	Clay	S73926
+1154	62	34	4	Clay	S73927
+\.
+
+
+--
+-- Data for Name: visualisation_well; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.visualisation_well ("Id_well", "Date", localisation, "Depth", "Ph", "Temperature", "Ec", "HCO3", "Cl", "NO3", "SO4", "Na", "K", "Mg", "Ca") FROM stdin;
+S101	2022-11-28	0101000020E6100000711B0DE02DD01EC0BADA8AFD65174040	NaN	7.2	21.9	1823	276.94	341.35148615447144	8.641630615006385	46.994167152737276	151.0841	3.306	56.3028	94.3404
+S102	2022-11-28	0101000020E61000001EA7E8482EBF1EC04B598638D6154040	118	6.96	23.2	1671	317.2	276.1755	37.5688	90.4973	165.2945	1.6799	44.5751	82.0831
+S103	2022-11-28	0101000020E61000001F85EB51B89E1EC04B598638D6154040	140	6.74	23.8	3195	420.97	554.5261	58.5315	121.3715	414.2718	1.3477	70.317	111.4405
+S104	2022-11-28	0101000020E61000002063EE5A423E1EC07DD0B359F5114040	25	10	22.7	63830	134.222	18959.3273	151.173	10146.8886	14806.2415	21.8377	812.4307	618.0156
+S105	2022-11-28	0101000020E61000001C7C613255301EC03FC6DCB584144040	53	9.28	31.2	19150	386.80339999999995	5199.6627	70.697	3637.823	3908.6713	3.5504	387.3041	279.3176
+S106	2022-11-28	0101000020E6100000E78C28ED0D3E1EC09D11A5BDC1174040	150	7.59	25.8	2973	298.949	639.6005	39.1361	117.3642	363.2418	1.8906	63.7818	113.0179
+S107	2022-11-28	0101000020E610000089D2DEE00B131EC0D95F764F1E164040	150	6.48	28.3	13640	318.4722	4649.3617	58.2007	1236.7488	2403.6643	3.4066	282.8357	296.0671
+S108	2022-11-28	0101000020E610000014AE47E17A541EC0D6C56D3480174040	136	7.42	25.7	2643	319.6924	666.0901	44.3055	155.9874	379.136	2.4251	55.5815	95.7395
+S109	2022-11-29	0101000020E6100000C7BAB88D06701EC0E3361AC05B104040	460	9.2	23.1	1643	298.9	226.1025	5.5473	222.8955	173.8337	3.1548	42.1538	86.3422
+S110	2022-11-29	0101000020E6100000EC51B81E856B1EC0F6285C8FC20D4040	36	7.36	21	4847	479.53860000000003	889.1554	25.9206	651.7934	635.9802	NaN	107.07	150.2881
+S111	2022-11-29	0101000020E61000006688635DDC861EC0C2172653050B4040	50	8.25	24.8	5362	208.6542	1608.0724	32.4736	483.4722	374.416	1.3623	154.3335	480.4422
+S112	2022-11-29	0101000020E61000004FAF946588A31EC0462575029A084040	490	8.72	23.5	1481	251.32	172.4099	6.0041	397.8439	129.4034	3.1366	54.0413	130.2455
+S113	2022-11-29	0101000020E6100000BDE3141DC9651EC0B6847CD0B3094040	480	7.26	30.3	2262	226.92	88.9627	9.4438	1116.3296	146.1002	3.986	101.0466	234.1725
+S114	2022-11-29	0101000020E6100000AA8251499D001EC00000000000084040	80	6.78	26.5	4055	201.33299999999997	1026.8745	29.123	280.7779	188.3714	1.9389	141.0042	312.6256
+S115	2022-11-29	0101000020E6100000E09C11A5BD011EC0CCEEC9C3420D4040	160	7.66	31.5	3323	192.7916	164.7915	NaN	1722.0872	309.0333	7.6256	119.6958	328.8059
+S116	2022-11-29	0101000020E6100000EF38454772391EC0ACADD85F760F4040	30	7.5	20.8	46740	252.58139999999997	13093.3434	181.1568	6375.5065	8325.1589	NaN	1134.8711	683.8987
+S117	2022-11-30	0101000020E61000009CA223B9FCC71FC0091B9E5E290B4040	180	7.72	21.2	1725	306.22	346.5057	22.5788	74.4504	173.0976	1.899	43.1039	84.5397
+S118	2022-11-30	0101000020E6100000F0164850FC981FC0A7E8482EFF094040	NaN	7.07	25.3	1829	361.12	280.8239890639721	33.38139162585047	67.27514373802184	199.159	1.186	46.3077	86.7781
+S119	2022-11-30	0101000020E6100000D881734694761FC014AE47E17A0C4040	200	7.85	26.8	1641	351.36	296.3354	24.6757	91.6236	185.0289	2.7844	44.0444	84.0393
+S120	2022-11-30	0101000020E61000000612143FC65C1FC0A3923A014D0C4040	130	7.11	25.8	1659	361.12	278.8343	42.1756	75.895	182.3632	1.5033	47.2399	88.9001
+S121	2022-11-30	0101000020E61000002F6EA301BC451FC0A54E4013610B4040	NaN	9.08	23.2	1926	383.08	356.8316	16.7468	106.4099	240.8452	2.6827	51.5033	92.2636
+S122	2022-11-30	0101000020E61000001C7C613255301FC051DA1B7C610A4040	220	7.72	28.2	9011	364.8398	2717.9356	NaN	457.3853	1551.9129	6.3471	127.5483	157.9888
+S123	2022-11-30	0101000020E61000009FABADD85F361FC06DC5FEB27B0A4040	220	7.52	28.8	3667	353.858	912.0041	NaN	175.1142	564.9454	3.6585	67.7807	118.3035
+S124	2022-11-30	0101000020E61000000F9C33A2B4371FC06DC5FEB27B0A4040	220	8.67	28.5	2969	305.05	742.1337	NaN	147.3901	451.1032	2.2884	62.348	117.098
+S125	2022-11-30	0101000020E610000096B20C71AC4B1FC05396218E75094040	170	8.26	26	5395	380.7024	1414.4245	78.6929	338.5485	691.917	3.9074	164.1172	187.1844
+S126	2022-11-30	0101000020E6100000287E8CB96B491FC0C4B12E6EA3094040	170	7.95	25.7	3224	347.757	720.8457	21.5962	135.0129	459.8693	3.1294	60.9566	115.6316
+S127	2022-12-01	0101000020E6100000D1915CFE43BA1FC0C217265305034040	151	9.5	25.2	1556	417.24	194.9022	NaN	77.6214	291.32	1.9037	11.0873	11.148
+S128	2022-12-01	0101000020E610000095D4096822AC1FC0E25817B7D1004040	120	8.7	21.2	1864	402.6	314.777	NaN	95.0556	379.011	4.3242	13.5072	15.5816
+S129	2022-12-01	0101000020E610000038F8C264AAA01FC01B0DE02D90F03F40	140	8.4	24.3	1428	261.08	203.7576	19.2691	109.147	130.0433	4.7853	35.1906	86.3024
+S130	2022-12-01	0101000020E61000003255302AA9531FC0772D211FF4FC3F40	30	8.8	23.9	1372	307.44	193.9713	24.468	69.5792	129.2006	2.0254	36.6936	78.4055
+S131	2022-12-01	0101000020E610000042CF66D5E72A1FC0C4B12E6EA3014040	176	8.04	24.8	1504	345.26	232.8496	26.9656	67.4706	134.5084	1.5501	39.1879	86.1524
+S132	2022-12-02	0101000020E6100000C3D32B6519E21EC0A2B437F8C2144040	160	8.69	23	1885	269.62	309.6319	5.6629	159.813	180.8402	5.9214	41.576	88.0465
+S133	2022-12-02	0101000020E61000000612143FC6DC1EC030BB270F0B154040	150	8.14	24.3	1826	389.2438	312.4681	21.6608	121.5854	188.9048	3.9452	48.0487	85.4048
+S134	2022-12-02	0101000020E610000090A0F831E6EE1EC009F9A067B3124040	130	8.32	25.4	2109	356.24	404.4108	28.2992	128.411	247.2814	2.7065	45.2731	74.0377
+S135	2022-12-02	0101000020E61000003255302AA9131FC0287E8CB96B114040	200	8.25	19.7	2546	201.3	598.7694	18.6695	123.1432	358.7672	3.6377	54.4156	88.7891
+S136	2022-12-02	0101000020E6100000AF25E4839E4D1FC0499D8026C20E4040	160	8.36	26.7	1483	390.4	208.3548	13.4296	73.0346	155.8219	1.9039	43.456	84.1108
+S137	2022-12-02	0101000020E6100000304CA60A46651FC0B6847CD0B3094040	140	8.55	26.5	3556	394.1246	809.4013	41.7763	195.8536	482.7545	2.8498	75.51	105.8656
+S138	2022-12-02	0101000020E6100000569FABADD85F1FC03A92CB7F48074040	270	8.31	26.2	1539	379.42	242.3044	19.9793	96.0924	181.476	2.1804	39.9203	83.6274
+S139	2022-12-02	0101000020E6100000287E8CB96B491FC069006F8104054040	210	6.07	22.4	1244	336.72	175.3786	21.6204	73.6422	129.1296	1.4363	37.0172	78.7588
+S140	2022-12-02	0101000020E6100000C9E53FA4DF3E1FC0917EFB3A70064040	140	5.39	25.1	7905	436.8316	2057.5271	254.3181	921.9274	864.3255	2.1319	308.538	351.402
+S141	2022-12-03	0101000020E6100000304CA60A46651EC0E8D9ACFA5C154040	170	5.45	25.6	11630	311.15099999999995	4081.289	77.0456	1149.7839	2508.1772	2.8886	237.8799	217.9744
+S142	2022-12-03	0101000020E6100000742497FF907E1EC0F46C567DAE164040	130	5.54	25.9	3324	342.8762	757.2098	38.9729	175.1166	490.7412	2.2997	56.8626	102.0983
+S143	2022-12-03	0101000020E61000002D211FF46C961EC065AA605452174040	135	5.46	24.8	1724	308.66	281.9187	36.5231	113.8166	189.1551	1.6375	45.2712	83.9506
+S144	2022-12-03	0101000020E6100000840D4FAF94251EC0D42B6519E2104040	40	6.45	22.9	29070	251.3612	9289.0964	93.438	5051.3905	5289.4297	5.7166	955.5388	812.8412
+S145	2022-12-03	0101000020E610000086C954C1A8241EC0E25817B7D1104040	20	7.27	20.2	23010	239.1592	6204.5919	93.9707	4922.6043	4054.3094	4.8109	798.7784	741.0315
+S146	2022-12-03	0101000020E6100000A089B0E1E9151EC035EF384547124040	20	9.84	22.3	24390	67.111	7328.8289	100.3187	4985.4355	4769.5569	20.1775	1015.3874	807.029
+S147	2022-12-03	0101000020E6100000431CEBE236DA1EC0ABCFD556EC074040	70	6.97	29.4	3268	281.8662	797.5583	42.3818	197.918	345.6212	0.7678	84.5318	197.5906
+S148	2022-12-03	0101000020E610000048E17A14AE871FC0E8D9ACFA5CFD3F40	150	6.9	23.9	1702	326.96	226.39970073707352	8.927026357416477	54.07657695192068	213.2461	4.8739	26.6364	45.471
+S149	2022-12-04	0101000020E610000007CE1951DA1B1FC063EE5A423E104040	220	5.6	24.7	3336	355.0782	842.3523	20.6353	141.0532	474.2584	3.4094	56.2847	103.95
+S150	2022-12-04	0101000020E6100000304CA60A46E51EC0E09C11A5BD094040	30	6.03	22.4	8830	324.5732	2163.0903	54.1792	1433.1065	1179.1849	NaN	275.7188	336.5763
+S151	2022-12-04	0101000020E610000010E9B7AF03E71EC0FF21FDF675084040	420	6.16	29.2	3466	292.84799999999996	534.5154	10.7474	747.4279	448.0611	5.3576	78.1574	175.733
+S152	2022-12-04	0101000020E6100000D881734694B61FC00E4FAF9465F83F40	150	6.5	19.6	1435	295.24	238.039	41.2677	48.9617	119.5436	1.146	43.7231	86.4191
+S153	2022-12-19	0101000020E6100000E09C11A5BD011FC0AAF1D24D62184040	150	6.13	23.6	1943	251.32	372.4632	NaN	119.6666	194.4299	7.0466	47.8281	88.5518
+S154	2022-12-19	0101000020E6100000C0EC9E3C2C141EC031992A18950C4040	190	6.58	29.6	3738	168.3876	177.3413	10.6037	1839.6258	418.3087	7.4523	121.4934	239.0912
+S155	2022-12-19	0101000020E61000008FE4F21FD2EF1DC026E4839ECD0A4040	76	7.1	24.1	3965	292.84799999999996	923.8733	22.1771	308.5957	319.0041	1.6471	124.9039	216.0495
+S156	2022-12-19	0101000020E61000001FF46C567DEE1DC0265305A3920A4040	30	6.1	23.6	3968	361.1792	1010.446	24.4734	311.128	329.3973	1.8785	134.9958	231.5655
+S157	2022-12-19	0101000020E6100000F90FE9B7AF431EC0A1F831E6AE154040	155	7.3	26	6606	355.0782	1750.5009	52.6299	342.8149	971.8312	1.873	111.3067	140.8253
+S158	2022-12-19	0101000020E610000096B20C71AC4B1EC02CD49AE61D174040	140	7.96	17.3	3786	333.1146	991.5786	33.518	179.0152	560.643	3.4781	60.8425	114.4772
+S159	2022-12-19	0101000020E6100000598638D6C52D1EC0B9FC87F4DB174040	174	8.5	28.3	4477	323.35299999999995	1121.5854	39.7361	120.9096	579.9069	2.1389	74.4455	138.3916
+S160	2022-12-19	0101000020E6100000DDB5847CD0F31DC01F85EB51B8164040	150	7.7	27.1	9622	345.3166	2947.7711	53.7968	729.1296	1624.9521	5.3136	199.2514	236.2907
+S161	2022-12-19	0101000020E610000009F9A067B3EA1DC0B81E85EB51104040	NaN	7.9	25.1	8443	293.45809999999994	2484.0174	26.2181	592.287	903.4596	1.3174	310.0442	364.3416
+S162	2022-12-19	0101000020E61000002D431CEBE2B61DC0EC51B81E85134040	72	7.8	24.3	7176	360.5691	2178.7845	26.8277	560.5352	715.9008	2.3365	289.4807	302.1839
+S163	2022-12-19	0101000020E610000004E78C28EDCD1DC0B9FC87F4DB174040	30	7.4	27.8	12380	324.5732	3662.2024	56.5133	744.0118	2081.6223	2.72	317.0784	275.6078
+S164	2022-12-20	0101000020E6100000E561A1D6346F1FC0E9B7AF03E7144040	76	8.14	17.4	2479	285.48	559.2331	67.6668	96.2371	297.8594	4.1828	55.7376	109.7342
+S165	2022-12-20	0101000020E61000003BDF4F8D976E1FC08638D6C56D144040	80	8.13	23.3	2449	273.28	565.5061	64.4596	96.1441	289.9232	3.3335	55.1217	106.4971
+S166	2022-12-20	0101000020E6100000FDF675E09C511FC036AB3E575B114040	200	8.12	27.7	2787	279.4258	702.3071	NaN	161.3024	399.5964	9.9766	38.5152	89.9126
+S167	2022-12-20	0101000020E6100000B459F5B9DA4A1FC0D42B6519E2104040	181	8.08	25.6	2341	286.7	571.5224	NaN	124.3653	307.8026	10.1037	43.7495	101.6147
+S168	2022-12-20	0101000020E6100000744694F606DF1EC06F8104C58F114040	260	8.04	25.3	6767	373.3812	1943.5702	53.7924	324.4263	1065.8232	2.6664	109.9987	142.2197
+S169	2022-12-20	0101000020E61000006EA301BC05D21EC0AA8251499D104040	400	7.57	30.2	2498	219.6	546.7921	NaN	265.1059	332.613	18.7524	32.0877	121.6331
+S170	2022-12-20	0101000020E6100000DDB5847CD0331EC054742497FF084040	85	7.6	24.4	2795	218.4158	607.6106	20.3575	126.6804	207.4926	0.8006	78.3869	213.1948
+S171	2022-12-20	0101000020E61000004E62105839341EC0E2E995B20C094040	180	7.34	26.5	3387	172.04819999999998	148.429	17.4655	1697.882	325.5684	1.1093	103.9084	293.3025
+S172	2022-12-20	0101000020E610000027A089B0E1291EC0DB8AFD65F7044040	112	7	27.1	1848	253.76	310.5547	24.6407	255.9141	123.6009	1.1173	44.5635	167.6156
+S173	2022-12-21	0101000020E6100000AE47E17A14EE1EC0A7E8482EFF094040	400	7.69	29	2907	292.84799999999996	671.5093	NaN	188.3125	390.5472	5.1345	51.3026	115.4753
+S174	2022-12-21	0101000020E61000000C022B8716D91EC0302AA913D0044040	188	7.2	21.8	2771	294.0682	424.0698	28.4898	250.9254	218.7146	1.8236	69.2821	170.4629
+S175	2022-12-21	0101000020E6100000A835CD3B4ED11EC091ED7C3F35FE3F40	NaN	7.4	28.1	1204	268.4	736.0331	5.0599	196.6486	378.1082	3.9318	60.2141	110.7225
+S176	2022-12-21	0101000020E6100000302AA913D0441FC0DAACFA5C6DF53F40	50	7.78	27.4	2454	257.42	631.3122	26.2438	104.064	338.2389	5.1931	45.368	113.5707
+S177	2022-12-21	0101000020E61000008FE4F21FD26F1FC04182E2C798EB3F40	NaN	7	24.9	1137	376.98	100.8397	57.4546	85.2016	137.3938	1.1227	15.8695	73.223
+L1	2011-04-01	0101000020E61000004AD988604C4D21C06FD8B628B3094040	0	9.2	23.2	10315	730	5685.46	0	34.04	20937	12.12	1689.4	238.6
+P1	2011-04-01	0101000020E61000009B374AC295C020C0ED815660C8FA3F40	20	6.68	23.4	4250	432	753	584	339	543	21	223	214
+P2	2011-04-01	0101000020E6100000281FFCB57FD220C07E74EACA67114040	41	6.86	22.5	1166	304	134.56	56.27	20	83.25	12.7	46.58	80.33
+P3	2011-04-01	0101000020E610000017C632241DE81FC013D55B035B114040	52.9	7.2	25	1332	256	231.71	33.81	37.76	96.92	1.83	56.54	92.68
+P4	2011-04-01	0101000020E6100000542CB5B8574C20C0D26F5F07CE194040	12	7.13	23.5	1120	280	169.28	24.31	37.45	123.62	2.49	46.61	56.18
+P5	2011-04-01	0101000020E6100000E9A6E8410F2C20C0E5ED08A705034040	15	7.14	26.4	1095	264	157.26	39.54	25.89	85.83	1.97	49.35	79.19
+P6	2011-04-01	0101000020E6100000A56DE90B0B8320C0CB2DAD86C40D4040	54	7.22	25	628	232	43.82	24.95	21.02	35.74	1.65	34.72	53.95
+P7	2011-04-01	0101000020E6100000EB14796404FA20C07F6ABC74931C4040	4.5	7.63	20	1932	384	333.57	6.41	123.74	195.04	5.32	83.66	83.16
+P8	2011-04-01	0101000020E6100000572A051B04B71DC0632827DA55144040	53	6.71	24.2	8000	336	2478.76	3.41	719.14	1052.87	3.07	504.73	328.97
+P9	2011-04-01	0101000020E61000006754173D80011EC07689EAAD811D4040	33.3	6.88	26.7	2700	256	616.22	81.34	160.07	357.85	2.49	97.09	128.35
+P28	2011-04-01	0101000020E6100000A634874897AE1FC0F37684D382F73F40	66	6.37	29	1364	272	231.03	28.2	62.26	137	3.81	48.81	84.83
+P29	2011-04-01	0101000020E6100000236811731FFD1FC013F241CF66FD3F40	50	6.4	26	1096	280	156.83	29.07	33.51	92.15	1.79	51.35	74.84
+P30	2011-04-01	0101000020E6100000E6EC9835BCBC1FC01D38674469074040	62	6.17	24	1623	368	243.95	47.02	71.48	188.3	2.04	60.89	87.17
+P31	2011-04-01	0101000020E61000001B775DBCA2F91FC084471B47AC0D4040	59	7.73	25	1076	272	148.35	42.32	36.79	78.66	3.29	50.15	79.06
+P32	2011-04-01	0101000020E6100000265051CA58DA1FC0C8D2872EA8174040	55	7.09	25	3840	184	1041.54	159.74	148.04	436.02	8.64	152.85	217.8
+P33	2011-04-01	0101000020E61000008508234642C11FC0618907944D194040	14.5	7.29	22.9	2200	312	439.39	40.06	120.15	312.17	4.23	75.66	101.95
+P34	2011-04-01	0101000020E610000007D0340DAABA1FC082FFAD64C71E4040	14.5	7.23	23	2680	296	517.27	202.93	173.19	321.52	1.94	113.02	146.23
+P35	2011-04-01	0101000020E61000006567E8E354F21FC01904560E2DF23F40	88.5	7.09	28	1800	240	342.06	55.38	87.96	185.24	2.66	54.2	111.51
+P36	2011-04-01	0101000020E6100000C47854A60F1120C0CA15DEE522EE3F40	36.6	7.09	26	1669	320	221.09	29.46	153.81	184.54	2.6	54.31	101.7
+P37	2011-04-01	0101000020E61000002CA5BB3AFC2620C034A2B437F8F23F40	33.2	7.08	26	2520	248	460.29	43.6	314.82	295.95	0.97	80.26	189.11
+P38	2011-04-01	0101000020E61000005F4ED790AA2920C0350C1F1153FA3F40	57.5	6.96	29	2330	264	462.12	40.05	195.9	277.24	1.51	89.42	137.95
+P39	2011-04-01	0101000020E610000094EC84EF831420C0520ABABDA4014040	42	7.08	29.9	1277	264	209.86	44.86	42.82	124.37	2.16	46.11	77.89
+P40	2011-04-01	0101000020E6100000586B2519776D20C02783A3E4D5014040	75	6.95	26	1666	320	317.12	20.21	45.15	148.02	2.35	69.3	93.6
+P41	2011-04-01	0101000020E6100000A8AB6D58D77020C0C6DCB5847C084040	61.65	7.23	26.2	862	224	110.37	25.85	26.53	72.68	1.25	36.74	58.24
+P42	2011-04-01	0101000020E6100000F1137424CF1F20C089247A19C51A4040	19.9	6.66	24.3	3800	224	1002.13	99.93	163.99	489.48	3.21	149.89	183.96
+P43	2011-04-01	0101000020E61000002F67875BD14720C047205ED72F1C4040	13.9	6.84	24	2320	336	513.7	41.69	128.69	291.68	7.2	86.07	111.16
+P44	2011-04-01	0101000020E6100000499185C8FD4520C094C151F2EA144040	13.6	6.97	23	1220	264	217.99	23.21	32.92	131.16	1.1	52.26	55.83
+P45	2011-04-01	0101000020E610000010B4701BC58220C08B54185B081A4040	10.6	7.05	24.5	1028	240	168.25	41.43	23.97	117.78	6.49	44.44	51.85
+P46	2011-04-01	0101000020E610000037716980A1AD20C0D40E7F4DD6144040	13.7	7.23	23.3	1105	240	173.57	44.56	24.85	118.64	8.05	41.66	52.15
+P47	2011-04-01	0101000020E610000031FC2E9DA69620C00A117008550E4040	54	7.25	23.7	690	226	61.42	30.18	22.32	51.31	3.97	34.77	50.26
+P48	2011-04-01	0101000020E610000077C8852C058620C02AC6F99B50084040	55	7.3	24.2	682	248	57.93	22.88	21.75	40.93	1.14	37.46	57.41
+P49	2011-04-01	0101000020E6100000C908224F75881EC05721E527D5FE3F40	60	6.98	24.6	1750	280	322.91	38.9	85.36	161.85	1.18	69.55	90.44
+P50	2011-04-01	0101000020E6100000837265C4C8BA20C0323D618907084040	55	8.2	25	740	248	72.16	12.83	24.8	47.97	1.19	40.46	55.02
+P51	2011-04-01	0101000020E61000004E3A9B0F5CF420C0A4198BA6B30B4040	55.8	6.31	22	788	261	86.16	1.9	25.19	51.59	2.04	42.38	59.96
+P52	2011-04-01	0101000020E6100000EB36ABEC921B21C02A5778978B104040	25.4	7.82	20.6	1353	296	236.97	8.43	23.18	136.43	2.84	56.67	75.91
+P53	2011-04-01	0101000020E61000009F175F65891D21C0C7293A92CB0B4040	28.6	7.14	22	1015	280	138.71	16.54	22.13	94.01	3.85	45.15	61.34
+P54	2011-04-01	0101000020E610000084ED2EF4AAF320C0ADA3AA09A2024040	34.8	7.14	20	1071	240	156	17.53	27.12	83.28	1.47	51.55	66.38
+P55	2011-04-01	0101000020E6100000C4517FD7B74E21C051F701486D0E4040	15.3	6.38	20.5	6740	336	2019.76	38.73	391.05	797.38	6.71	321.27	385.46
+P56	2011-04-01	0101000020E6100000E0B0195BBDFE1EC08D5DA27A6B044040	19	6.75	25	2400	240	513.13	42.18	167.45	333.31	1.32	60.91	132.37
+P57	2011-04-01	0101000020E6100000A555133683231FC0A73FFB9122024040	70	7.14	22.7	1470	328	214.33	30.47	73.56	148.97	188	48.92	90.89
+P58	2011-04-01	0101000020E610000075410EF7C8BC1EC09A94826E2F094040	35.65	6.74	24.3	3840	232	949.48	84.94	300.87	421.75	6.07	164.51	250.79
+P59	2011-04-01	0101000020E61000001FADB06F214E1FC04CFDBCA9480D4040	64.8	6.79	29	2080	312	408.18	57.4	125.31	261.18	4.04	80.71	103.13
+P60	2011-04-01	0101000020E6100000434A4FE5AA6D1FC04DBED9E6C60C4040	70	7.01	29	1588	312	268.47	46.64	73.07	170.01	1.68	59.39	84.66
+P61	2011-04-01	0101000020E6100000DE970454155F1EC094A46B26DF084040	60	6.9	29.2	2440	56	511.81	37.84	210.67	172.6	1.92	91.89	189.03
+P62	2011-04-01	0101000020E610000034004BEC8C331DC053CBD6FA22194040	22.85	6.73	23.7	3800	416	792.58	44.29	453.96	590.06	3.57	147.68	135.2
+P63	2011-04-01	0101000020E6100000CB6E263B231E1DC07AC7293A921B4040	24.45	6.79	22.5	2240	344	183.31	13.5	177.29	147.07	2	53.74	64.77
+P64	2011-04-01	0101000020E6100000DA591B6B51BD1DC08D7A8846771C4040	30	6.52	24.5	6550	304	1934.79	46.92	364.18	1100.14	2.49	198.2	232.7
+P65	2011-04-01	0101000020E6100000A1E19F7F95161EC062670A9DD7184040	33.45	7.34	25.1	2430	221	545.07	55.46	132.47	318.29	4.13	85.73	128.66
+P66	2011-04-01	0101000020E61000006DDAFB28F8A31DC008E6E8F17B0F4040	34.75	6.87	23.6	3820	336	872.69	12.39	440.67	537.91	2.68	172.61	158.14
+P67	2011-04-01	0101000020E61000005AACDEDA82B01DC06A87BF266B084040	55	6.8	25.3	3230	400	665.06	8.19	409.19	500.48	5.28	149.22	116.58
+P68	2011-04-01	0101000020E6100000DB913E9769A51EC0895E46B1DC164040	61	7.2	25.8	1591	280	272.68	44.86	99.32	175.2	2.02	54.03	85.55
+P69	2011-04-01	0101000020E6100000DFC4B7E78E701FC08AE59656431A4040	27	6.92	25.1	3120	192	796.09	122.5	119.64	243.94	8.76	152.36	232.8
+P70	2011-04-01	0101000020E6100000BDFEC44AFF4A20C00BB5A679C7014040	57.1	7.51	20.7	1302	272	201.55	2681	48.26	130.22	1.69	51.44	72.31
+P71	2011-04-01	0101000020E6100000A54B640FC25120C0A4FCA4DAA7034040	50	7.26	20.5	1192	240	174.73	25.11	28.39	94.9	1.5	46.94	72.14
+P72	2011-04-01	0101000020E6100000D263A4E4705720C013B875374F094040	48	7.12	22	1058	248	148.31	47.15	26.08	75.48	2.43	48.59	73.8
+P73	2011-04-01	0101000020E6100000D12AE08CC29C20C037A6272CF1044040	64.65	7.4	24.7	1051	248	149.96	23.08	24.4	72.94	1.42	50.69	68.4
+P74	2011-04-01	0101000020E61000009BBD544066B820C0575BB1BFEC0E4040	38.25	7.33	22.8	834	232	105.49	23.77	18.35	57.55	2.58	38.4	64.77
+P75	2011-04-01	0101000020E61000006419B9A096AF20C0825660C8EA0E4040	46	7.19	22.5	686	264	51.98	18.6	19	38.34	1.06	39.09	59.17
+P76	2011-04-01	0101000020E61000002D6BCE55A2A220C08EAF3DB324144040	21.4	7.22	21.8	761	310	55.65	20.27	15.16	41.71	1.34	48.26	60.21
+P77	2011-04-01	0101000020E61000000DAB6C78A3C020C054742497FF184040	23.4	7	21.8	1432	304	242.96	13.4	48.97	147.98	1.54	55.96	67.55
+P78	2011-04-01	0101000020E61000007FD6A3CA2FD820C0CB10C7BAB8194040	19.5	6.91	21.5	1665	280	356.46	14.59	21.65	151.55	2.24	63.04	95.8
+P79	2011-04-01	0101000020E61000004C6F6F4171DF1EC045813E9127094040	37	8.24	24.3	4420	854	1649.33	0	84.57	739.91	1.18	257.95	320.8
+P80	2011-04-01	0101000020E6100000EB1DAC9943CC1EC00D897B2C7D144040	65	7.56	25.8	2212	1342	668.11	0	67.27	499.79	4.31	190.51	200.5
+\.
+
+
+--
+-- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_id_seq', 1, false);
+
+
+--
+-- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_group_permissions_id_seq', 1, false);
+
+
+--
+-- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_permission_id_seq', 48, true);
+
+
+--
+-- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_groups_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_id_seq', 1, false);
+
+
+--
+-- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.auth_user_user_permissions_id_seq', 1, false);
+
+
+--
+-- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 1, false);
+
+
+--
+-- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_content_type_id_seq', 12, true);
+
+
+--
+-- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 29, true);
+
+
+--
+-- Name: visualisation_amendment_Id_amendment_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."visualisation_amendment_Id_amendment_seq"', 1, false);
+
+
+--
+-- Name: visualisation_salinityandsodicitygroup_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.visualisation_salinityandsodicitygroup_id_seq', 1476, true);
+
+
+--
+-- Name: visualisation_soilquality_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.visualisation_soilquality_id_seq', 1483, true);
+
+
+--
+-- Name: visualisation_soiltexture_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.visualisation_soiltexture_id_seq', 1154, true);
+
+
+--
+-- Name: auth_group auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_name_key UNIQUE (name);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_permission_id_0cd325b0_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_permission_id_0cd325b0_uniq UNIQUE (group_id, permission_id);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_group auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group
+    ADD CONSTRAINT auth_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_codename_01ab375a_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_codename_01ab375a_uniq UNIQUE (content_type_id, codename);
+
+
+--
+-- Name: auth_permission auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_group_id_94350c0c_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_group_id_94350c0c_uniq UNIQUE (user_id, group_id);
+
+
+--
+-- Name: auth_user auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_permission_id_14a6b632_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_permission_id_14a6b632_uniq UNIQUE (user_id, permission_id);
+
+
+--
+-- Name: auth_user auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user
+    ADD CONSTRAINT auth_user_username_key UNIQUE (username);
+
+
+--
+-- Name: django_admin_log django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_content_type django_content_type_app_label_model_76bd3d3b_uniq; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_app_label_model_76bd3d3b_uniq UNIQUE (app_label, model);
+
+
+--
+-- Name: django_content_type django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_content_type
+    ADD CONSTRAINT django_content_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_migrations django_migrations_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_migrations
+    ADD CONSTRAINT django_migrations_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: django_session django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_session
+    ADD CONSTRAINT django_session_pkey PRIMARY KEY (session_key);
+
+
+--
+-- Name: visualisation_amendment visualisation_amendment_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_amendment
+    ADD CONSTRAINT visualisation_amendment_pkey PRIMARY KEY ("Id_amendment");
+
+
+--
+-- Name: visualisation_salinityandsodicitygroup visualisation_salinityandsodicitygroup_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_salinityandsodicitygroup
+    ADD CONSTRAINT visualisation_salinityandsodicitygroup_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visualisation_soilquality visualisation_soilquality_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_soilquality
+    ADD CONSTRAINT visualisation_soilquality_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visualisation_soilsample visualisation_soilsample_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_soilsample
+    ADD CONSTRAINT visualisation_soilsample_pkey PRIMARY KEY ("Code_labo");
+
+
+--
+-- Name: visualisation_soiltexture visualisation_soiltexture_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_soiltexture
+    ADD CONSTRAINT visualisation_soiltexture_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: visualisation_well visualisation_well_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_well
+    ADD CONSTRAINT visualisation_well_pkey PRIMARY KEY ("Id_well");
+
+
+--
+-- Name: auth_group_name_a6ea08ec_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_name_a6ea08ec_like ON public.auth_group USING btree (name varchar_pattern_ops);
+
+
+--
+-- Name: auth_group_permissions_group_id_b120cbf9; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_group_id_b120cbf9 ON public.auth_group_permissions USING btree (group_id);
+
+
+--
+-- Name: auth_group_permissions_permission_id_84c5c92e; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_group_permissions_permission_id_84c5c92e ON public.auth_group_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_permission_content_type_id_2f476e4b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_permission_content_type_id_2f476e4b ON public.auth_permission USING btree (content_type_id);
+
+
+--
+-- Name: auth_user_groups_group_id_97559544; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_group_id_97559544 ON public.auth_user_groups USING btree (group_id);
+
+
+--
+-- Name: auth_user_groups_user_id_6a12ed8b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_groups_user_id_6a12ed8b ON public.auth_user_groups USING btree (user_id);
+
+
+--
+-- Name: auth_user_user_permissions_permission_id_1fbb5f2c; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_permission_id_1fbb5f2c ON public.auth_user_user_permissions USING btree (permission_id);
+
+
+--
+-- Name: auth_user_user_permissions_user_id_a95ead1b; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_user_permissions_user_id_a95ead1b ON public.auth_user_user_permissions USING btree (user_id);
+
+
+--
+-- Name: auth_user_username_6821ab7c_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX auth_user_username_6821ab7c_like ON public.auth_user USING btree (username varchar_pattern_ops);
+
+
+--
+-- Name: django_admin_log_content_type_id_c4bce8eb; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_content_type_id_c4bce8eb ON public.django_admin_log USING btree (content_type_id);
+
+
+--
+-- Name: django_admin_log_user_id_c564eba6; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_admin_log_user_id_c564eba6 ON public.django_admin_log USING btree (user_id);
+
+
+--
+-- Name: django_session_expire_date_a5c62663; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_expire_date_a5c62663 ON public.django_session USING btree (expire_date);
+
+
+--
+-- Name: django_session_session_key_c0390e0f_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX django_session_session_key_c0390e0f_like ON public.django_session USING btree (session_key varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_amendment_localisation_9d92d753_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX visualisation_amendment_localisation_9d92d753_id ON public.visualisation_amendment USING gist (localisation);
+
+
+--
+-- Name: visualisation_salinityan_Code_labo_id_28095a8d_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_salinityan_Code_labo_id_28095a8d_like" ON public.visualisation_salinityandsodicitygroup USING btree ("Code_labo_id" varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_salinityandsodicitygroup_Code_labo_id_28095a8d; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_salinityandsodicitygroup_Code_labo_id_28095a8d" ON public.visualisation_salinityandsodicitygroup USING btree ("Code_labo_id");
+
+
+--
+-- Name: visualisation_soilquality_Code_labo_id_33de2e11; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_soilquality_Code_labo_id_33de2e11" ON public.visualisation_soilquality USING btree ("Code_labo_id");
+
+
+--
+-- Name: visualisation_soilquality_Code_labo_id_33de2e11_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_soilquality_Code_labo_id_33de2e11_like" ON public.visualisation_soilquality USING btree ("Code_labo_id" varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_soilsample_Code_labo_5cf0aa46_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_soilsample_Code_labo_5cf0aa46_like" ON public.visualisation_soilsample USING btree ("Code_labo" varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_soilsample_localisation_1767fa7d_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX visualisation_soilsample_localisation_1767fa7d_id ON public.visualisation_soilsample USING gist (localisation);
+
+
+--
+-- Name: visualisation_soiltexture_Code_labo_id_cfe9e96a; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_soiltexture_Code_labo_id_cfe9e96a" ON public.visualisation_soiltexture USING btree ("Code_labo_id");
+
+
+--
+-- Name: visualisation_soiltexture_Code_labo_id_cfe9e96a_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_soiltexture_Code_labo_id_cfe9e96a_like" ON public.visualisation_soiltexture USING btree ("Code_labo_id" varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_well_Id_well_c337fbb8_like; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX "visualisation_well_Id_well_c337fbb8_like" ON public.visualisation_well USING btree ("Id_well" varchar_pattern_ops);
+
+
+--
+-- Name: visualisation_well_localisation_2cda295d_id; Type: INDEX; Schema: public; Owner: postgres
+--
+
+CREATE INDEX visualisation_well_localisation_2cda295d_id ON public.visualisation_well USING gist (localisation);
+
+
+--
+-- Name: auth_group_permissions auth_group_permissio_permission_id_84c5c92e_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissio_permission_id_84c5c92e_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_group_permissions auth_group_permissions_group_id_b120cbf9_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_group_permissions
+    ADD CONSTRAINT auth_group_permissions_group_id_b120cbf9_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_permission auth_permission_content_type_id_2f476e4b_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_permission
+    ADD CONSTRAINT auth_permission_content_type_id_2f476e4b_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_group_id_97559544_fk_auth_group_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_group_id_97559544_fk_auth_group_id FOREIGN KEY (group_id) REFERENCES public.auth_group(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_groups auth_user_groups_user_id_6a12ed8b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_groups
+    ADD CONSTRAINT auth_user_groups_user_id_6a12ed8b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permi_permission_id_1fbb5f2c_fk_auth_perm FOREIGN KEY (permission_id) REFERENCES public.auth_permission(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: auth_user_user_permissions auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.auth_user_user_permissions
+    ADD CONSTRAINT auth_user_user_permissions_user_id_a95ead1b_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_content_type_id_c4bce8eb_fk_django_co; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_content_type_id_c4bce8eb_fk_django_co FOREIGN KEY (content_type_id) REFERENCES public.django_content_type(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: django_admin_log django_admin_log_user_id_c564eba6_fk_auth_user_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.django_admin_log
+    ADD CONSTRAINT django_admin_log_user_id_c564eba6_fk_auth_user_id FOREIGN KEY (user_id) REFERENCES public.auth_user(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: visualisation_salinityandsodicitygroup visualisation_salini_Code_labo_id_28095a8d_fk_visualisa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_salinityandsodicitygroup
+    ADD CONSTRAINT "visualisation_salini_Code_labo_id_28095a8d_fk_visualisa" FOREIGN KEY ("Code_labo_id") REFERENCES public.visualisation_soilsample("Code_labo") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: visualisation_soilquality visualisation_soilqu_Code_labo_id_33de2e11_fk_visualisa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_soilquality
+    ADD CONSTRAINT "visualisation_soilqu_Code_labo_id_33de2e11_fk_visualisa" FOREIGN KEY ("Code_labo_id") REFERENCES public.visualisation_soilsample("Code_labo") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- Name: visualisation_soiltexture visualisation_soilte_Code_labo_id_cfe9e96a_fk_visualisa; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.visualisation_soiltexture
+    ADD CONSTRAINT "visualisation_soilte_Code_labo_id_cfe9e96a_fk_visualisa" FOREIGN KEY ("Code_labo_id") REFERENCES public.visualisation_soilsample("Code_labo") DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- PostgreSQL database dump complete
+--
+

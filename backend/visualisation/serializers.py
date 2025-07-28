@@ -59,13 +59,13 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
             "Depth": obj.Depth,
             "Date_edition": obj.Date_edition,
             "texture": {
-                "Argile": texture_obj.Argile if texture_obj else 0,
-                "Lemon": texture_obj.Lemon if texture_obj else 0,
-                "Sable": texture_obj.Sable if texture_obj else 0
+                "Argile%": texture_obj.Argile if texture_obj else 0,
+                "Lemon%": texture_obj.Lemon if texture_obj else 0,
+                "Sable%": texture_obj.Sable if texture_obj else 0
             },
             "quality": {
                 "Ph level": safe_number(q.Ph_level if q else 0),
-                "Organic matter": safe_number(q.Organic_matter if q else 0),
+                "Organic matter%": safe_number(q.Organic_matter if q else 0),
                 "Cu": safe_number(q.Cu if q else 0),
                 "Fe": safe_number(q.Fe if q else 0),
                 "BORE": safe_number(q.BORE if q else 0),
@@ -79,8 +79,7 @@ class SoilSampleGeoJSONSerializer(serializers.ModelSerializer):
                 "classification": salinity_obj.Classification if salinity_obj else "",
                 "sar": salinity_obj.Sar if salinity_obj else '',
                 "esp": salinity_obj.Esp if salinity_obj else '',
-                "ec": ec,
-                "ec": ec,
+                
             }
         }
 
@@ -156,14 +155,17 @@ def serialize_to_geojson(queryset):
                     "Ph level": queryset.aggregate(
                         mean_ph_level=Avg('soilquality__Ph_level') if queryset.exists() else 0
                     )["mean_ph_level"],
-                    "Organic matter": queryset.aggregate(
+                    "Organic matter%": queryset.aggregate(
                         mean_organic_matter=Avg('soilquality__Organic_matter') if queryset.exists() else 0
                     )["mean_organic_matter"],
-                    "Cu": df["Cu"].mean() if df["Cu"].mean() is not None else 0,
-                    "Fe": df["Fe"].mean() if df["Fe"].mean() is not None else 0,
-                    "BORE": df["BORE"].mean() if df["BORE"].mean() is not None else 0,
-                    "NT": df["NT"].mean() if df["NT"].mean() is not None else 0,
-                    "CaCO3": df["CaCO3"].mean() if df["CaCO3"].mean() is not None else 0,
+
+                
+                    "Cu": df["Cu"].mean() if "Cu" in df.columns else 0,
+                    "Fe": df["Fe"].mean() if "Fe" in df.columns else 0,
+                    "BORE": df["BORE"].mean() if "BORE" in df.columns else 0,
+                    "NT": df["NT"].mean() if "NT" in df.columns else 0,
+                    "CaCO3": df["CaCO3"].mean() if "CaCO3" in df.columns else 0,
+
                     
                 },
 
