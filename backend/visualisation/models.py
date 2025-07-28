@@ -27,7 +27,7 @@ class soilQuality(models.Model):
         P2O5 = models.FloatField()
         k2o = models.FloatField()
         CaCO3 = models.FloatField()
-        BORE = models.FloatField()
+        BORE = models.FloatField(null=True, blank=True)
         Code_labo = models.ForeignKey(soilSample, on_delete=models.CASCADE)
 
         def __str__(self):
@@ -64,14 +64,17 @@ class Well(models.Model):
     Date = models.DateField(null=True, blank=True)
     localisation = models.PointField(null=True)  # Latitude + Longitude
     Depth = models.FloatField()
-    Water_depth = models.FloatField()
-    Pump_cal = models.FloatField()
-    Temperature = models.FloatField()
     Ph = models.FloatField()
+    Temperature = models.FloatField()
     Ec = models.FloatField()
-    Tds_ppm = models.FloatField()
-    Salinity = models.FloatField()
-    Resistivity = models.FloatField()
+    HCO3 = models.FloatField()
+    Cl = models.FloatField()
+    NO3 = models.FloatField()
+    SO4 = models.FloatField()
+    Na = models.FloatField()
+    K = models.FloatField()
+    Mg = models.FloatField()
+    Ca = models.FloatField()
 
     def __str__(self):
         return f"Well {self.Id_well}"
